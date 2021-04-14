@@ -1,0 +1,4 @@
+log_path=logPath
+log_name=build_comlib.log
+
+build_list=Common Data/MySQL Data/Redis JSON Log 

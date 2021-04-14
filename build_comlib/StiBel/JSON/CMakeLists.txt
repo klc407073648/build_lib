@@ -1,0 +1,5 @@
+#头文件目录
+INCLUDE_DIRECTORIES( ${JSONCPP_INCLUDE} ${STIBEL_COMMON_INCLUDE} ./include )
+
+#生成动态库
+ADD_LIBRARY(StiBel_json SHARED ./src/JsonUtil.cpp ./src/JSONException.cpp)
