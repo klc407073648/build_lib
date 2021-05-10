@@ -12,6 +12,8 @@ spawnfcgi_name=spawn-fcgi-1.6.4.tar.gz
 poco_name=poco-1.10.1-all.tar.gz
 cppunit_name=cppunit-1.12.1.tar.gz
 
+yamlcpp_name=yaml-cpp-yaml-cpp-0.6.3.tar.gz
+
 jsoncpp_path=jsoncpp
 log4cpp_path=log4cpp
 tinyxml_path=tinyxml
@@ -20,8 +22,9 @@ hiredis_path=hiredis
 fastcgi_path=fastcgi
 poco_path=poco
 cppunit_path=cppunit
+yamlcpp_path=yamlcpp
 
 log_path=logPath
 log_name=build_3partlib.log
 
-build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit
+build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit yamlcpp

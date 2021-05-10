@@ -57,6 +57,8 @@ function parseConfigFile()
 
    cppunit_name=`cat $config_file |grep "cppunit_name=" |cut -f2 -d'='`
 
+   yamlcpp_name=`cat $config_file |grep "yamlcpp_name=" |cut -f2 -d'='`
+
    jsoncpp_path=`cat $config_file |grep "jsoncpp_path=" |cut -f2 -d'='`
    log4cpp_path=`cat $config_file |grep "log4cpp_path=" |cut -f2 -d'='`
    tinyxml_path=`cat $config_file |grep "tinyxml_path=" |cut -f2 -d'='`
@@ -65,6 +67,7 @@ function parseConfigFile()
    fastcgi_path=`cat $config_file |grep "fastcgi_path=" |cut -f2 -d'='`
    poco_path=`cat $config_file |grep "poco_path=" |cut -f2 -d'='`
    cppunit_path=`cat $config_file |grep "cppunit_path=" |cut -f2 -d'='`
+   yamlcpp_path=`cat $config_file |grep "yamlcpp_path=" |cut -f2 -d'='`
 
    echo "jsoncpp_name=$jsoncpp_name"
    echo "log4cpp_name=$log4cpp_name"
@@ -77,6 +80,7 @@ function parseConfigFile()
    echo "spawnfcgi_name=$spawnfcgi_name"
    echo "poco_name=$poco_name"
    echo "cppunit_name=$cppunit_name"
+   echo "yamlcpp_name=$yamlcpp_name"
 
    echo "jsoncpp_path=$jsoncpp_path"
    echo "log4cpp_path=$log4cpp_path"
@@ -86,6 +90,7 @@ function parseConfigFile()
    echo "fastcgi_path=$fastcgi_path"
    echo "poco_path=$poco_path"
    echo "cppunit_path=$cppunit_path"
+   echo "yamlcpp_path=$yamlcpp_path"
 
    writeLogFileAndEcho "parseConfigFile end"
 }
@@ -304,6 +309,23 @@ function build_cppunit()
    
 }
 
+function build_yamlcpp()
+{
+   cd $cur_path/$yamlcpp_path
+   tar -zxf ${yamlcpp_name}
+
+   yamlcpp_build_path=${yamlcpp_name%%.tar.gz}
+   cd ./$yamlcpp_build_path
+
+   mkdir -p yamlcpp_output
+   mkdir build && cd build
+   cmake -DYAML_BUILD_SHARED_LIBS=ON ..
+   make  &&  make DESTDIR=../yamlcpp_output/ install
+
+   build_include_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/usr/local/include
+   build_lib_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/usr/local/lib
+}
+
 function build3partLib()
 {
    writeLogFileAndEcho "build3partLib begin" 
@@ -330,6 +352,8 @@ function build3partLib()
            build_poco
       elif [ "$build_name"x = "cppunit"x ];then
            build_cppunit    
+      elif [ "$build_name"x = "yamlcpp"x ];then
+           build_yamlcpp   
       fi
 
       writeLogFileAndEcho "build $build_name end"
