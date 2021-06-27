@@ -97,18 +97,21 @@ static MYSQL* mysql_init(std::map<std::string, std::string>& params,
     mysql_options(mysql, MYSQL_SET_CHARSET_NAME, "utf8mb4");
 
     //int port = GetParamValue(params, "port", 0);
-    int port =0;
+    //int port =0;
+    int port = 0;
+	std::string getPort;
+	//
+	if(params.find("port") != params.end())
+	{
+		getPort=GetParamValue<std::string>(params, "port");
+		port=TypeUtil::Atoi(getPort);
+	}
+	//
     std::string host = GetParamValue<std::string>(params, "host");
     std::string user = GetParamValue<std::string>(params, "user");
     std::string passwd = GetParamValue<std::string>(params, "passwd");
     std::string dbname = GetParamValue<std::string>(params, "dbname"); 
-	/*
-    int port = 0;
-    std::string host = "localhost";
-	std::string user = "root";
-	std::string passwd = "klczxas789";
-	std::string dbname = "student";
-    */
+	
     if(mysql_real_connect(mysql, host.c_str(), user.c_str(), passwd.c_str()
                           ,dbname.c_str(), port, NULL, 0) == nullptr) {
         cout << "mysql_real_connect(" << host

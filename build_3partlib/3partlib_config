@@ -27,4 +27,5 @@ yamlcpp_path=yamlcpp
 log_path=logPath
 log_name=build_3partlib.log
 
-build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit yamlcpp
+##yamlcpp delete
+build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit 

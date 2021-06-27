@@ -114,7 +114,8 @@ function build_jsoncpp()
    jsoncpp_build_path=${jsoncpp_name%%.tar.gz}
    cd ./$jsoncpp_build_path
 
-   python /usr/bin/scons platform=linux-gcc 
+   ##python /usr/bin/scons platform=linux-gcc 
+   /usr/bin/python2.7 /usr/bin/scons platform=linux-gcc
    libname=`find ./libs -name "libjson*.so"`
 
    mkdir -p jsoncpp_output/include
