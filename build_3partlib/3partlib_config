@@ -14,6 +14,8 @@ cppunit_name=cppunit-1.12.1.tar.gz
 
 yamlcpp_name=yaml-cpp-yaml-cpp-0.6.3.tar.gz
 
+protobuf_name=protobuf-3.6.1.tar.gz
+
 jsoncpp_path=jsoncpp
 log4cpp_path=log4cpp
 tinyxml_path=tinyxml
@@ -23,9 +25,10 @@ fastcgi_path=fastcgi
 poco_path=poco
 cppunit_path=cppunit
 yamlcpp_path=yamlcpp
+protobuf_path=protobuf
 
 log_path=logPath
 log_name=build_3partlib.log
 
 ##yamlcpp delete
-build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit 
+build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit protobuf

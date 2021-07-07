@@ -59,6 +59,8 @@ function parseConfigFile()
 
    yamlcpp_name=`cat $config_file |grep "yamlcpp_name=" |cut -f2 -d'='`
 
+   protobuf_name=`cat $config_file |grep "protobuf_name=" |cut -f2 -d'='`
+
    jsoncpp_path=`cat $config_file |grep "jsoncpp_path=" |cut -f2 -d'='`
    log4cpp_path=`cat $config_file |grep "log4cpp_path=" |cut -f2 -d'='`
    tinyxml_path=`cat $config_file |grep "tinyxml_path=" |cut -f2 -d'='`
@@ -68,6 +70,7 @@ function parseConfigFile()
    poco_path=`cat $config_file |grep "poco_path=" |cut -f2 -d'='`
    cppunit_path=`cat $config_file |grep "cppunit_path=" |cut -f2 -d'='`
    yamlcpp_path=`cat $config_file |grep "yamlcpp_path=" |cut -f2 -d'='`
+   protobuf_path=`cat $config_file |grep "protobuf_path=" |cut -f2 -d'='`
 
    echo "jsoncpp_name=$jsoncpp_name"
    echo "log4cpp_name=$log4cpp_name"
@@ -81,6 +84,7 @@ function parseConfigFile()
    echo "poco_name=$poco_name"
    echo "cppunit_name=$cppunit_name"
    echo "yamlcpp_name=$yamlcpp_name"
+   echo "protobuf_name=$protobuf_name"
 
    echo "jsoncpp_path=$jsoncpp_path"
    echo "log4cpp_path=$log4cpp_path"
@@ -91,6 +95,7 @@ function parseConfigFile()
    echo "poco_path=$poco_path"
    echo "cppunit_path=$cppunit_path"
    echo "yamlcpp_path=$yamlcpp_path"
+   echo "protobuf_path=$protobuf_path"
 
    writeLogFileAndEcho "parseConfigFile end"
 }
@@ -323,8 +328,30 @@ function build_yamlcpp()
    cmake -DYAML_BUILD_SHARED_LIBS=ON ..
    make  &&  make DESTDIR=../yamlcpp_output/ install
 
-   build_include_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/usr/local/include
-   build_lib_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/usr/local/lib
+   build_include_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/include
+   build_lib_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/lib
+}
+
+function build_protobuf()
+{
+   cd $cur_path/$protobuf_path
+   tar -zxf ${protobuf_name}
+
+   protobuf_build_path=${protobuf_name%%.tar.gz}
+   cd ./$protobuf_build_path
+
+   mkdir -p protobuf_output
+   ./autogen.sh    
+   ./configure  --prefix=$cur_path/$protobuf_path/$protobuf_build_path/protobuf_output
+
+   make -j4 && make check
+   make install
+
+   build_include_path=$cur_path/$protobuf_path/$protobuf_build_path/protobuf_output/include
+   build_lib_path=$cur_path/$protobuf_path/$protobuf_build_path/protobuf_output/lib
+
+   mkdir -p $cur_path/../lib/3partlib/bin
+   cp -rf $cur_path/$protobuf_path/$protobuf_build_path/protobuf_output/bin/* $cur_path/../lib/3partlib/bin
 }
 
 function build3partLib()
@@ -354,7 +381,9 @@ function build3partLib()
       elif [ "$build_name"x = "cppunit"x ];then
            build_cppunit    
       elif [ "$build_name"x = "yamlcpp"x ];then
-           build_yamlcpp   
+           build_yamlcpp
+      elif [ "$build_name"x = "protobuf"x ];then
+           build_protobuf      
       fi
 
       writeLogFileAndEcho "build $build_name end"
@@ -375,6 +404,7 @@ function clearBuildPath()
    rm -rf $cur_path/$zeromq_path/${zeromq_name%%.tar.gz}
    rm -rf $cur_path/$zeromq_path/${cppzmq_name%%.tar.gz}
    rm -rf $cur_path/$hiredis_path/${hiredis_name%%.tar.gz}
+   rm -rf $cur_path/$hiredis_path/${protobuf_name%%.tar.gz}
 
    writeLogFileAndEcho "clearBuildPath end"
 }
