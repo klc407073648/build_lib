@@ -117,9 +117,20 @@ function build_jsoncpp()
    cd $cur_path/$jsoncpp_path
    tar -zxf ${jsoncpp_name}
    jsoncpp_build_path=${jsoncpp_name%%.tar.gz}
+
+   if [ ! -f /usr/bin/scons ];then
+      echo "no exist scons,install it"
+      unzip  scons-3.1.1.zip
+      cd ./scons-3.1.1/ 
+      python setup.py install 
+      cd -
+   else
+      echo "exist scons"
+   fi
+
    cd ./$jsoncpp_build_path
 
-   ##python /usr/bin/scons platform=linux-gcc 
+   ##python /usr/bin/scons platform=linux-gcc
    /usr/bin/python2.7 /usr/bin/scons platform=linux-gcc
    libname=`find ./libs -name "libjson*.so"`
 
@@ -143,6 +154,7 @@ function build_log4cpp()
 
    mkdir -p  log4cpp_output
 
+   yum install -y libtool
    ./autogen.sh    #需要yum install libtool
    ./configure  --prefix=$cur_path/$log4cpp_path/$log4cpp_build_path/log4cpp_output
 
@@ -328,8 +340,8 @@ function build_yamlcpp()
    cmake -DYAML_BUILD_SHARED_LIBS=ON ..
    make  &&  make DESTDIR=../yamlcpp_output/ install
 
-   build_include_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/include
-   build_lib_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/lib
+   build_include_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/usr/local/include
+   build_lib_path=$cur_path/$yamlcpp_path/$yamlcpp_build_path/yamlcpp_output/usr/local/lib
 }
 
 function build_protobuf()

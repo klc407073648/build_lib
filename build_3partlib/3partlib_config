@@ -30,5 +30,5 @@ protobuf_path=protobuf
 log_path=logPath
 log_name=build_3partlib.log
 
-##yamlcpp delete
-build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi poco cppunit protobuf
+##poco protobuf delete
+build_list=jsoncpp log4cpp tinyxml zeromq hiredis fastcgi cppunit yamlcpp

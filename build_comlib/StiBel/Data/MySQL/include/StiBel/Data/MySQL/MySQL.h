@@ -15,6 +15,7 @@
 #include <map>
 #include <vector>
 #include <list>
+#include <stdarg.h>
 #include "StiBel/Data/MySQL/Database.h"
 #include "StiBel/MutexLock.h"
 #include "StiBel/Singleton.h"

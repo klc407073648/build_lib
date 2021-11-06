@@ -79,6 +79,7 @@ void LoggerManager::readConfFromFile()
     }
 
     std::cout << "readConfFromFile success"<<std::endl;
+    //_instance->info("readConfFromFile success");
 }
 
 void LoggerManager::setRootPriority(Priority& priority) {
