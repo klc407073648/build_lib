@@ -1,3 +1,5 @@
+#fastcgi
+
 [root@master01 build_lib]# gcc -o fastcgi_test fastcgi_test.cpp -I/home/build_lib/include/3partlib/fastcgi/include/ -L/home/build_lib/lib/3partlib -lfcgi
 [root@master01 build_lib]# ./fastcgi_test
 ./fastcgi_test: error while loading shared libraries: libfcgi.so.0: cannot open shared object file: No such file or directory

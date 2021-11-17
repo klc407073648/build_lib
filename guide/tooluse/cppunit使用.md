@@ -1,3 +1,5 @@
+#cppunit使用
+
 cd /home/tools/cppunit/
 tar  -zxf cppunit-1.12.1.tar.gz
 cd ./cppunit-1.12.1/

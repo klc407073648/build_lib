@@ -22,19 +22,18 @@ SET(BUILD_SHARED_LIBS ON)
 # 设定可执行二进制文件和库目录,为各个examples文件设置输出路径
 #EXECUTABLE_OUTPUT_PATH为生成可执行文件路径，LIBRARY_OUTPUT_PATH为生成库文件路径。
 
-SET(BUILD_LIB_DIR ${PROJECT_SOURCE_DIR}/../lib/comlib)
+SET(BUILD_LIB_DIR ${PROJECT_SOURCE_DIR}/../output/lib/comlib)
 SET(LIBRARY_OUTPUT_PATH ${BUILD_LIB_DIR})
 
 # 设置各类应用库的头文件
-SET(3PART_INCLUDE  ${PROJECT_SOURCE_DIR}/../include/3partlib)
+SET(3PART_INCLUDE  ${PROJECT_SOURCE_DIR}/../output/include/3partlib)
 
 SET(JSONCPP_INCLUDE  ${3PART_INCLUDE}/jsoncpp/include)
 SET(LOG4CPP_INCLUDE  ${3PART_INCLUDE}/log4cpp/include)
 SET(TINYXML_INCLUDE  ${3PART_INCLUDE}/tinyxml/include)
 SET(REDIS_INCLUDE  ${3PART_INCLUDE}/hiredis/include)
 
-
-SET(COMM_INCLUDE  ${PROJECT_SOURCE_DIR}/../include/comlib)
+SET(COMM_INCLUDE  ${PROJECT_SOURCE_DIR}/../output/include/comlib)
 
 SET(STIBEL_COMMON_INCLUDE  ${COMM_INCLUDE}/StiBel/Common/include)
 
