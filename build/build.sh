@@ -1,15 +1,35 @@
+#!/bin/bash
 curPath=`pwd`
 echo "curPath=$curPath"
+
+function preDeal()
+{
+	echo "bgein to preDeal"
+
+	cd $curPath
+
+	dos2unix *.sh
+	chmod 777 *.sh
+
+	echo "end to preDeal"
+}
+
+function parseExcel()
+{
+	echo "bgein to parseExcel"
+
+	cd $curPath
+
+	python3 run.py
+
+	echo "end to parseExcel"
+}
 
 function build_3partlib()
 {
 	echo "bgein to build 3partlib"
 
-	cd $curPath/build_3partlib
-
-	dos2unix *.sh
-	dos2unix *config
-	chmod 777 *.sh
+	cd $curPath
 
 	./build_3partlib.sh
 
@@ -20,13 +40,9 @@ function build_comlib()
 {
 	echo "bgein to build comlib"
 
-	cd $curPath/build_comlib
+	cd $curPath
 
-	dos2unix *.sh
-	dos2unix *config
-	chmod 777 *.sh
-
-	./buildComLib.sh
+	./build_comLib.sh
 
 	echo "end to build comlib"
 }
@@ -67,7 +83,7 @@ function build_tar_file()
 {
 	echo "build libs begin"
 
-	cd $curPath
+	cd $curPath/../output
 
 	buildTime=`date +"%Y%m%d"`
 
@@ -80,9 +96,11 @@ function build_tar_file()
 function MAIN()
 {
    echo "MAIN begin"
+   preDeal
+   parseExcel
    build_3partlib
    build_comlib
-   check_build_result
+   #check_build_result
    build_tar_file
    echo "MAIN end" 
 }

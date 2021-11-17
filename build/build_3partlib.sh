@@ -1,4 +1,4 @@
-#contain sh
+#!/bin/bash
 source ./common.sh
 
 cur_target_build_path=''

@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 import xlrd
 from xlrd import xldate_as_tuple
 import datetime
 import json
 import os
 import sys
-sys.path.append('D:\CODE\klc\markdown\python\excel')
-from  pythonUtil.util import FileUtil,Util
+sys.path.append('./')
+from  pythonUtil.util import FileUtil
 
 '''
 xlrd中单元格的数据类型
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     get_varinfo_data.save_json_file(varinfo_key_datas,"varinfo_key_datas.json")
     print(varinfo_key_datas)
 
-    print(Util.get_path())
+    #print(Util.get_path())
     FileUtil.replaceFilesContent(["common.sh"], comp3partinfo_key_datas[0])
     FileUtil.replaceFilesContent(["common.sh"],varinfo_key_datas[0])
 
