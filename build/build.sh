@@ -1,5 +1,6 @@
 #!/bin/bash
 curPath=`pwd`
+buildTime=''
 echo "curPath=$curPath"
 
 function preDeal()
@@ -47,36 +48,21 @@ function build_comlib()
 	echo "end to build comlib"
 }
 
-function check_build_result()
+function build_examples()
 {
-	echo "check_build_result begin"
+	echo "build_examples begin"
 
-	cd $curPath
-	build_list_3partlib=`cat ./build_3partlib/3partlib_config |grep "build_list=" |cut -f2 -d'='`
+	cd $curPath/../examples
 
-	for build_name in $build_list_3partlib  
-    do 
-		count=`find ./lib/3partlib -name "lib${build_name}*.so" |wc -l`
-		if [ $count == "0" ];then
-           echo "build ${build_name} fail"
-		else
-		   echo "build ${build_name} success"
-		fi
-	done
+	cp $curPath/../output/StiBel_${buildTime}.tar.gz .
+	tar -zxf StiBel_${buildTime}.tar.gz
 
-	build_list_comlib="common json log mysql redis"
+	cd ./build
 
-	for build_name in $build_list_comlib  
-    do 
-		count=`find ./lib/comlib -name "libStiBel_${build_name}*.so" |wc -l`
-		if [ $count == "0" ];then
-           echo "build ${build_name} fail"
-		else
-		   echo "build ${build_name} success"
-		fi
-	done
-
-	echo "check_build_result end"
+	cmake ..
+	make
+	
+	echo "build_examples end"
 }
 
 function build_tar_file()
@@ -92,7 +78,6 @@ function build_tar_file()
 	echo "build libs end"
 }
 
-
 function MAIN()
 {
    echo "MAIN begin"
@@ -100,8 +85,8 @@ function MAIN()
    parseExcel
    build_3partlib
    build_comlib
-   #check_build_result
    build_tar_file
+   build_examples
    echo "MAIN end" 
 }
 

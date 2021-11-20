@@ -7,7 +7,7 @@
 
 using namespace std;
 
-string rootPath = "/../../../examples/ToolClass/yamlcpp/conf/";
+string rootPath = "/../../../examples/3partlib/yamlcpp/conf/";
 string curPath;
 
 std::string execShellPipe(std::string cmd)
