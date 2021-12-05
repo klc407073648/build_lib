@@ -44,8 +44,8 @@ SET(FASTCGI_INCLUDE         ${3PART_INCLUDE}/fastcgi/include)
 SET(POCO_INCLUDE            ${3PART_INCLUDE}/poco/include)
 SET(CPPUNIT_INCLUDE         ${3PART_INCLUDE}/cppunit/include)
 SET(YAMLCPP_INCLUDE         ${3PART_INCLUDE}/yamlcpp/include)
-SET(GRPC_INCLUDE            ${3PART_INCLUDE}/grpc/include)
-SET(MYQSL_INCLUDE           ${3PART_INCLUDE}/mysql/include)
+#SET(GRPC_INCLUDE            ${3PART_INCLUDE}/grpc/include)
+#SET(MYQSL_INCLUDE           ${3PART_INCLUDE}/mysql/include)
 
 # 设置自封装应用库的头文件
 SET(COMM_INCLUDE            ${PROJECT_SOURCE_DIR}/include/comlib)
@@ -57,7 +57,7 @@ SET(STIBEL_LOG_INCLUDE      ${COMM_INCLUDE}/StiBel/Log/include)
 SET(STIBEL_JSON_INCLUDE     ${COMM_INCLUDE}/StiBel/JSON/include)
 
 # 设置各类应用库的lib文件路径
-SET(3PART_DIR  ${PROJECT_SOURCE_DIR}/lib/3partlib ${PROJECT_SOURCE_DIR}/lib/3partlib/grpc/lib  ${PROJECT_SOURCE_DIR}/lib/3partlib/grpc/lib64 ${PROJECT_SOURCE_DIR}/lib/3partlib/mysql)
+SET(3PART_DIR  ${PROJECT_SOURCE_DIR}/lib/3partlib)
 SET(COMM_DIR   ${PROJECT_SOURCE_DIR}/lib/comlib)
 
 #cmake 在find_path和find_library时,会搜索一些默认的路径
@@ -96,6 +96,9 @@ find_library(CPPUNIT_LIBRARY NAMES cppunit)
 
 find_path(YAMLCPP_INCLUDE_DIR yaml-cpp/yaml.h)
 find_library(YAMLCPP_LIBRARY NAMES yaml-cpp)
+
+find_path(MYSQL_INCLUDE_DIR mysql/mysql.h)
+find_library(MYSQL_LIBRARY NAMES mysqlclient)
 
 find_package(Protobuf)
 
@@ -157,6 +160,12 @@ endif()
 
 if(PROTOBUF_FOUND)
   message(STATUS "found protobuf")
+endif()
+
+if(MYSQL_INCLUDE_DIR AND MYSQL_LIBRARY)
+  message(STATUS "found mysql")
+else()
+  message(STATUS "not found mysql")
 endif()
 
 # 自封装应用库 是否存在

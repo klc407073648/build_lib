@@ -9,6 +9,9 @@ function preDeal()
 
 	cd $curPath
 
+	cp -r /usr/lib64/mysql/* /usr/lib/
+	pip3 install -r requirements.txt
+
 	dos2unix *.sh
 	chmod 777 *.sh
 

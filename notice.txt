@@ -1,0 +1,2 @@
+待处理：
+1.生成类的测试test，前期考虑example，后期考虑写cppunit的testsuit
