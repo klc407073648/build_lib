@@ -10,6 +10,9 @@ if(CMAKE_BUILD_PROJECT_OPTION STREQUAL "all")
   option(MYPRJ_BUILD_EXAMPLES "Build All examples" ON)
 endif()
 
+#自定义 cmake 模块所在的路径 ———— 考虑所有的内容都通过FindYamlCpp来查找不需要自定义查找
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 #设置C++编译选项
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
 
@@ -101,6 +104,7 @@ find_path(MYSQL_INCLUDE_DIR mysql/mysql.h)
 find_library(MYSQL_LIBRARY NAMES mysqlclient)
 
 find_package(Protobuf)
+
 
 #打印第三方应用库的存在消息
 if(JSONCPP_INCLUDE_DIR AND JSONCPP_LIBRARY)
