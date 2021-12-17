@@ -243,7 +243,7 @@ function build_yamlcpp()
 
    mkdir -p yamlcpp_output
    mkdir build && cd build
-   CC=$(which gcc) CXX=$(which g++) cmake -DYAML_BUILD_SHARED_LIBS=ON ..
+   CC=/usr/local/bin/gcc CXX=/usr/local/bin/g++ cmake -DYAML_BUILD_SHARED_LIBS=ON -DYAML_CPP_BUILD_TESTS=OFF ..
    make  
    make DESTDIR=../yamlcpp_output/ install
 
