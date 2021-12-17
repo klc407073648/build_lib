@@ -105,7 +105,6 @@ find_library(MYSQL_LIBRARY NAMES mysqlclient)
 
 find_package(Protobuf)
 
-
 #打印第三方应用库的存在消息
 if(JSONCPP_INCLUDE_DIR AND JSONCPP_LIBRARY)
   message(STATUS "found jsoncpp")

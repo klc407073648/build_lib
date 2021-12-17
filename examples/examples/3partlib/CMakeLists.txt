@@ -19,4 +19,8 @@ endif()
 
 add_subdirectory(cppunit)
 
-#add_subdirectory(yamlcpp)
+if(YAMLCPP_INCLUDE_DIR AND YAMLCPP_LIBRARY)
+  add_subdirectory(yamlcpp)
+else()
+  add_subdirectory(yamlcpp EXCLUDE_FROM_ALL)
+endif()
