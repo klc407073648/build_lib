@@ -78,6 +78,7 @@ class ShellUtil {
 public:
     static void execShell(std::string cmd);
     static std::string execShellPipe(std::string cmd);
+    static std::string execShellPipeEndWithLineFeed(std::string cmd);
 	static std::string getParamValue(std::string key , std::string fileName);
 	static void modParamValue(std::string key , std::string value, std::string fileName);
 };

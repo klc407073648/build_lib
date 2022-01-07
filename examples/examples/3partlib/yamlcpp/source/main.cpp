@@ -29,29 +29,28 @@ std::string execShellPipe(std::string cmd)
 }
 
 void readYaml(const YAML::Node& node){
-	if(node.IsMap()){//是map
-		for(auto it = node.begin(); it != node.end(); ++it) {
-		    cout << (it->first).as<string>() <<':';
-		    if((it->first).as<string>() == "grades"){
-		    	cout << endl;
-		    }
-		    readYaml(it->second);
-		}
+    if(node.IsNull()){//Null 空节点
+		cout << "node is null" << endl;
 	}
-	if(node.IsSequence()){//是数组
+    else if(node.IsScalar()){//是纯量
+		cout << node.as<string>() << endl;
+	}
+    else if(node.IsSequence()){//是数组
 		for(size_t i = 0; i < node.size(); ++i) {
 			cout << '\t';
 			readYaml(node[i]);
 		}
 	}
-	if(node.IsScalar()){//是纯量
-		cout << node.as<string>() << endl;
-	}
+	else if(node.IsMap()){//是map
+		for(auto it = node.begin(); it != node.end(); ++it) {
+		    cout << (it->first).as<string>() <<':'<< endl;
+		    readYaml(it->second);
+		}
+	}	
 }
 
 void fun1()
 {
-	curPath =execShellPipe("pwd");
 	//加载yml文件
 	YAML::Node node = YAML::LoadFile(curPath + rootPath + "config1.yml");
 	//读取yml文件,这里输出到控制台
@@ -61,7 +60,6 @@ void fun1()
 //基础方法使用
 void fun2()
 {
-	curPath =execShellPipe("pwd");
 	YAML::Node config = YAML::LoadFile(curPath + rootPath + "config2.yml");
 
     cout << "Node type " << config.Type() << endl;
@@ -174,6 +172,8 @@ bool JsonToYaml(const Json::Value& jnode, YAML::Node& ynode) {
 
 int main(int argc,char** argv)
 {
+    curPath =execShellPipe("pwd");
+
 	cout << "Test fun1"<<endl;
 	fun1();
 	cout << "Test fun2"<<endl;

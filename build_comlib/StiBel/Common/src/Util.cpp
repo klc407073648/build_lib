@@ -326,6 +326,24 @@ std::string ShellUtil::execShellPipe(std::string cmd)
 	return res;
 }
 
+std::string ShellUtil::execShellPipeEndWithLineFeed(std::string cmd)
+{
+	char res[1024]={0},*p;
+	 
+	FILE *fp = popen(cmd.c_str(),"r");
+	
+	if( fp != NULL)
+	{
+		fgets( res, sizeof(res), fp ); //遇到\n终止复制
+		if((p = strchr(res,'\n')) != NULL)
+			*p = '\0';
+		//fread( res, sizeof(char), sizeof(res), fp );
+		pclose(fp);
+	}
+	
+	return res;
+}
+
 std::string ShellUtil::getParamValue(std::string key , std::string fileName)
 {
 	std::string  cmd = "grep " + key + " " + fileName + " | cut -d \"=\" -f2";
