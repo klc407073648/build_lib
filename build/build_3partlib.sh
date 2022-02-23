@@ -10,8 +10,8 @@ function preDeal()
 {
    logInfo "preDeal begin"
 
-   rm -rf $build_3partlib_path/../include/3partlib/*
-   rm -rf $build_3partlib_path/../lib/3partlib/*
+   rm -rf $build_3partlib_path/../output/include/3partlib/*
+   rm -rf $build_3partlib_path/../output/lib/3partlib/*
 
    logInfo "preDeal end"
 }
@@ -333,14 +333,14 @@ function clearBuildPath()
 
 function MAIN()
 {
-   writeLogFileAndEcho "MAIN begin"
+   writeLogFileAndEcho "build_3partlib.sh MAIN begin"
    printBuildInfo
-   #preDeal
+   preDeal
    #parseConfigFile
    #clearBuildPath
    build3partLib
    #clearBuildPath
-   writeLogFileAndEcho "MAIN end" 
+   writeLogFileAndEcho "build_3partlib.sh MAIN end" 
 }
 
 MAIN

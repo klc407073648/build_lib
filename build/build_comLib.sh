@@ -31,10 +31,10 @@ function buildComlib()
 
 function MAIN()
 {
-   writeLogFileAndEcho "MAIN begin"
+   writeLogFileAndEcho "build_comLib.sh MAIN begin"
    copyHeadFile
    buildComlib
-   writeLogFileAndEcho "MAIN end" 
+   writeLogFileAndEcho "build_comLib.sh MAIN end" 
 }
 
 MAIN

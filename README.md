@@ -19,3 +19,9 @@ tar zxf StiBel_20210406.tar.gz
 2. 在CMakeLists.txt配置各个库的路径
 
 
+修改记录:
+```
+2022.2.21:加入verify_result.sh脚本，用于校验生成的可执行文件(加入/etc/ld.so.conf.d/mylib.conf)
+```
+
+

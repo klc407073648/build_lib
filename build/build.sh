@@ -12,6 +12,8 @@ function preDeal()
 	cp -r /usr/lib64/mysql/* /usr/lib/
 	pip3 install -r requirements.txt
 
+	checkBuildResult preDeal
+
 	dos2unix *.sh
 	chmod 777 *.sh
 
@@ -26,6 +28,8 @@ function parseExcel()
 
 	python3 run.py
 
+	checkBuildResult parseExcel
+
 	echo "end to parseExcel"
 }
 
@@ -37,6 +41,8 @@ function build_3partlib()
 
 	./build_3partlib.sh
 
+	checkBuildResult build_3partlib
+
 	echo "end to build 3partlib"
 }
 
@@ -47,6 +53,8 @@ function build_comlib()
 	cd $curPath
 
 	./build_comLib.sh
+
+	checkBuildResult build_comlib
 
 	echo "end to build comlib"
 }
@@ -64,13 +72,15 @@ function build_examples()
 
 	cmake ..
 	make
+
+	checkBuildResult build_examples
 	
 	echo "build_examples end"
 }
 
 function build_tar_file()
 {
-	echo "build libs begin"
+	echo "build_tar_file begin"
 
 	cd $curPath/../output
 
@@ -78,19 +88,31 @@ function build_tar_file()
 
 	tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
 
-	echo "build libs end"
+	checkBuildResult build_tar_file
+
+	echo "build_tar_file end"
+}
+
+function checkBuildResult()
+{
+   if [ $? -ne 0 ];then
+       echo "check $1 fail"
+       exit 1
+   else
+       echo "check $1 success"
+   fi
 }
 
 function MAIN()
 {
-   echo "MAIN begin"
+   echo "build.sh MAIN begin"
    preDeal
    parseExcel
    build_3partlib
    build_comlib
    build_tar_file
    build_examples
-   echo "MAIN end" 
+   echo "build.sh MAIN end" 
 }
 
 MAIN
