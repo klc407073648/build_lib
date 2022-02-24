@@ -30,20 +30,29 @@ log_dir=$cur_path/$LOG_PATH
 log_file=$log_dir/$LOG_FILE_NAME
 log_level=$LOG_LEVEL
 
+#日志级别
+logDebugNum=4
+logInfoNum=3
+logWarnNum=2
+logErrorNum=1
+
+#是否保存日志
+isSave=1
+
 function printBuildInfo()
 {
-   writeLogFileAndEcho "build_3partlib_path:$build_3partlib_path"
-   writeLogFileAndEcho "build_comlib_path:$build_comlib_path"
+   logInfo "build_3partlib_path:$build_3partlib_path"
+   logInfo "build_comlib_path:$build_comlib_path"
 
-   writeLogFileAndEcho "build_3partlib_list:$build_3partlib_list"
-   writeLogFileAndEcho "build_comlib_list:$build_comlib_list"
+   logInfo "build_3partlib_list:$build_3partlib_list"
+   logInfo "build_comlib_list:$build_comlib_list"
 
-   writeLogFileAndEcho "log_dir:$log_dir"
-   writeLogFileAndEcho "log_file:$log_file"
-   writeLogFileAndEcho "log_level:$log_level"
+   logInfo "log_dir:$log_dir"
+   logInfo "log_file:$log_file"
+   logInfo "log_level:$log_level"
 
    for key in ${!myMap[*]};do
-      writeLogFileAndEcho "$key:${myMap[$key]}"
+      logInfo "$key:${myMap[$key]}"
    done
 }
 
@@ -74,35 +83,45 @@ function write_log()
 #四个级别:Debug、Info、Warn、Error
 function logDebug()
 {
-   if [ $log_level == 1 ];then 
+   if [ $log_level -ge $logDebugNum ];then 
       echo -e "\033[32m-- $1 --\033[0m"
+   fi
+
+   if [ $isSave -eq 1 ];then 
+      write_log "$1"
    fi
 }
 
 function logInfo()
 {
-   if [ $log_level == 1 ];then 
+   if [ $log_level -ge $logInfoNum ];then 
       echo -e "\033[36m-- $1 --\033[0m"
+   fi
+
+   if [ $isSave -eq 1 ];then 
+      write_log "$1"
    fi
 }
 
 function logWarn()
 {
-   echo -e "\033[33m-- $1 --\033[0m"
+   if [ $log_level -ge $logWarnNum ];then 
+      echo -e "\033[33m-- $1 --\033[0m"
+   fi
+
+   if [ $isSave -eq 1 ];then 
+      write_log "$1"
+   fi
 }
 
 function logError()
 {
-   echo -e "\033[31m-- $1 --\033[0m"
-}
+   if [ $log_level -ge $logErrorNum ];then
+      echo -e "\033[31m-- $1 --\033[0m"
+   fi
 
-#写日志且输出到控制台
-function writeLogFileAndEcho()
-{
-   if [ "$2"x = ""x ];then
-       write_log "$1"  && logDebug "$1"
-   else
-       write_log "$1"  && "$2" "$1"
+   if [ $isSave -eq 1 ];then 
+      write_log "$1"
    fi
 }
 

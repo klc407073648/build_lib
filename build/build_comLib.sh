@@ -3,38 +3,38 @@ source ./common.sh
 
 function copyHeadFile()
 {
-   writeLogFileAndEcho "copyHeadFile begin" 
+   logDebug "copyHeadFile begin" 
 
    for build_name in $build_comlib_list 
    do 
-      writeLogFileAndEcho "copyHeadFile $build_name begin"
+      logInfo "copyHeadFile $build_name begin"
    
       mkdir -p $build_comlib_path/../output/include/comlib/StiBel/$build_name/include
       cp -rf $build_comlib_path/StiBel/$build_name/include/*   $build_comlib_path/../output/include/comlib/StiBel/$build_name/include
 
-      writeLogFileAndEcho "copyHeadFile $build_name end"
+      logInfo "copyHeadFile $build_name end"
    done  
 
-   writeLogFileAndEcho "copyHeadFile end"
+   logDebug "copyHeadFile end"
 }
 
 function buildComlib()
 {
-   writeLogFileAndEcho "buildComlib begin" 
+   logDebug "buildComlib begin" 
 
    cd $build_comlib_path/build
 
    cmake .. && make
 
-   writeLogFileAndEcho "buildComlib end"
+   logDebug "buildComlib end"
 }
 
 function MAIN()
 {
-   writeLogFileAndEcho "build_comLib.sh MAIN begin"
+   logDebug "build_comLib.sh MAIN begin"
    copyHeadFile
    buildComlib
-   writeLogFileAndEcho "build_comLib.sh MAIN end" 
+   logDebug "build_comLib.sh MAIN end" 
 }
 
 MAIN

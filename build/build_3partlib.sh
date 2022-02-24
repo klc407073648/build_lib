@@ -18,13 +18,13 @@ function preDeal()
 
 function copySoAndHead()
 {
-   writeLogFileAndEcho "${build_name} .h and .so deal begin"
+   logDebug "${build_name} .h and .so deal begin"
    
    mkdir -p $build_3partlib_path/../output/include/3partlib/$build_name/include
    cp -rf $build_include_path/* $build_3partlib_path/../output/include/3partlib/$build_name/include
    cp -rf $build_lib_path/* $build_3partlib_path/../output/lib/3partlib
 
-   writeLogFileAndEcho "${build_name} .h and .so deal end"
+   logDebug "${build_name} .h and .so deal end"
 }
 
 function build_jsoncpp()
@@ -283,11 +283,11 @@ function build_protobuf()
 
 function build3partLib()
 {
-   writeLogFileAndEcho "build3partLib begin" 
+   logDebug "build3partLib begin" 
 
    for build_name in $build_3partlib_list  
    do 
-      writeLogFileAndEcho "build $build_name begin"
+      logInfo "build $build_name begin"
    
       if [ "$build_name"x = "zeromq"x ];then
            build_zeromq_libzmq
@@ -310,15 +310,15 @@ function build3partLib()
            build_$build_name  ##构建对应组件
       fi
 
-      writeLogFileAndEcho "build $build_name end"
+      logInfo "build $build_name end"
    done  
 
-   writeLogFileAndEcho "build3partLib end"
+   logDebug "build3partLib end"
 }
 
 function clearBuildPath()
 {
-   writeLogFileAndEcho "clearBuildPath begin"
+   logDebug "clearBuildPath begin"
 
    rm -rf $build_3partlib_path/$jsoncpp_path/${jsoncpp_name%%.tar.gz}
    rm -rf $build_3partlib_path/$log4cpp_path/log4cpp
@@ -328,19 +328,19 @@ function clearBuildPath()
    rm -rf $build_3partlib_path/$hiredis_path/${hiredis_name%%.tar.gz}
    rm -rf $build_3partlib_path/$hiredis_path/${protobuf_name%%.tar.gz}
 
-   writeLogFileAndEcho "clearBuildPath end"
+   logDebug "clearBuildPath end"
 }
 
 function MAIN()
 {
-   writeLogFileAndEcho "build_3partlib.sh MAIN begin"
+   logDebug "build_3partlib.sh MAIN begin"
    printBuildInfo
    preDeal
    #parseConfigFile
    #clearBuildPath
    build3partLib
    #clearBuildPath
-   writeLogFileAndEcho "build_3partlib.sh MAIN end" 
+   logDebug "build_3partlib.sh MAIN end" 
 }
 
 MAIN
