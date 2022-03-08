@@ -47,6 +47,7 @@ SET(FASTCGI_INCLUDE         ${3PART_INCLUDE}/fastcgi/include)
 SET(POCO_INCLUDE            ${3PART_INCLUDE}/poco/include)
 SET(CPPUNIT_INCLUDE         ${3PART_INCLUDE}/cppunit/include)
 SET(YAMLCPP_INCLUDE         ${3PART_INCLUDE}/yamlcpp/include)
+SET(PROTOBUF_INCLUDE        ${3PART_INCLUDE}/protobuf/include)
 #SET(GRPC_INCLUDE            ${3PART_INCLUDE}/grpc/include)
 #SET(MYQSL_INCLUDE           ${3PART_INCLUDE}/mysql/include)
 
@@ -69,7 +70,7 @@ SET(COMM_DIR   ${PROJECT_SOURCE_DIR}/lib/comlib)
 #属于g++搜索路径下的内容，即不在需要指定MYSQL_INCLUDE、MYSQL_DIR来添加工程的路径
 
 #设置自定义搜索路径
-set(CMAKE_INCLUDE_PATH ${JSONCPP_INCLUDE} ${LOG4CPP_INCLUDE} ${TINYXML_INCLUDE} ${ZEROMQ_INCLUDE} ${HIREDIS_INCLUDE} ${FASTCGI_INCLUDE} ${POCO_INCLUDE} ${POCO_INCLUDE} ${CPPUNIT_INCLUDE} ${YAMLCPP_INCLUDE} ${GRPC_INCLUDE})
+set(CMAKE_INCLUDE_PATH ${JSONCPP_INCLUDE} ${LOG4CPP_INCLUDE} ${TINYXML_INCLUDE} ${ZEROMQ_INCLUDE} ${HIREDIS_INCLUDE} ${FASTCGI_INCLUDE} ${POCO_INCLUDE} ${CPPUNIT_INCLUDE} ${YAMLCPP_INCLUDE} ${GRPC_INCLUDE} ${PROTOBUF_INCLUDE})
 set(CMAKE_LIBRARY_PATH ${3PART_DIR} ${COMM_DIR})
 
 #搜索第三方应用库对应的头文件和库是否存在,来判断是否安装了对应库
@@ -103,7 +104,9 @@ find_library(YAMLCPP_LIBRARY NAMES yaml-cpp)
 find_path(MYSQL_INCLUDE_DIR mysql/mysql.h)
 find_library(MYSQL_LIBRARY NAMES mysqlclient)
 
-find_package(Protobuf)
+find_path(PROTOBUF_INCLUDE_DIR google/protobuf/text_format.h)
+find_library(PROTOBUF_LIBRARY NAMES protobuf)
+
 
 #打印第三方应用库的存在消息
 if(JSONCPP_INCLUDE_DIR AND JSONCPP_LIBRARY)
@@ -161,8 +164,10 @@ else()
   message(STATUS "not found yamlcpp")
 endif()
 
-if(PROTOBUF_FOUND)
+if(PROTOBUF_INCLUDE_DIR AND PROTOBUF_LIBRARY)
   message(STATUS "found protobuf")
+else()
+  message(STATUS "not found protobuf")
 endif()
 
 if(MYSQL_INCLUDE_DIR AND MYSQL_LIBRARY)
@@ -230,7 +235,6 @@ SET(LIB_POCO
 SET(LIB_CPPUNIT cppunit dl)
 SET(LIB_MYSQL mysqlclient)
 SET(LIB_YAMLCPP  yaml-cpp)
-#SET(LIB_PROTOBUF protobuf)
 
 SET(LIB_PROTOBUF protobuf)
 SET(LIB_REFLECTION grpc++_reflection)
