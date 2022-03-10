@@ -1,7 +1,8 @@
 #!/bin/bash
 curPath=`pwd`
-buildTime=''
+versionNum=''
 echo "curPath=$curPath"
+config_file='common.sh'
 
 function preDeal()
 {
@@ -65,12 +66,15 @@ function build_examples()
 
 	cd $curPath/../examples
 
-	cp $curPath/../output/StiBel_${buildTime}.tar.gz .
-	tar -zxf StiBel_${buildTime}.tar.gz
+	cp $curPath/../output/StiBel_${versionNum}.tar.gz .
+	tar -zxf StiBel_${versionNum}.tar.gz
 
 	cd ./build
 
-	cmake ..
+	CMAKE_BUILD_TYPE=`cat $curPath/$config_file |grep "CMAKE_BUILD_TYPE=" |cut -f2 -d'='`
+   	CMAKE_BUILD_VERSION=`cat $curPath/$config_file |grep "CMAKE_BUILD_VERSION=" |cut -f2 -d'='`
+	cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_BUILD_VERSION=${CMAKE_BUILD_VERSION} ..
+	
 	make
 
 	checkBuildResult build_examples
@@ -84,9 +88,12 @@ function build_tar_file()
 
 	cd $curPath/../output
 
-	buildTime=`date +"%Y%m%d"`
+	#buildTime=`date +"%Y%m%d"`
+	#tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
 
-	tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
+	versionNum=`cat $curPath/$config_file |grep "CMAKE_BUILD_VERSION=" |cut -f2 -d'='`
+	
+	tar zcvf StiBel_${versionNum}.tar.gz ./include ./lib
 
 	checkBuildResult build_tar_file
 

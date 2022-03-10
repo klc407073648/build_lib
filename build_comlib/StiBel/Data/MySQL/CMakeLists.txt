@@ -2,6 +2,6 @@
 INCLUDE_DIRECTORIES( ${STIBEL_COMMON_INCLUDE}  ./include )
 
 #生成动态库
-ADD_LIBRARY(StiBel_mysql SHARED ./src/MySQL.cpp )
+ADD_LIBRARY(${LIB_STIBEL_MYSQL} SHARED ./src/MySQL.cpp )
 
 

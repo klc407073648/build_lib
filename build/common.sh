@@ -9,6 +9,9 @@ export build_comlib_path=$cur_path/../build_comlib/
 export build_3partlib_list='$COMP_3PARTLIB_LIST'
 export build_comlib_list='$COMP_COMLIB_LIST'
 
+export CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE
+export CMAKE_BUILD_VERSION=$CMAKE_BUILD_VERSION
+
 #第三方库组件:名称与包全名的映射
 declare -A myMap
 myMap["cppcheck"]="$COMP_CPPCHECK"
@@ -50,6 +53,9 @@ function printBuildInfo()
    logInfo "log_dir:$log_dir"
    logInfo "log_file:$log_file"
    logInfo "log_level:$log_level"
+
+   logInfo "CMAKE_BUILD_TYPE:$CMAKE_BUILD_TYPE"
+   logInfo "CMAKE_BUILD_VERSION:$CMAKE_BUILD_VERSION"
 
    for key in ${!myMap[*]};do
       logInfo "$key:${myMap[$key]}"

@@ -1,9 +1,17 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)  # 设定版本
-PROJECT(build_lib) # 设定工程名
+PROJECT(BUILD_LIB) # 设定工程名
 SET(CMAKE_CXX_COMPILER "g++")  # 设定编译器
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
+  set(CMAKE_BUILD_TYPE "Debug")
+else()
+  set(BUILD_TYPE "Release")
+endif()
+
+if(NOT CMAKE_BUILD_VERSION)
+  set(LIB_VERSION "V1.1.0")
+else()
+  set(LIB_VERSION ${CMAKE_BUILD_VERSION})
 endif()
 
 if(CMAKE_BUILD_PROJECT_OPTION STREQUAL "all")
@@ -18,8 +26,10 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
 
 #PROJECT_BINARY_DIR：运行cmake命令的目录。
 #PROJECT_SOURCE_DIR：工程根目录
-MESSAGE (STATUS "This is binary dir" ${myprj_BINARY_DIR})
-MESSAGE (STATUS "This is source dir" ${myprj_SOURCE_DIR})
+MESSAGE (STATUS "BUILD_LIB_BINARY_DIR:        " ${BUILD_LIB_BINARY_DIR})
+MESSAGE (STATUS "BUILD_LIB_SOURCE_DIR:        " ${BUILD_LIB_SOURCE_DIR})
+MESSAGE (STATUS "BUILD_TYPE:                  " ${BUILD_TYPE})
+MESSAGE (STATUS "LIB_VERSION:                 " ${LIB_VERSION})
 
 #设置是否生成共享库
 SET(BUILD_SHARED_LIBS ON)
@@ -60,7 +70,7 @@ SET(STIBEL_REDIS_INCLUDE    ${COMM_INCLUDE}/StiBel/Data/Redis/include)
 SET(STIBEL_LOG_INCLUDE      ${COMM_INCLUDE}/StiBel/Log/include)
 SET(STIBEL_JSON_INCLUDE     ${COMM_INCLUDE}/StiBel/JSON/include)
 
-# 设置各类应用库的lib文件路径
+# 设置各类应用库的文件路径
 SET(3PART_DIR  ${PROJECT_SOURCE_DIR}/lib/3partlib)
 SET(COMM_DIR   ${PROJECT_SOURCE_DIR}/lib/comlib)
 
@@ -81,7 +91,7 @@ find_path(LOG4CPP_INCLUDE_DIR log4cpp/Category.hh)
 find_library(LOG4CPP_LIBRARY NAMES log4cpp)
 
 find_path(TINYXML_INCLUDE_DIR tinyxml.h)
-find_library(HIREDIS_LIBRARY NAMES tinyxml)
+find_library(TINYXML_LIBRARY NAMES tinyxml)
 
 find_path(ZEROMQ_INCLUDE_DIR zmq.hpp)
 find_library(ZEROMQ_LIBRARY NAMES zmq)
@@ -107,113 +117,18 @@ find_library(MYSQL_LIBRARY NAMES mysqlclient)
 find_path(PROTOBUF_INCLUDE_DIR google/protobuf/text_format.h)
 find_library(PROTOBUF_LIBRARY NAMES protobuf)
 
-
 #打印第三方应用库的存在消息
-if(JSONCPP_INCLUDE_DIR AND JSONCPP_LIBRARY)
-  message(STATUS "found jsoncpp")
-else()
-  message(STATUS "not found jsoncpp")
-endif()
+SET(3PART_LIBS JSONCPP LOG4CPP TINYXML ZEROMQ HIREDIS FASTCGI POCO CPPUNIT YAMLCPP PROTOBUF MYSQL)
 
-if(LOG4CPP_INCLUDE_DIR AND LOG4CPP_LIBRARY)
-  message(STATUS "found log4cpp")
-else()
-  message(STATUS "not found log4cpp")
-endif()
+FOREACH(3PART_LIB ${3PART_LIBS})	 
+  if(${3PART_LIB}_INCLUDE_DIR AND ${3PART_LIB}_LIBRARY)
+    message(STATUS "found ${3PART_LIB}")
+  else()
+    message(STATUS "not found ${3PART_LIB}")
+  endif()	 
+ENDFOREACH()
 
-if(TINYXML_INCLUDE_DIR AND HIREDIS_LIBRARY)
-  message(STATUS "found tinyxml")
-else()
-  message(STATUS "not found tinyxml")
-endif()
-
-#if(ZeroMQ_FOUND)
-if(ZEROMQ_INCLUDE_DIR AND ZEROMQ_LIBRARY)
-  message(STATUS "found zeromq")
-else()
-  message(STATUS "not found zeromq")
-endif()
-
-if(HIREDIS_INCLUDE_DIR AND HIREDIS_LIBRARY)
-  message(STATUS "found hiredis")
-else()
-  message(STATUS "not found hiredis")
-endif()
-
-if(FASTCGI_INCLUDE_DIR AND FASTCGI_LIBRARY)
-  message(STATUS "found fastcgi")
-else()
-  message(STATUS "not found fastcgi")
-endif()
-
-if(POCO_INCLUDE_DIR AND POCO_LIBRARY)
-  message(STATUS "found poco")
-else()
-  message(STATUS "not found poco")
-endif()
-
-if(CPPUNIT_INCLUDE_DIR AND CPPUNIT_LIBRARY)
-  message(STATUS "found cppunit")
-else()
-  message(STATUS "not found cppunit")
-endif()
-
-if(YAMLCPP_INCLUDE_DIR AND YAMLCPP_LIBRARY)
-  message(STATUS "found yamlcpp")
-else()
-  message(STATUS "not found yamlcpp")
-endif()
-
-if(PROTOBUF_INCLUDE_DIR AND PROTOBUF_LIBRARY)
-  message(STATUS "found protobuf")
-else()
-  message(STATUS "not found protobuf")
-endif()
-
-if(MYSQL_INCLUDE_DIR AND MYSQL_LIBRARY)
-  message(STATUS "found mysql")
-else()
-  message(STATUS "not found mysql")
-endif()
-
-# 自封装应用库 是否存在
-find_library(STIBEL_COMMON_LIBRARY  NAMES StiBel_common)
-find_library(STIBEL_MYSQL_LIBRARY   NAMES StiBel_mysql)
-find_library(STIBEL_LOG_LIBRARY     NAMES StiBel_log)
-find_library(STIBEL_JSON_LIBRARY    NAMES StiBel_json)
-find_library(STIBEL_REDIS_LIBRARY   NAMES StiBel_redis)
-
-if(STIBEL_COMMON_LIBRARY)
-  message(STATUS "found StiBel_common")
-else()
-  message(STATUS "not found StiBel_common")
-endif()
-
-if(STIBEL_MYSQL_LIBRARY)
-  message(STATUS "found StiBel_mysql")
-else()
-  message(STATUS "not found StiBel_mysql")
-endif()
-
-if(STIBEL_LOG_LIBRARY)
-  message(STATUS "found StiBel_log")
-else()
-  message(STATUS "not found StiBel_log")
-endif()
-
-if(STIBEL_JSON_LIBRARY)
-  message(STATUS "found StiBel_json")
-else()
-  message(STATUS "not found StiBel_json")
-endif()
-
-if(STIBEL_REDIS_LIBRARY)
-  message(STATUS "found StiBel_redis")
-else()
-  message(STATUS "not found StiBel_redis")
-endif()
-
-# 设置第三方库的lib链接名称
+# 设置第三方库的链接名称
 SET(LIB_JSONCPP jsoncpp)
 SET(LIB_LOG4CPP log4cpp)
 SET(LIB_TINYXML tinyxml)
@@ -241,12 +156,31 @@ SET(LIB_REFLECTION grpc++_reflection)
 SET(LIB_GRPC_GRPCPP grpc++)
 SET(LIB_PROTOC protoc)
 
-# 设置自封装应用库的lib链接名称
-SET(LIB_STIBEL_COMMON   StiBel_common ${LIB_PTHREAD})
-SET(LIB_STIBEL_MYSQL    StiBel_mysql  ${LIB_MYSQL} )
-SET(LIB_STIBEL_REDIS    StiBel_redis  ${LIB_HIREDIS})
-SET(LIB_STIBEL_LOG      StiBel_log    ${LIB_LOG4CPP} ${LIB_PTHREAD} ${LIB_STIBEL_COMMON})
-SET(LIB_STIBEL_JSON     StiBel_json   ${LIB_JSONCPP})
+#自封装应用库是否存在
+find_library(STIBEL_COMMON_LIBRARY  NAMES StiBel_common_${LIB_VERSION})
+find_library(STIBEL_MYSQL_LIBRARY   NAMES StiBel_mysql_${LIB_VERSION})
+find_library(STIBEL_LOG_LIBRARY     NAMES StiBel_log_${LIB_VERSION})
+find_library(STIBEL_JSON_LIBRARY    NAMES StiBel_json_${LIB_VERSION})
+find_library(STIBEL_REDIS_LIBRARY   NAMES StiBel_redis_${LIB_VERSION})
+
+#校验自封装库是否存在
+SET(STIBEL_LIBS COMMON MYSQL LOG JSON REDIS)
+
+FOREACH(STIBEL_LIB ${STIBEL_LIBS})	 
+  #string(REGEX REPLACE ".+/(.+)\\..*" "\\1" FILE_NAME ${FIL})
+  if(STIBEL_${STIBEL_LIB}_LIBRARY)
+    message(STATUS "found STIBEL_${STIBEL_LIB}_LIBRARY")
+  else()
+    message(STATUS "not found STIBEL_${STIBEL_LIB}_LIBRARY")
+  endif()	 
+ENDFOREACH()
+
+# 设置自封装应用库的链接名称
+SET(LIB_STIBEL_COMMON   StiBel_common_${LIB_VERSION} ${LIB_PTHREAD})
+SET(LIB_STIBEL_MYSQL    StiBel_mysql_${LIB_VERSION}  ${LIB_MYSQL} )
+SET(LIB_STIBEL_REDIS    StiBel_redis_${LIB_VERSION}  ${LIB_HIREDIS})
+SET(LIB_STIBEL_LOG      StiBel_log_${LIB_VERSION}    ${LIB_LOG4CPP} ${LIB_PTHREAD} ${LIB_STIBEL_COMMON})
+SET(LIB_STIBEL_JSON     StiBel_json_${LIB_VERSION}   ${LIB_JSONCPP})
 
 #添加外部库的搜索路径
 LINK_DIRECTORIES(${3PART_DIR} ${COMM_DIR})
