@@ -281,6 +281,20 @@ function build_protobuf()
    copySoAndHead
 }
 
+function build_googletest()
+{
+   mkdir -p googletest_output
+   
+   mkdir build && cd build
+   cmake  -DBUILD_SHARED_LIBS=ON .. && make -j4
+   make DESTDIR=../googletest_output/ install
+
+   build_include_path=../googletest_output/usr/local/include
+   build_lib_path=../googletest_output/usr/local/lib64
+
+   copySoAndHead
+}
+
 function build3partLib()
 {
    logDebug "build3partLib begin" 

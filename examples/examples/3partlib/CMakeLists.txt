@@ -11,6 +11,7 @@ SET(FASTCGI_PATH fastcgi)
 SET(CPPUNIT_PATH cppunit)
 SET(YAMLCPP_PATH yamlcpp)
 SET(PROTOBUF_PATH protobuf)
+SET(GOOGLETEST_PATH googletest)
 
 MESSAGE (STATUS "3partlib build begin")
 

@@ -1,0 +1,26 @@
+#可执行文件输出目录
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${3PARTLIB_EXECUTABLE_OUTPUT_PATH}/googletest)
+
+#头文件目录
+INCLUDE_DIRECTORIES( ${GOOGLETEST_INCLUDE}  ./include )
+
+#目录源码路径
+SET( GOOGLETEST_TEST_SRC_DIR ./source )
+
+#代码列表
+FILE (GLOB GOOGLETEST_TEST_FILES ${GOOGLETEST_TEST_SRC_DIR}/*.cpp)
+
+#依赖的LIB
+SET(GOOGLETEST_TEST_LIB  ${LIB_GOOGLETEST} )
+
+#生成 
+ADD_EXECUTABLE( googletest_test ${GOOGLETEST_TEST_FILES})
+
+#连接生成相关库
+TARGET_LINK_LIBRARIES( googletest_test ${GOOGLETEST_TEST_LIB} -lpthread)
+
+################################
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()
