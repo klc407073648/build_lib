@@ -11,7 +11,9 @@ function preDeal()
 	cd $curPath
 
 	cp -r /usr/lib64/mysql/* /usr/lib/
-	pip3 install -r requirements.txt
+	#pip3 install -r requirements.txt
+	# 临时屏蔽，直接根据源码包安装，避免网络原因安装失败
+	pip3 install ./src/xlrd/xlrd-1.2.0-py2.py3-none-any.whl
 
 	checkBuildResult preDeal
 

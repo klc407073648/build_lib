@@ -34,7 +34,7 @@ class FileUtil:
     @staticmethod
     def findAndCopyPngFileToSpecifiedPath(target_dir,suffix,target_path):
         find_res = FileUtil.findAllFilesWithSpecifiedSuffix(target_dir, suffix)
-        print(find_res)
+        #print(find_res)
         FileUtil.copyFilesToSpecifiedPath(find_res,target_path)
 
     @staticmethod
@@ -55,7 +55,7 @@ class FileUtil:
                     open(file_name + "_new", mode="w", encoding="UTF-8") as f2:
                 for line in f1:
                     for key in dict_content.keys():
-                        print( key + ":" + str(dict_content[key]))
+                        #print( key + ":" + str(dict_content[key]))
                         line = line.replace("$"+key, str(dict_content[key]))
                     f2.write(line)
             os.remove(file_name)
@@ -64,7 +64,7 @@ class FileUtil:
     @staticmethod
     def findAndReplaceFilesToSpecifiedContent(target_dir,suffix,old_content,new_content):
         find_res = FileUtil.findAllFilesWithSpecifiedSuffix(target_dir, suffix)
-        print(find_res)
+        #print(find_res)
         FileUtil.replaceFilesContent(find_res,old_content,new_content)
 
 
