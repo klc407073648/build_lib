@@ -205,10 +205,12 @@ function build_spawn_fcgi()
 
 function build_poco()
 {
+   yum install -y mysql mysql-devel openssl-devel
+   
    mkdir -p poco_output
 
-   ./configure --config=Linux --no-tests --no-samples --minimal --prefix=$cur_target_build_path/poco_output
-
+   #./configure --config=Linux --no-tests --no-samples --minimal --prefix=$cur_target_build_path/poco_output
+   ./configure --config=Linux --no-tests --no-samples --omit=Data/ODBC,Data/SQLite,Data/PostgreSQL,MongoDB --prefix=$cur_target_build_path/poco_output
    make && make install
 
    build_include_path=./poco_output/include
