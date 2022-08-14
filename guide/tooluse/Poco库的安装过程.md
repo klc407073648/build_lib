@@ -18,6 +18,7 @@ make && make install
 
 --no-tests --no-samples --omit=Data/ODBC,Data/SQLite,Data/PostgreSQL,MongoDB,Redis, --prefix=/home/MyPrj_V14/build_comlib/poco/output
 
+./configure --config=Linux --no-tests --no-samples --omit=Data/ODBC,Data/SQLite,Data/PostgreSQL,MongoDB --prefix=/home/poco/poco-1.12.2-all/poco_output
 
 选项说明：
 –config=Linux：在Linux环境下编译
@@ -38,6 +39,8 @@ yum -y install postgresql-devel
 ./configure
 make && make install
 ```
+
+yum -y install mysql mysql-devel openssl-devel
 
 - 密码
 
@@ -129,5 +132,23 @@ swapon $SWAP #启用swap
  docker commit 881a66970443 centos-vim
 
  https://gcc.gnu.org/projects/cxx-status.html#cxx14
+
+
+ [root@VM-16-6-centos ~]# docker run -it -d -v /home/klc/poco:/home/poco --name build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 bash
+29ca61c7c80e4b67265864fe7d0fb44f4c921cb69ecaba7a94648c20b06304c6
+[root@VM-16-6-centos ~]# docker exec -it build_lib_0 bash
+[root@29ca61c7c80e /]# cd /home/poco/
+[root@29ca61c7c80e poco]# tar -zxvf poco-1.12.2-all.tar.gz
+[root@29ca61c7c80e poco]# cd ./poco-1.12.2-all
+[root@29ca61c7c80e poco-1.12.2-all]# mkdir poco_output
+[root@29ca61c7c80e poco-1.12.2-all]# yum install -y mysql mysql-devel openssl-devel
+[root@29ca61c7c80e poco-1.12.2-all]# cp -r /usr/lib64/mysql/* /usr/lib/
+[root@29ca61c7c80e poco-1.12.2-all]# ./configure --config=Linux --no-tests --no-samples --omit=Data/ODBC,Data/SQLite,Data/PostgreSQL,MongoDB --prefix=/home/poco/poco-1.12.2-all/poco_output
+[root@29ca61c7c80e poco-1.12.2-all]# make
+[root@29ca61c7c80e poco-1.12.2-all]# make install
+
+
+
+
 
 
