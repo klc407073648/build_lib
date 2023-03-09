@@ -148,7 +148,55 @@ swapon $SWAP #启用swap
 [root@29ca61c7c80e poco-1.12.2-all]# make install
 
 
+# 最终POCO编译成功版本
+```
+ [root@VM-16-6-centos ~]# docker run -it -d -v /home/klc/poco:/home/poco --name build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 bash
+29ca61c7c80e4b67265864fe7d0fb44f4c921cb69ecaba7a94648c20b06304c6
+[root@VM-16-6-centos ~]# docker exec -it build_lib_0 bash
+[root@29ca61c7c80e /]# cd /home/poco/
+[root@29ca61c7c80e poco]# tar -zxvf poco-1.12.2-all.tar.gz
+[root@29ca61c7c80e poco]# cd ./poco-1.12.2-all
+[root@29ca61c7c80e poco-1.12.2-all]# mkdir poco_output
+[root@29ca61c7c80e poco-1.12.2-all]# yum install -y mysql mysql-devel openssl-devel
+[root@29ca61c7c80e poco-1.12.2-all]# cp -r /usr/lib64/mysql/* /usr/lib/
+[root@29ca61c7c80e poco-1.12.2-all]# ./configure --config=Linux --no-tests --no-samples --omit=Data/ODBC,Data/SQLite,Data/PostgreSQL,MongoDB --prefix=/home/poco/poco-1.12.2-all/poco_output
+[root@29ca61c7c80e poco-1.12.2-all]# make
+[root@29ca61c7c80e poco-1.12.2-all]# make install
+```
 
+测试XML库
 
+```
+[root@29ca61c7c80e test]# cd ./build/
+[root@29ca61c7c80e build]# cmake ..
+-- The CXX compiler identification is GNU 9.1.0
+-- Check for working CXX compiler: /usr/local/bin/g++
+-- Check for working CXX compiler: /usr/local/bin/g++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+CMake Warning (dev) in CMakeLists.txt:
+  AUTOGEN: No valid Qt version found for target example.  AUTOMOC, AUTOUIC
+  and AUTORCC disabled.  Consider adding:
 
+    find_package(Qt<QTVERSION> COMPONENTS Widgets)
 
+  to your CMakeLists.txt file.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Generating done
+-- Build files have been written to: /home/poco/test/build
+[root@29ca61c7c80e build]# make
+Scanning dependencies of target example
+[ 50%] Building CXX object CMakeFiles/example.dir/main.cpp.o
+[100%] Linking CXX executable example
+[100%] Built target example
+[root@29ca61c7c80e build]# ./example
+<?xml version='1.0' encoding='UTF-8'?>
+<!--This is comment.-->
+<root_element>
+        <child_element_a a1="1" a2="2"/>
+        <child_element_b b1="3" b2="4"/><![CDATA[ignore parse txt !@#$%^&*()]]>txt_content</root_element>
+```
