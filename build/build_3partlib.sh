@@ -64,7 +64,7 @@ function build_jsoncpp_old()
 function build_jsoncpp()
 {
    cd $build_3partlib_path/$jsoncpp_path
-   cur_build_name=${myMap["jsoncpp"]} 
+   cur_build_name=${comp2tar["jsoncpp"]} 
    tar -zxf ${cur_build_name}
 
    jsoncpp_build_path=${cur_build_name%%.tar.gz}
@@ -84,7 +84,7 @@ function build_jsoncpp()
 function build_log4cpp()
 {
    cd $build_3partlib_path/$log4cpp_path
-   cur_build_name=${myMap[$build_name]} 
+   cur_build_name=${comp2tar[$build_name]} 
    tar -zxvf ${cur_build_name}
 
    log4cpp_build_path=log4cpp
@@ -125,7 +125,7 @@ function build_tinyxml()
 function build_zeromq_libzmq()
 {
    cd $build_3partlib_path/$zeromq_path
-   cur_build_name=${myMap["zeromq"]} 
+   cur_build_name=${comp2tar["zeromq"]} 
    tar -zxf ${cur_build_name}
 
    zeromq_build_path=${cur_build_name%%.tar.gz}
@@ -154,7 +154,7 @@ function build_drogon()
    #source /etc/profile
 
    cd $build_3partlib_path/$drogon_path
-   cur_build_name=${myMap["drogon"]} 
+   cur_build_name=${comp2tar["drogon"]} 
    tar -zxf ${cur_build_name}
 
    #先解压
@@ -163,13 +163,13 @@ function build_drogon()
 function build_trantor()
 {
    # 进入 /home/test/build_3partlib/drogon/drogon-1.8.3/ 构建路径
-   drogon_tar_name=${myMap["drogon"]}
+   drogon_tar_name=${comp2tar["drogon"]}
    drogon_tar_path=${drogon_tar_name%%.tar.gz}
    cd $build_3partlib_path/$drogon_path/$drogon_tar_path
    
    # 解压 trantor-1.5.10.tar.gz 文件并改名为 trantor
    rm -rf ./trantor
-   cur_build_name=${myMap["trantor"]}
+   cur_build_name=${comp2tar["trantor"]}
    cp $build_3partlib_path/$drogon_path/$cur_build_name .
    tar -zxf  ${cur_build_name}
 
@@ -215,7 +215,7 @@ function build_trantor()
 function build_zeromq_cppzmq()
 {
    cd $build_3partlib_path/$zeromq_path
-   cur_build_name=${myMap["cppzmq"]} 
+   cur_build_name=${comp2tar["cppzmq"]} 
    tar -zxf ${cur_build_name}
 
    cppzmq_build_path=${cur_build_name%%.tar.gz}
@@ -252,7 +252,7 @@ function build_hiredis()
 function build_fastcgi()
 {
    cd $build_3partlib_path/$fastcgi_path
-   cur_build_name=${myMap[$build_name]} 
+   cur_build_name=${comp2tar[$build_name]} 
    tar -zxf ${cur_build_name} 
 
    fastcgi_build_path=${cur_build_name%%.tar.gz}
@@ -279,7 +279,7 @@ function build_fastcgi()
 function build_spawn_fcgi()
 {
    cd $build_3partlib_path/$fastcgi_path
-   cur_build_name=${myMap["spawnfcgi"]} 
+   cur_build_name=${comp2tar["spawnfcgi"]} 
    tar -zxf ${cur_build_name} 
 
    spawnfcgi_build_path=${cur_build_name%%.tar.gz}
@@ -332,7 +332,7 @@ function build_yamlcpp()
 {
    cd $build_3partlib_path/yamlcpp
 
-   cur_build_name=${myMap[$build_name]} 
+   cur_build_name=${comp2tar[$build_name]} 
    tar -zxf ${cur_build_name} 
    
    yamlcpp_build_path=${cur_build_name%%.tar.gz}
@@ -414,7 +414,7 @@ function build3partLib()
            build_drogon
            build_trantor
       else
-           cur_build_name=${myMap[$build_name]} ##获取构建组件所对应的tar.gz名称
+           cur_build_name=${comp2tar[$build_name]} ##获取构建组件所对应的tar.gz名称
            cur_build_path=${cur_build_name%%-*} ##获取-前缀内容，一般为tar.gz的存放目录
            cd $build_3partlib_path/$cur_build_path         ##进入对应目录
            tar -zxf ${cur_build_name}           ##解压目标文件

@@ -11,25 +11,26 @@ export build_comlib_list='$COMP_COMLIB_LIST'
 
 export CMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE
 export CMAKE_BUILD_VERSION=$CMAKE_BUILD_VERSION
+export IS_USE_STATIC_LIB=$IS_USE_STATIC_LIB
 
-#第三方库组件:名称与包全名的映射
-declare -A myMap
-myMap["cppcheck"]="$COMP_CPPCHECK"
-myMap["cppunit"]="$COMP_CPPUNIT"
-myMap["spawnfcgi"]="$COMP_SPAWNFCGI"
-myMap["fastcgi"]="$COMP_FCGI"
-myMap["hiredis"]="$COMP_HIREDIS"
-myMap["jsoncpp"]="$COMP_JSONCPP"
-myMap["log4cpp"]="$COMP_LOG4CPP"
-myMap["poco"]="$COMP_POCO"
-myMap["protobuf"]="$COMP_PROTOBUF"
-myMap["tinyxml"]="$COMP_TINYXML"
-myMap["yamlcpp"]="$COMP_YAMLCPP"
-myMap["zeromq"]="$COMP_LIBZMQ"
-myMap["cppzmq"]="$COMP_CPPZMQ"
-myMap["googletest"]="$COMP_GOOGLETEST"
-myMap["trantor"]="$COMP_TRANTOR"
-myMap["drogon"]="$COMP_DROGON"
+#第三方库组件:名称与包全名的映射 componentName2tarName
+declare -A comp2tar
+comp2tar["cppcheck"]="$COMP_CPPCHECK"
+comp2tar["cppunit"]="$COMP_CPPUNIT"
+comp2tar["spawnfcgi"]="$COMP_SPAWNFCGI"
+comp2tar["fastcgi"]="$COMP_FCGI"
+comp2tar["hiredis"]="$COMP_HIREDIS"
+comp2tar["jsoncpp"]="$COMP_JSONCPP"
+comp2tar["log4cpp"]="$COMP_LOG4CPP"
+comp2tar["poco"]="$COMP_POCO"
+comp2tar["protobuf"]="$COMP_PROTOBUF"
+comp2tar["tinyxml"]="$COMP_TINYXML"
+comp2tar["yamlcpp"]="$COMP_YAMLCPP"
+comp2tar["zeromq"]="$COMP_LIBZMQ"
+comp2tar["cppzmq"]="$COMP_CPPZMQ"
+comp2tar["googletest"]="$COMP_GOOGLETEST"
+comp2tar["trantor"]="$COMP_TRANTOR"
+comp2tar["drogon"]="$COMP_DROGON"
 
 #日志路径、日志文件、日志级别
 log_dir=$cur_path/$LOG_PATH
@@ -41,6 +42,10 @@ logDebugNum=4
 logInfoNum=3
 logWarnNum=2
 logErrorNum=1
+
+#日志级别
+use_static_lib=1
+not_use_static_lib=0
 
 #是否保存日志
 isSave=1
@@ -60,8 +65,8 @@ function printBuildInfo()
    logInfo "CMAKE_BUILD_TYPE:$CMAKE_BUILD_TYPE"
    logInfo "CMAKE_BUILD_VERSION:$CMAKE_BUILD_VERSION"
 
-   for key in ${!myMap[*]};do
-      logInfo "$key:${myMap[$key]}"
+   for key in ${!comp2tar[*]};do
+      logInfo "$key:${comp2tar[$key]}"
    done
 }
 

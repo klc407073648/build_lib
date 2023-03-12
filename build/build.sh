@@ -62,6 +62,21 @@ function build_comlib()
 	echo "end to build comlib"
 }
 
+function static_lib_deal()
+{
+	echo "bgein to static lib deal"
+
+	cd $curPath
+
+	if [ $IS_USE_STATIC_LIB -eq $not_use_static_lib ];then 
+      cd $curPath/../output/lib/3partlib/
+	  rm -rf ./*.a
+	  echo "delete static lib file *.a"
+    fi
+
+	echo "end to static lib deal"
+}
+
 function build_examples()
 {
 	echo "build_examples begin"
@@ -119,6 +134,7 @@ function MAIN()
    parseExcel
    build_3partlib
    build_comlib
+   static_lib_deal
    build_tar_file
    build_examples
    echo "build.sh MAIN end" 
