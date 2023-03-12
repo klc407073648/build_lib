@@ -28,6 +28,8 @@ myMap["yamlcpp"]="$COMP_YAMLCPP"
 myMap["zeromq"]="$COMP_LIBZMQ"
 myMap["cppzmq"]="$COMP_CPPZMQ"
 myMap["googletest"]="$COMP_GOOGLETEST"
+myMap["trantor"]="$COMP_TRANTOR"
+myMap["drogon"]="$COMP_DROGON"
 
 #日志路径、日志文件、日志级别
 log_dir=$cur_path/$LOG_PATH

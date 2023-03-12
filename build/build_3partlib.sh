@@ -5,6 +5,8 @@ cur_target_build_path=''
 fastcgi_path='fastcgi'
 zeromq_path='zeromq'
 log4cpp_path='log4cpp'
+drogon_path='drogon'
+jsoncpp_path='jsoncpp'
 
 function preDeal()
 {
@@ -12,6 +14,9 @@ function preDeal()
 
    rm -rf $build_3partlib_path/../output/include/3partlib/*
    rm -rf $build_3partlib_path/../output/lib/3partlib/*
+
+   mkdir -p $build_3partlib_path/../output/lib/3partlib/lib64
+   mkdir -p $build_3partlib_path/../output/lib/3partlib/bin
 
    logInfo "preDeal end"
 }
@@ -27,7 +32,7 @@ function copySoAndHead()
    logDebug "${build_name} .h and .so deal end"
 }
 
-function build_jsoncpp()
+function build_jsoncpp_old()
 {
    #判断所依赖的scons是否已经安装   
    if [ ! -f /usr/bin/scons ];then
@@ -52,6 +57,26 @@ function build_jsoncpp()
 
    build_include_path=$cur_target_build_path/jsoncpp_output/include
    build_lib_path=$cur_target_build_path/jsoncpp_output/lib
+
+   copySoAndHead
+}
+
+function build_jsoncpp()
+{
+   cd $build_3partlib_path/$jsoncpp_path
+   cur_build_name=${myMap["jsoncpp"]} 
+   tar -zxf ${cur_build_name}
+
+   jsoncpp_build_path=${cur_build_name%%.tar.gz}
+
+   cd ./$jsoncpp_build_path
+   mkdir jsoncpp_output
+   mkdir build && cd build
+   cmake -DBUILD_SHARED_LIBS=ON ..
+   make -j4 DESTDIR=../jsoncpp_output/ install
+
+   build_include_path=../jsoncpp_output/usr/local/include
+   build_lib_path=../jsoncpp_output/usr/local/lib64
 
    copySoAndHead
 }
@@ -115,6 +140,76 @@ function build_zeromq_libzmq()
    build_lib_path=../zeromq_output/usr/local/lib64
 
    copySoAndHead
+}
+
+function build_drogon()
+{
+   #安装依赖
+   yum install -y libuuid-devel
+   yum install -y openssl-devel
+   yum install -y zlib-devel
+
+   #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64
+   #export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib64
+   #source /etc/profile
+
+   cd $build_3partlib_path/$drogon_path
+   cur_build_name=${myMap["drogon"]} 
+   tar -zxf ${cur_build_name}
+
+   #先解压
+}
+
+function build_trantor()
+{
+   # 进入 /home/test/build_3partlib/drogon/drogon-1.8.3/ 构建路径
+   drogon_tar_name=${myMap["drogon"]}
+   drogon_tar_path=${drogon_tar_name%%.tar.gz}
+   cd $build_3partlib_path/$drogon_path/$drogon_tar_path
+   
+   # 解压 trantor-1.5.10.tar.gz 文件并改名为 trantor
+   rm -rf ./trantor
+   cur_build_name=${myMap["trantor"]}
+   cp $build_3partlib_path/$drogon_path/$cur_build_name .
+   tar -zxf  ${cur_build_name}
+
+   mv ${cur_build_name%%.tar.gz} trantor
+
+   JSONCPP_INCLUDE=$build_3partlib_path/../output/include/3partlib/jsoncpp/include
+   COMM_DIR=$build_3partlib_path/../output/lib/3partlib
+
+   sed -i "/cmake_minimum_required/a\set(CMAKE_INCLUDE_PATH  ${JSONCPP_INCLUDE})" CMakeLists.txt
+   sed -i "/cmake_minimum_required/a\set(CMAKE_LIBRARY_PATH  ${COMM_DIR})" CMakeLists.txt
+
+   mkdir drogon_output
+   mkdir build && cd build
+   cmake -DBUILD_SHARED_LIBS=ON ..
+   make  DESTDIR=../drogon_output/ install
+   
+   build_include_path=../drogon_output/usr/local/include/
+   build_lib_path=../drogon_output/usr/local/lib64
+   build_bin_path=../drogon_output/usr/local/bin
+
+   #拷贝头文件
+   mkdir -p $build_3partlib_path/../output/include/3partlib/drogon/include
+   mkdir -p $build_3partlib_path/../output/include/3partlib/trantor/include
+   cp -rf $build_include_path/drogon  $build_3partlib_path/../output/include/3partlib/drogon/include 
+   cp -rf $build_include_path/trantor $build_3partlib_path/../output/include/3partlib/trantor/include 
+   #拷贝库文件
+   cp -rf $build_lib_path/* $build_3partlib_path/../output/lib/3partlib/lib64
+   #拷贝库文件
+   cp -rf $build_bin_path/* $build_3partlib_path/../output/lib/3partlib/bin
+
+   #解决后续cmake文件路径问题
+   CMAKE_3PART_LIB_PATH=$build_3partlib_path/../output/lib/3partlib/lib64
+   CMAKE_3PART_INC_PATH=$build_3partlib_path/../output/include/3partlib
+   cd ${CMAKE_3PART_LIB_PATH}/cmake/Drogon/
+   DROGON_PATH=${CMAKE_3PART_INC_PATH}/drogon
+   sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${DROGON_PATH}/include/\"" DrogonTargets.cmake
+
+   cd ${CMAKE_3PART_LIB_PATH}/cmake/Trantor/
+   TRANTOR_PATH=${CMAKE_3PART_INC_PATH}/trantor
+   sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${TRANTOR_PATH}/include/\"" TrantorTargets.cmake
 }
 
 function build_zeromq_cppzmq()
@@ -315,6 +410,9 @@ function build3partLib()
            build_log4cpp
       elif [ "$build_name"x = "yamlcpp"x ];then
            build_yamlcpp
+      elif [ "$build_name"x = "drogon"x ];then
+           build_drogon
+           build_trantor
       else
            cur_build_name=${myMap[$build_name]} ##获取构建组件所对应的tar.gz名称
            cur_build_path=${cur_build_name%%-*} ##获取-前缀内容，一般为tar.gz的存放目录
