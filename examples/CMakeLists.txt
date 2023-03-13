@@ -61,9 +61,11 @@ SET(POCO_INCLUDE            ${3PART_INCLUDE}/poco/include)
 SET(CPPUNIT_INCLUDE         ${3PART_INCLUDE}/cppunit/include)
 SET(YAMLCPP_INCLUDE         ${3PART_INCLUDE}/yamlcpp/include)
 SET(PROTOBUF_INCLUDE        ${3PART_INCLUDE}/protobuf/include)
-#SET(GRPC_INCLUDE            ${3PART_INCLUDE}/grpc/include)
-#SET(MYQSL_INCLUDE           ${3PART_INCLUDE}/mysql/include)
-SET(GOOGLETEST_INCLUDE        ${3PART_INCLUDE}/googletest/include)
+#SET(GRPC_INCLUDE           ${3PART_INCLUDE}/grpc/include)
+#SET(MYQSL_INCLUDE          ${3PART_INCLUDE}/mysql/include)
+SET(GOOGLETEST_INCLUDE      ${3PART_INCLUDE}/googletest/include)
+SET(DROGON_INCLUDE          ${3PART_INCLUDE}/drogon/include)
+SET(TRANTOR_INCLUDE         ${3PART_INCLUDE}/trantor/include)
 
 # 设置自封装应用库的头文件
 SET(COMM_INCLUDE            ${PROJECT_SOURCE_DIR}/include/comlib)
@@ -124,6 +126,9 @@ find_library(PROTOBUF_LIBRARY NAMES protobuf)
 find_path(GOOGLETEST_INCLUDE_DIR gtest/gtest.h)
 find_library(GOOGLETEST_LIBRARY NAMES gtest)
 
+find_path(DROGON_INCLUDE_DIR drogon/drogon.h)
+find_library(DROGON_LIBRARY NAMES Drogon::Drogon)
+
 #打印第三方应用库的存在消息
 SET(3PART_LIBS JSONCPP LOG4CPP TINYXML ZEROMQ HIREDIS FASTCGI POCO CPPUNIT YAMLCPP PROTOBUF MYSQL GOOGLETEST)
 
@@ -163,6 +168,8 @@ SET(LIB_PROTOBUF protobuf)
 SET(LIB_REFLECTION grpc++_reflection)
 SET(LIB_GRPC_GRPCPP grpc++)
 SET(LIB_PROTOC protoc)
+SET(LIB_DROGON Drogon::Drogon)
+SET(LIB_TRANTOR trantor)
 
 #自封装应用库是否存在
 find_library(STIBEL_COMMON_LIBRARY  NAMES StiBel_common_${LIB_VERSION})

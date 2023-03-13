@@ -1,8 +1,0 @@
-待处理：
-1.生成类的测试test，前期考虑example，后期考虑写cppunit的testsuit
-
-
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V2.1.1 ..
-
-docker run -it -d -v /home/klc/build_lib:/home/tools/build_lib --name stibel_build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
-docker exec -i stibel_build_lib_0 /bin/sh -c "source /etc/profile && cd /home/tools/build_lib/build && ./build.sh"
