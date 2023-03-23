@@ -1,0 +1,13 @@
+[
+    {
+        "LOG_PATH": "mylog",
+        "LOG_FILE_NAME": "build.log",
+        "LOG_LEVEL": 4,
+        "COMP_3PARTLIB_LIST": "cppcheck cppunit fastcgi googletest hiredis jsoncpp log4cpp poco protobuf tinyxml yamlcpp zeromq drogon",
+        "COMP_COMLIB_LIST": "Common Data/MySQL Data/Redis JSON Log ",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_BUILD_VERSION": "V2.1.1",
+        "IS_USE_STATIC_LIB": 0,
+        "PRJ_PATH": "/home/stibel"
+    }
+]

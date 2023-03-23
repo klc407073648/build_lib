@@ -1,0 +1,47 @@
+[
+    {
+        "宏定义": "LOG_PATH",
+        "变量值": "mylog",
+        "描述": "日志文件存放路径"
+    },
+    {
+        "宏定义": "LOG_FILE_NAME",
+        "变量值": "build.log",
+        "描述": "日志文件名"
+    },
+    {
+        "宏定义": "LOG_LEVEL",
+        "变量值": 4.0,
+        "描述": "日志级别"
+    },
+    {
+        "宏定义": "COMP_3PARTLIB_LIST",
+        "变量值": "cppcheck cppunit fastcgi googletest hiredis jsoncpp log4cpp poco protobuf tinyxml yamlcpp zeromq drogon",
+        "描述": "第三方库构建列表"
+    },
+    {
+        "宏定义": "COMP_COMLIB_LIST",
+        "变量值": "Common Data/MySQL Data/Redis JSON Log ",
+        "描述": "公共库构建列表"
+    },
+    {
+        "宏定义": "CMAKE_BUILD_TYPE",
+        "变量值": "Release",
+        "描述": "公共库构建列表"
+    },
+    {
+        "宏定义": "CMAKE_BUILD_VERSION",
+        "变量值": "V2.1.1",
+        "描述": "公共库构建列表"
+    },
+    {
+        "宏定义": "IS_USE_STATIC_LIB",
+        "变量值": 0.0,
+        "描述": "是否使用静态库，0-否，1-是"
+    },
+    {
+        "宏定义": "PRJ_PATH",
+        "变量值": "/home/stibel",
+        "描述": "项目路径"
+    }
+]
