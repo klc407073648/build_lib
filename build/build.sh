@@ -1,4 +1,6 @@
 #!/bin/bash
+#curPath="/home/stibel"
+#mkdir -p $curPath
 curPath=`pwd`
 versionNum=''
 echo "curPath=$curPath"

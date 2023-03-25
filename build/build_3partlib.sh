@@ -15,8 +15,9 @@ function preDeal()
    rm -rf $build_3partlib_path/../output/include/3partlib/*
    rm -rf $build_3partlib_path/../output/lib/3partlib/*
 
-   mkdir -p $build_3partlib_path/../output/lib/3partlib/lib64
    mkdir -p $build_3partlib_path/../output/lib/3partlib/bin
+   mkdir -p $build_3partlib_path/../output/lib/3partlib/cmake
+   mkdir -p $build_3partlib_path/../output/lib/3partlib/share
 
    logInfo "preDeal end"
 }
@@ -26,12 +27,14 @@ function copySoAndHead()
    logDebug "${build_name} .h and .so deal begin"
    
    mkdir -p $build_3partlib_path/../output/include/3partlib/$build_name/include
-   cp -rf $build_include_path/* $build_3partlib_path/../output/include/3partlib/$build_name/include
-   cp -rf $build_lib_path/* $build_3partlib_path/../output/lib/3partlib
+
+   cp -rf $build_include_path/*     $build_3partlib_path/../output/include/3partlib/$build_name/include
+   cp -rf $build_lib_path/*         $build_3partlib_path/../output/lib/3partlib
 
    logDebug "${build_name} .h and .so deal end"
 }
 
+# 废弃,使用新版
 function build_jsoncpp_old()
 {
    #判断所依赖的scons是否已经安装   
@@ -101,6 +104,10 @@ function build_log4cpp()
    build_include_path=./log4cpp_output/include
    build_lib_path=./log4cpp_output/lib
 
+   # bin和share处理
+   cp -rf ./log4cpp_output/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf ./log4cpp_output/share/*  $build_3partlib_path/../output/lib/3partlib/share
+
    copySoAndHead
 }
 
@@ -138,6 +145,10 @@ function build_zeromq_libzmq()
 
    build_include_path=../zeromq_output/usr/local/include
    build_lib_path=../zeromq_output/usr/local/lib64
+
+   # bin和share处理
+   cp -rf ../zeromq_output/usr/local/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf ../zeromq_output/usr/local/share/*  $build_3partlib_path/../output/lib/3partlib/share
 
    copySoAndHead
 }
@@ -196,20 +207,19 @@ function build_trantor()
    cp -rf $build_include_path/drogon  $build_3partlib_path/../output/include/3partlib/drogon/include 
    cp -rf $build_include_path/trantor $build_3partlib_path/../output/include/3partlib/trantor/include 
    #拷贝库文件
-   cp -rf $build_lib_path/* $build_3partlib_path/../output/lib/3partlib/lib64
-   #拷贝库文件
+   cp -rf $build_lib_path/* $build_3partlib_path/../output/lib/3partlib
+   #拷贝bin文件
    cp -rf $build_bin_path/* $build_3partlib_path/../output/lib/3partlib/bin
 
    #解决后续cmake文件路径问题
-   CMAKE_3PART_LIB_PATH=$build_3partlib_path/../output/lib/3partlib/lib64
    CMAKE_3PART_INC_PATH=$build_3partlib_path/../output/include/3partlib
-   cd ${CMAKE_3PART_LIB_PATH}/cmake/Drogon/
-   DROGON_PATH=${CMAKE_3PART_INC_PATH}/drogon
-   sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${DROGON_PATH}/include/\"" DrogonTargets.cmake
+   CMAKE_3PART_LIB_PATH=$build_3partlib_path/../output/lib/3partlib
 
-   cd ${CMAKE_3PART_LIB_PATH}/cmake/Trantor/
+   DROGON_PATH=${CMAKE_3PART_INC_PATH}/drogon
+   sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${DROGON_PATH}/include/\"" ${CMAKE_3PART_LIB_PATH}/cmake/Drogon/DrogonTargets.cmake
+
    TRANTOR_PATH=${CMAKE_3PART_INC_PATH}/trantor
-   sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${TRANTOR_PATH}/include/\"" TrantorTargets.cmake
+   sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${TRANTOR_PATH}/include/\"" ${CMAKE_3PART_LIB_PATH}/cmake/Trantor/TrantorTargets.cmake
 }
 
 function build_zeromq_cppzmq()
@@ -233,7 +243,9 @@ function build_zeromq_cppzmq()
    build_include_path=../cppzmq_output/usr/local/include
    cp -rf $build_3partlib_path/$zeromq_path/ex_include/* $build_include_path
    cp -rf $build_include_path/* $build_3partlib_path/../output/include/3partlib/$build_name/include
-   #build_cppzmq_lib_path=$build_3partlib_path/$zeromq_path/$zeromq_build_path/zeromq_output/usr/local/lib64
+   
+   # share处理
+   cp -rf ../cppzmq_output/usr/local/share/cmake/* $build_3partlib_path/../output/lib/3partlib/cmake/
 }
 
 function build_hiredis()
@@ -272,6 +284,9 @@ function build_fastcgi()
 
    build_include_path=$build_3partlib_path/$fastcgi_path/$fastcgi_build_path/fastcgi_output/include
    build_lib_path=$build_3partlib_path/$fastcgi_path/$fastcgi_build_path/fastcgi_output/lib
+   
+   # bin处理
+   cp -rf $build_lib_path/bin/* $build_3partlib_path/../output/lib/3partlib/bin
 
    copySoAndHead
 }
@@ -294,7 +309,12 @@ function build_spawn_fcgi()
    build_include_path=$build_3partlib_path/$fastcgi_path/$spawnfcgi_build_path/spawnfcgi_output/
    build_lib_path=$build_3partlib_path/$fastcgi_path/$spawnfcgi_build_path/spawnfcgi_output/
    
-   copySoAndHead
+   #copySoAndHead
+   
+   # bin和share处理
+   cp -rf $build_lib_path/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf $build_lib_path/share/*  $build_3partlib_path/../output/lib/3partlib/share
+
    #将 bin share 加到PATH
 }
 
@@ -311,6 +331,9 @@ function build_poco()
    build_include_path=./poco_output/include
    build_lib_path=./poco_output/lib
 
+   # bin处理
+   cp -rf ./log4cpp_output/bin/* $build_3partlib_path/../output/lib/3partlib/bin
+
    copySoAndHead
 }
 
@@ -324,6 +347,10 @@ function build_cppunit()
 
    build_include_path=./cppunit_output/include
    build_lib_path=./cppunit_output/lib
+
+   # bin和share处理
+   cp -rf $build_lib_path/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf $build_lib_path/share/*  $build_3partlib_path/../output/lib/3partlib/share
    
    copySoAndHead
 }
@@ -357,7 +384,12 @@ function build_cppcheck()
    cmake .. && make -j4
    make install SRCDIR=. DESTDIR=../cppcheck_output/ CFGDIR=../cfg
 
-   cp -rf ../cppcheck_output/usr/local/* $build_3partlib_path/../output/lib/3partlib
+   # bin和share处理
+   cp -rf ../cppcheck_output/usr/local/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf ../cppcheck_output/usr/local/share/*  $build_3partlib_path/../output/lib/3partlib/share
+   
+   # TODO
+   #cp -rf ./share/ /usr/local
 }
 
 function build_protobuf()
@@ -372,8 +404,8 @@ function build_protobuf()
    build_include_path=./protobuf_output/include
    build_lib_path=./protobuf_output/lib
 
-   mkdir -p $build_3partlib_path/../lib/3partlib/bin
-   cp -rf ./protobuf_output/bin/* $build_3partlib_path/../output/lib/3partlib/bin
+   # bin处理
+   cp -rf ./protobuf_output/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
 
    copySoAndHead
 }
@@ -398,6 +430,9 @@ function build3partLib()
 
    for build_name in $build_3partlib_list  
    do 
+      # 每次初始化存在标签为0
+      exist_cmake_path=0
+      exist_share_path=0
       logInfo "build $build_name begin"
    
       if [ "$build_name"x = "zeromq"x ];then
@@ -440,7 +475,8 @@ function clearBuildPath()
    rm -rf $build_3partlib_path/$zeromq_path/${zeromq_name%%.tar.gz}
    rm -rf $build_3partlib_path/$zeromq_path/${cppzmq_name%%.tar.gz}
    rm -rf $build_3partlib_path/$hiredis_path/${hiredis_name%%.tar.gz}
-   rm -rf $build_3partlib_path/$hiredis_path/${protobuf_name%%.tar.gz}
+   rm -rf $build_3partlib_path/$protobuf_path/${protobuf_name%%.tar.gz}
+   # TODO
 
    logDebug "clearBuildPath end"
 }
@@ -450,7 +486,6 @@ function MAIN()
    logDebug "build_3partlib.sh MAIN begin"
    printBuildInfo
    preDeal
-   #parseConfigFile
    #clearBuildPath
    build3partLib
    #clearBuildPath

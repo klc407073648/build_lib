@@ -98,3 +98,55 @@ run() begin
 run() begin
 createThreads() end
 ```
+
+## 单编
+
+example下单编
+
+```
+docker run -it -d -v /home/klc/auto_job/build_lib/download/build_lib:/home/tools/build_lib --name stibel_build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
+    
+cd ./examples/build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V2.1.1 ..
+```
+
+## 项目发展过程
+
+1. 初始版本V1.0
+
+```
+build.sh            构建脚本
+build_3partlib      第三方库构建
+build_comlib        自封装库构建
+include             生成库头文件存放路径
+lib                 生成库动态库文件存放路径
+```
+
+* 加入Redis
+* 加入yamlcpp
+* 加入sylar的mysql封装库
+* 加入protobuf
+
+2. 迭代版本V2.0
+
+```
+build               构建脚本(第三方库和自封装库的构建),依赖python解析excel获取变量信息
+build_3partlib      第三方库源码
+build_comlib        自封装库源码
+output              包含include和lib文件夹
+```
+
+2. 迭代版本V2.1
+
+```
+build               构建脚本(第三方库和自封装库的构建),依赖python解析excel获取变量信息
+build_3partlib      第三方库源码
+build_comlib        自封装库源码
+examples            加入第三方库和公共库的example  （核心）
+output              包含include和lib文件夹
+```
+
+* 加入guide 各个库的使用md
+* 加入poco
+* 加入drogon
+* 修改cmake，加入.cmake文件模块化处理
