@@ -13,17 +13,8 @@ FILE (GLOB GOOGLETEST_TEST_FILES ${GOOGLETEST_TEST_SRC_DIR}/*.cpp)
 #依赖的LIB
 SET(GOOGLETEST_TEST_LIB  ${LIB_GOOGLETEST} )
 
-#生成动态库，供后续test文件里的用例调用
-ADD_LIBRARY(project1_lib ${GOOGLETEST_TEST_SRC_DIR}/project1.cpp)
-
 #生成 
 ADD_EXECUTABLE( googletest_test ${GOOGLETEST_TEST_FILES})
 
 #连接生成相关库
 TARGET_LINK_LIBRARIES( googletest_test ${GOOGLETEST_TEST_LIB} -lpthread)
-
-################################
-if (BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(test)
-endif()

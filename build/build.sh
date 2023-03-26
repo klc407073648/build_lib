@@ -90,9 +90,9 @@ function build_examples()
 
 	cd ./build
 
-	CMAKE_BUILD_TYPE=`cat $curPath/$config_file |grep "CMAKE_BUILD_TYPE=" |cut -f2 -d'='`
-   	CMAKE_BUILD_VERSION=`cat $curPath/$config_file |grep "CMAKE_BUILD_VERSION=" |cut -f2 -d'='`
-	cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_BUILD_VERSION=${CMAKE_BUILD_VERSION} ..
+	cmake_build_type=`cat $curPath/$config_file |grep "cmake_build_type=" |cut -f2 -d'='`
+   	cmake_build_version=`cat $curPath/$config_file |grep "cmake_build_version=" |cut -f2 -d'='`
+	cmake -DCMAKE_BUILD_TYPE=${cmake_build_type} -DCMAKE_BUILD_VERSION=${cmake_build_version} ..
 	
 	make
 

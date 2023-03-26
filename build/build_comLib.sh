@@ -24,7 +24,7 @@ function buildComlib()
 
    cd $build_comlib_path/build
 
-   cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_BUILD_VERSION=${CMAKE_BUILD_VERSION} ..
+   cmake -DCMAKE_BUILD_TYPE=${cmake_build_type} -DCMAKE_BUILD_VERSION=${cmake_build_version} ..
    make
 
    logDebug "buildComlib end"

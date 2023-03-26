@@ -62,7 +62,7 @@ SUBDIRS(
     )
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "DEBUG")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     if(MYPRJ_BUILD_EXAMPLES)
        message(STATUS "build all examples")
        SUBDIRS(

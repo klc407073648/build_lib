@@ -108,3 +108,57 @@ TEST_F(QueueTest, DequeueWorks) {
   delete n;
 }
 ```
+
+
+## examples下的demo使用
+
+路径: build_lib\examples\examples\3partlib\googletest
+
+
+代码
+
+```cpp
+// 校验当前用户成功
+TEST_F(UserControllerCurrentTest, current_user_check_success)
+{
+    // 前面获取过程忽略
+    EXPECT_EQ("admin", "admin") << "check current user fail.";
+}
+
+// 校验当前用户失败
+TEST_F(UserControllerCurrentTest, current_user_check_fail)
+{
+    // 前面获取过程忽略
+    EXPECT_EQ("admin", "klcadmin") << "check current user fail.";
+}
+```
+
+执行结果:
+
+```
+[root@5d4b980baaa2 build]# ./googletest/googletest_test
+[==========] Running 2 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 2 tests from UserControllerCurrentTest
+[ RUN      ] UserControllerCurrentTest.current_user_check_success
+[       OK ] UserControllerCurrentTest.current_user_check_success (0 ms)
+[ RUN      ] UserControllerCurrentTest.current_user_check_fail
+/home/stibel/examples/examples/3partlib/googletest/source/UserCurrent.cpp:16: Failure
+Expected equality of these values:
+  "admin"
+    Which is: 0x403d60
+  "klcadmin"
+    Which is: 0x403d5d
+check current user fail.
+[  FAILED  ] UserControllerCurrentTest.current_user_check_fail (0 ms)
+[----------] 2 tests from UserControllerCurrentTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] UserControllerCurrentTest.current_user_check_fail
+
+ 1 FAILED TEST
+
+```
