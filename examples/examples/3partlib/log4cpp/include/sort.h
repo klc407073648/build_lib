@@ -9,25 +9,23 @@
 修改日期: 
 ******************************************************************/
 
-#include<vector>
-#include"LoggerManager.h"
+#include <vector>
+#include "LoggerManager.h"
 
 using namespace minilog;
 
 using namespace std;
 
-
 namespace algorithm
 {
-	namespace  sort
+	namespace sort
 	{
-		class Sort 
+		class Sort
 		{
 		public:
 			Sort();
 			~Sort();
 
-			
 		private:
 			DECLARE_STATIC_LOGGERMANAGER();
 		};

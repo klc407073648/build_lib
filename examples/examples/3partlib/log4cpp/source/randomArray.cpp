@@ -1,5 +1,5 @@
-#include"randomArray.h"
-//#include"sort.h"
+#include "randomArray.h"
+// #include"sort.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,7 +12,6 @@ randomArray::randomArray()
 }
 randomArray::~randomArray()
 {
-  
+
   LogError("randomArray End");
 }
-

@@ -111,8 +111,7 @@ int main()
 	}
 	catch (CErrorMsg &cErr)
 	{
-		printf("error code = %d, errmsg=%s\r\n", cErr.get_errorCode(), cErr.get_errorMsg().c_str());
-		return 0;
+		printf("error code = %d, errmsg=%s, hint=%s \n", cErr.get_errorCode(), cErr.get_errorMsg().c_str(),cErr.get_errorHint().c_str());
 	}
 
 	return 0;

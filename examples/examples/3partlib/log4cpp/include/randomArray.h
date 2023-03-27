@@ -8,17 +8,15 @@
 修改日期: 
 ******************************************************************/
 
-
-#include<math.h>
+#include <math.h>
 #include <iostream>
 #include <ctime>
-#include<vector>
-#include"LoggerManager.h"
-
+#include <vector>
+#include "LoggerManager.h"
 
 namespace algorithm
 {
-	namespace  klc
+	namespace klc
 	{
 		class randomArray
 		{
@@ -28,11 +26,8 @@ namespace algorithm
 
 		private:
 			DECLARE_STATIC_LOGGERMANAGER();
-
 		};
 
 	}
 }
 #endif // !_RANDOMARRAR_H_
-
-
