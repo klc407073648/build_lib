@@ -12,7 +12,7 @@ CGI独⽴于任何语⾔的，CGI程序可以⽤任何脚本语⾔或者是完�
 
 ## CGI处理流程
 
-![](../images/fastcgi/cgi处理流程.png)
+![](./images/fastcgi/cgi处理流程.png)
 
 
 处理流程步骤: 
@@ -73,7 +73,7 @@ FastCGI致力于减少Web服务器与CGI程式之间互动的开销，从而使�
 
 ## FastCGI处理流程
 
-![](../images/fastcgi/fastcgi处理流程.png)
+![](./images/fastcgi/fastcgi处理流程.png)
 
 处理流程步骤: 
 
