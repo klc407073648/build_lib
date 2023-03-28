@@ -101,8 +101,7 @@ spawn-fcgi是一个通用的FastCGI进程管理器，简单小巧，原先是属
 
 spawn-fcgi使用 pre-fork 模型，功能主要是打开监听端口，绑定地址，然后 fork-and-exec 创建我们编写的FastCGI应用程序进程，退出完成工作。FastCGI应用程序初始化，然后进入**死循环侦听socket的连接请求**。
 
-
-## examples下的demo使用
+# examples下的demo使用
 
 路径: build_lib\examples\examples\3partlib\fastcgi
 

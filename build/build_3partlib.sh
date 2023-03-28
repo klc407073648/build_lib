@@ -332,7 +332,7 @@ function build_poco()
    build_lib_path=./poco_output/lib
 
    # bin处理
-   cp -rf ./log4cpp_output/bin/* $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf ./poco_output/bin/* $build_3partlib_path/../output/lib/3partlib/bin
 
    copySoAndHead
 }

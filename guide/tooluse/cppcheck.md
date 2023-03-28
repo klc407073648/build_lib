@@ -1,4 +1,4 @@
-#centos下面使用cppcheck
+# centos下面使用cppcheck
 
 1.github官网下载tar.gz包
 

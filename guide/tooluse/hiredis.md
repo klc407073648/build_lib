@@ -15,7 +15,7 @@
 
 Hiredis仅支持二进制安全(binary-safe)的Redis协议，因此您可以将其与任何Redis版本(> = 1.2.0)配合使用。
 
-该库带有多个API，**有同步API，异步API和答复解析API**。
+该库带有多个API，**有同步API，异步API和答复解析API(重要)**。
 
 ## Synchronous API
 
@@ -306,7 +306,7 @@ context->reader->maxbuf = 0;
 
 这应该只是为了在处理大型有效载荷时使性能最大化。 应尽快将上下文重新设置为REDIS_READER_MAX_BUF，以防止分配无用的内存。
 
-## examples下的demo使用
+# examples下的demo使用
 
 路径: build_lib\examples\examples\3partlib\hiredis
 
@@ -339,8 +339,7 @@ int main()
     }
     catch (CErrorMsg &cErr)
 	{
-		printf("error code = %d, errmsg=%s\r\n", cErr.get_errorCode(), cErr.get_errorMsg().c_str());
-		return 0;
+		printf("error code = %d, errmsg=%s, hint=%s \n", cErr.get_errorCode(), cErr.get_errorMsg().c_str(),cErr.get_errorHint().c_str());
 	}
 
 	return 0;
@@ -351,67 +350,14 @@ int main()
 执行结果:
 
 ```
+# 正常结果
 [root@5d4b980baaa2 3partlib]#./hiredis/hiredis_Test
 connect success!
-1
-world
-**************zadd****************
-1
-1
-1
-1
-1
-**************zrange(3,6)****************
-member4
-member5
-check connect: 1
-*************zrangebysocre(0,2)***************
-member1
-member2
-check connect: 1
-***************zrem*************************
-1
-1
-check connect: 1
-hello:world
-null
-1
-0
-1
-2
-3
-item2
-item1
-item0
-1
-1
-1
-1
-***********smember:*************
-test4
-test2
-test1
-test3
-1
-0
-0
-0
-0
-1
-1
-0
-1
-key1
-value1
-key2
-value2
-key3
-value3
-value1
-value3
+...
 
-1
-0
+# 异常结果
+[root@5d4b980baaa2 3partlib]# ./hiredis/hiredis_Test
+error code = 1, errmsg=Connection refused, hint=connect error!
 ```
 
 
