@@ -60,16 +60,7 @@ int main(int args, char *argv[])
     JsonUtil::printJson(value);
 
     std::cout << "------File func test---------" << std::endl;
-    std::string curPath = StiBel::ShellUtil::execShellPipe("pwd");
-
-    // 查找换行符的位置
-    int pos = curPath.find_last_of('\n');
-
-    // 如果找到了换行符
-    if (pos != std::string::npos)
-    {
-        curPath.erase(pos, 1); // 在换行符的位置删除一个字符，即删除换行符
-    }
+    std::string curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
     normalPath = curPath + normalPath;
     arrayPath = curPath + arrayPath;

@@ -13,8 +13,6 @@ set(CMAKE_PREFIX_PATH               "/home/test/examples/lib/3partlib/lib64/cmak
 #execute_process(COMMAND sh -c "sed -i \"/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES ${DROGON_PATH}/include/\" ${3PART_BIN_OUTPUT_PATH}/../lib64/cmake/Drogon/DrogonTargets.cmake")
 #exec_program("sed -i \"/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${TRANTOR_INCLUDE}/\"" ${3PART_BIN_OUTPUT_PATH}/../lib64/cmake/Drogon/TrantorTargets.cmake")
 
-
-	  
 #代码列表
 FILE (GLOB DROGONTEST_FILES ${DROGONTEST_SRC_DIR}/*.cc)
 

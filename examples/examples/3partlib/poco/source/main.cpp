@@ -11,7 +11,6 @@
 #include <Poco/DOM/Comment.h>  // Poco::XML::Comment
 #include <Poco/DOM/DOMWriter.h> // Poco::XML::DOMWriter
 #include <Poco/XML/XMLWriter.h> // Poco::XML::XMLWriter
-
 #include <Poco/DOM/DOMParser.h>
 #include <Poco/DOM/Document.h>
 #include <Poco/DOM/Node.h>
