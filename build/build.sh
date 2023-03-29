@@ -110,7 +110,7 @@ function build_tar_file()
 	#buildTime=`date +"%Y%m%d"`
 	#tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
 
-	versionNum=`cat $curPath/$config_file |grep "CMAKE_BUILD_VERSION=" |cut -f2 -d'='`
+	versionNum=`cat $curPath/$config_file |grep "cmake_build_type=" |cut -f2 -d'='`
 	
 	tar zcvf StiBel_${versionNum}.tar.gz ./include ./lib
 
