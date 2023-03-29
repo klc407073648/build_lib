@@ -1,6 +1,6 @@
 # yaml-cpp
 
-用于记录学习中的各类笔记，采用md格式记录。
+# 参考资料
 
 * [yaml-cpp学习笔记](https://blog.csdn.net/weixin_43860854/article/details/109624576)
 * [yaml-cpp介绍](https://blog.csdn.net/xhtchina/article/details/113868147)
@@ -149,16 +149,7 @@ std::string curPath;
 
 int main(int argc, char **argv)
 {
-    curPath = StiBel::ShellUtil::execShellPipe("pwd");
-
-    // 查找换行符的位置
-    int pos = curPath.find_last_of('\n');
-
-    // 如果找到了换行符
-    if (pos != std::string::npos)
-    {
-        curPath.erase(pos, 1); // 在换行符的位置删除一个字符，即删除换行符
-    }
+    curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
     cout << "读取指定文件内容" << endl;
     std::string fileName = curPath + rootPath + "config1.yml";
