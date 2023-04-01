@@ -1,3 +1,0 @@
-name: "test"
-id: 100
-email: "a.iabc.com"

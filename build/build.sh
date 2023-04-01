@@ -90,6 +90,8 @@ function build_examples()
 
 	cd ./build
 
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$curPath/../examples/lib/3partlib
+
 	cmake_build_type=`cat $curPath/$config_file |grep "cmake_build_type=" |cut -f2 -d'='`
    	cmake_build_version=`cat $curPath/$config_file |grep "cmake_build_version=" |cut -f2 -d'='`
 	cmake -DCMAKE_BUILD_TYPE=${cmake_build_type} -DCMAKE_BUILD_VERSION=${cmake_build_version} ..
@@ -110,7 +112,7 @@ function build_tar_file()
 	#buildTime=`date +"%Y%m%d"`
 	#tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
 
-	versionNum=`cat $curPath/$config_file |grep "cmake_build_type=" |cut -f2 -d'='`
+	versionNum=`cat $curPath/$config_file |grep "cmake_build_version=" |cut -f2 -d'='`
 	
 	tar zcvf StiBel_${versionNum}.tar.gz ./include ./lib
 

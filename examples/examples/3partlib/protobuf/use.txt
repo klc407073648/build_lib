@@ -3,6 +3,4 @@
 3.g++ -g -o test_person test_person.cpp ./person.pb.cc -I. -lprotobuf -pthread -std=c++11
 4../test_person 
 
-
-
 https://www.zhangshengrong.com/p/P71Mo5o0Nd/

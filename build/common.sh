@@ -13,8 +13,8 @@ export build_3partlib_list='$COMP_3PARTLIB_LIST'
 export build_comlib_list='$COMP_COMLIB_LIST'
 
 # cmake构建类型、构建版本、tar.gz是否保留静态库
-export cmake_build_type='$CMAKE_BUILD_TYPE'
-export cmake_build_version='$CMAKE_BUILD_VERSION'
+export cmake_build_type=$CMAKE_BUILD_TYPE
+export cmake_build_version=$CMAKE_BUILD_VERSION
 export is_use_static_lib=$IS_USE_STATIC_LIB
 
 #第三方库组件:名称与包全名的映射 componentName2tarName

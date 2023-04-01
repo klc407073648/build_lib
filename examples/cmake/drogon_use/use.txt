@@ -1,0 +1,24 @@
+在项目的CMakeLists.txt里完成对drogon的处理，具体是调用drogon.sh 
+
+set(CMAKE_PREFIX_PATH   "${CMAKE_CURRENT_SOURCE_DIR}/lib/3partlib/lib64/cmake")
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/SpecialDeal.cmake)
+
+
+drogon脚本内容：
+
+将StiBel中drogon相关的内容，复制到/lib64/cmake 和 /lib64 ，完成头文件的替换，具体可以看cmd-terminal\cpp-backend
+
+mkdir -p ${CMAKE_3PART_LIB_PATH}/lib64/cmake
+
+cp -rf ${CMAKE_3PART_LIB_PATH}/cmake/Drogon  ${CMAKE_3PART_LIB_PATH}/lib64/cmake
+cp -rf ${CMAKE_3PART_LIB_PATH}/cmake/Trantor  ${CMAKE_3PART_LIB_PATH}/lib64/cmake
+
+cp -rf ${CMAKE_3PART_LIB_PATH}/*drogon*  ${CMAKE_3PART_LIB_PATH}/lib64/
+cp -rf ${CMAKE_3PART_LIB_PATH}/*trantor* ${CMAKE_3PART_LIB_PATH}/lib64/
+
+
+DROGON_PATH=${CMAKE_3PART_INC_PATH}/drogon
+sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${DROGON_PATH}/include/\"" ${CMAKE_3PART_LIB_PATH}/lib64/cmake/Drogon/DrogonTargets.cmake
+
+TRANTOR_PATH=${CMAKE_3PART_INC_PATH}/trantor
+sed -i "/INTERFACE_INCLUDE_DIRECTORIES*/c\INTERFACE_INCLUDE_DIRECTORIES \"${TRANTOR_PATH}/include/\"" ${CMAKE_3PART_LIB_PATH}/lib64/cmake/Trantor/TrantorTargets.cmake

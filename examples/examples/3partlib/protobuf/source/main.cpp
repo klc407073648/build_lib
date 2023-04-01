@@ -78,9 +78,11 @@ void test2Fun()
     std::cout << "time:" << temp_record.time() << " kill:" << temp_record.kill() << " dead:" << temp_record.dead() << " assist:" << temp_record.assist() << std::endl;
   }
 }
+
 int main()
 {
   test1Fun();
   test2Fun();
+
   return 0;
 }
