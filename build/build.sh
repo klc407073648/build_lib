@@ -1,12 +1,11 @@
 #!/bin/bash
 #curPath="/home/stibel"
 #mkdir -p $curPath
-curPath=`pwd`
+curPath=$(pwd)
 versionNum=''
-echo "curPath=$curPath"
 config_file='common.sh'
 
-function preDeal()
+function preDeal() 
 {
 	echo "bgein to preDeal"
 
@@ -25,8 +24,7 @@ function preDeal()
 	echo "end to preDeal"
 }
 
-function parseExcel()
-{
+function parseExcel() {
 	echo "bgein to parseExcel"
 
 	cd $curPath
@@ -38,8 +36,7 @@ function parseExcel()
 	echo "end to parseExcel"
 }
 
-function build_3partlib()
-{
+function build_3partlib() {
 	echo "bgein to build 3partlib"
 
 	cd $curPath
@@ -51,8 +48,7 @@ function build_3partlib()
 	echo "end to build 3partlib"
 }
 
-function build_comlib()
-{
+function build_comlib() {
 	echo "bgein to build comlib"
 
 	cd $curPath
@@ -64,22 +60,39 @@ function build_comlib()
 	echo "end to build comlib"
 }
 
-function static_lib_deal()
-{
+function static_lib_deal() {
 	echo "bgein to static lib deal"
 
 	cd $curPath
 
-	if [ $IS_USE_STATIC_LIB -eq $not_use_static_lib ];then 
-      cd $curPath/../output/lib/3partlib/
-	  rm -rf ./*.a
-	  echo "delete static lib file *.a"
-    fi
+	if [ $IS_USE_STATIC_LIB -eq $not_use_static_lib ]; then
+		cd $curPath/../output/lib/3partlib/
+		rm -rf ./*.a
+		echo "delete static lib file *.a"
+	fi
 
 	echo "end to static lib deal"
 }
 
-function build_examples()
+function build_tar_file() 
+{
+	echo "build_tar_file begin"
+
+	cd $curPath/../output
+
+	#buildTime=`date +"%Y%m%d"`
+	#tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
+
+	versionNum=$(cat $curPath/$config_file | grep "cmake_build_version=" | cut -f2 -d'=')
+
+	tar zcvf StiBel_${versionNum}.tar.gz ./include ./lib
+
+	checkBuildResult build_tar_file
+
+	echo "build_tar_file end"
+}
+
+function build_examples() 
 {
 	echo "build_examples begin"
 
@@ -92,56 +105,38 @@ function build_examples()
 
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$curPath/../examples/lib/3partlib
 
-	cmake_build_type=`cat $curPath/$config_file |grep "cmake_build_type=" |cut -f2 -d'='`
-   	cmake_build_version=`cat $curPath/$config_file |grep "cmake_build_version=" |cut -f2 -d'='`
+	cmake_build_type=$(cat $curPath/$config_file | grep "cmake_build_type=" | cut -f2 -d'=')
+	cmake_build_version=$(cat $curPath/$config_file | grep "cmake_build_version=" | cut -f2 -d'=')
 	cmake -DCMAKE_BUILD_TYPE=${cmake_build_type} -DCMAKE_BUILD_VERSION=${cmake_build_version} ..
-	
+
 	make
 
 	checkBuildResult build_examples
-	
+
 	echo "build_examples end"
 }
 
-function build_tar_file()
+function checkBuildResult() 
 {
-	echo "build_tar_file begin"
-
-	cd $curPath/../output
-
-	#buildTime=`date +"%Y%m%d"`
-	#tar zcvf StiBel_${buildTime}.tar.gz ./include ./lib
-
-	versionNum=`cat $curPath/$config_file |grep "cmake_build_version=" |cut -f2 -d'='`
-	
-	tar zcvf StiBel_${versionNum}.tar.gz ./include ./lib
-
-	checkBuildResult build_tar_file
-
-	echo "build_tar_file end"
+	if [ $? -ne 0 ]; then
+		echo "check $1 fail"
+		exit 1
+	else
+		echo "check $1 success"
+	fi
 }
 
-function checkBuildResult()
+function MAIN() 
 {
-   if [ $? -ne 0 ];then
-       echo "check $1 fail"
-       exit 1
-   else
-       echo "check $1 success"
-   fi
-}
-
-function MAIN()
-{
-   echo "build.sh MAIN begin"
-   preDeal
-   parseExcel
-   build_3partlib
-   build_comlib
-   static_lib_deal
-   build_tar_file
-   build_examples
-   echo "build.sh MAIN end" 
+	echo "build.sh MAIN begin"
+	preDeal
+	parseExcel
+	build_3partlib
+	build_comlib
+	static_lib_deal
+	build_tar_file
+	build_examples
+	echo "build.sh MAIN end"
 }
 
 MAIN

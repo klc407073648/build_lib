@@ -7,6 +7,7 @@ zeromq_path='zeromq'
 log4cpp_path='log4cpp'
 drogon_path='drogon'
 jsoncpp_path='jsoncpp'
+uuid_path='uuid'
 
 function preDeal()
 {
@@ -156,9 +157,9 @@ function build_zeromq_libzmq()
 function build_drogon()
 {
    #安装依赖
-   yum install -y libuuid-devel
-   yum install -y openssl-devel
-   yum install -y zlib-devel
+   #yum install -y libuuid-devel
+   #yum install -y openssl-devel
+   #yum install -y zlib-devel
 
    #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64
    #export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib64
@@ -186,10 +187,15 @@ function build_trantor()
 
    mv ${cur_build_name%%.tar.gz} trantor
 
+   # 设置drogon编译时，依赖的库
    JSONCPP_INCLUDE=$build_3partlib_path/../output/include/3partlib/jsoncpp/include
+   OPENSSL_INCLUDE=$build_3partlib_path/../output/include/3partlib/openssl/include
+   ZLIB_INCLUDE=$build_3partlib_path/../output/include/3partlib/zlib/include
+   UUID_INCLUDE=$build_3partlib_path/../output/include/3partlib/uuid/include
+   COMM_INCLUDE="${JSONCPP_INCLUDE} ${OPENSSL_INCLUDE} ${ZLIB_INCLUDE} ${UUID_INCLUDE}"
    COMM_DIR=$build_3partlib_path/../output/lib/3partlib
 
-   sed -i "/cmake_minimum_required/a\set(CMAKE_INCLUDE_PATH  ${JSONCPP_INCLUDE})" CMakeLists.txt
+   sed -i "/cmake_minimum_required/a\set(CMAKE_INCLUDE_PATH  ${COMM_INCLUDE})" CMakeLists.txt
    sed -i "/cmake_minimum_required/a\set(CMAKE_LIBRARY_PATH  ${COMM_DIR})" CMakeLists.txt
 
    mkdir drogon_output
@@ -320,7 +326,7 @@ function build_spawn_fcgi()
 
 function build_poco()
 {
-   yum install -y mysql mysql-devel openssl-devel
+   yum install -y mysql mysql-devel
    
    mkdir -p poco_output
 
@@ -424,17 +430,73 @@ function build_googletest()
    copySoAndHead
 }
 
+function build_openssl()
+{
+   mkdir -p openssl_output
+   
+   yum -y install perl-IPC-Cmd perl-Digest-MD5 perl-CPAN
+
+   ./config fips --shared --prefix=$cur_target_build_path/openssl_output
+
+   make -j4 && make install
+
+   build_include_path=./openssl_output/include
+   build_lib_path=./openssl_output/lib64
+
+   # bin和share处理
+   cp -rf ./openssl_output/bin/*    $build_3partlib_path/../output/lib/3partlib/bin
+   cp -rf ./openssl_output/share/*  $build_3partlib_path/../output/lib/3partlib/share
+   cp -rf ./openssl_output/ssl      $build_3partlib_path/../output/lib/3partlib/
+
+   copySoAndHead
+}
+
+function build_zlib()
+{
+   mkdir -p zlib_output
+   
+   ./configure  --prefix=$cur_target_build_path/zlib_output
+
+   make -j4  && make install
+
+   build_include_path=./zlib_output/include
+   build_lib_path=./zlib_output/lib
+
+   cp -rf ./zlib_output/share/*  $build_3partlib_path/../output/lib/3partlib/share
+
+   copySoAndHead
+}
+
+function build_uuid()
+{
+   cd $build_3partlib_path/$uuid_path
+   cur_build_name=${comp2tar[$build_name]} 
+   tar -zxvf ${cur_build_name}
+
+   uuid_build_path=${cur_build_name%%.tar.gz}
+   cd ./$uuid_build_path
+
+   mkdir -p uuid_output
+   
+   ./configure  --prefix=$build_3partlib_path/$uuid_path/$uuid_build_path/uuid_output
+
+   make -j4  && make install
+
+   build_include_path=./uuid_output/include
+   build_lib_path=./uuid_output/lib
+
+   copySoAndHead
+}
+
 function build3partLib()
 {
    logDebug "build3partLib begin" 
 
    for build_name in $build_3partlib_list  
    do 
-      # 每次初始化存在标签为0
-      exist_cmake_path=0
-      exist_share_path=0
       logInfo "build $build_name begin"
    
+      #各个if分支是特殊构建流程,else里是其他库的通用处理流程
       if [ "$build_name"x = "zeromq"x ];then
            build_zeromq_libzmq
            build_zeromq_cppzmq
@@ -448,6 +510,8 @@ function build3partLib()
       elif [ "$build_name"x = "drogon"x ];then
            build_drogon
            build_trantor
+      elif [ "$build_name"x = "uuid"x ];then
+           build_uuid
       else
            cur_build_name=${comp2tar[$build_name]} ##获取构建组件所对应的tar.gz名称
            cur_build_path=${cur_build_name%%-*} ##获取-前缀内容，一般为tar.gz的存放目录

@@ -2,13 +2,13 @@
 #export build_3partlib_list='cppcheck cppunit fastcgi redis jsoncpp log4cpp tinyxml yamlcpp zeromq'
 #export build_comlib_list='Common Data/MySQL Data/Redis JSON Log'
 
-export build_3partlib_list='fastcgi redis jsoncpp log4cpp tinyxml yamlcpp'
-export build_comlib_list='Common JSON Log'
-export deploy_3partlib_path='deploy/3partlib'
-export deploy_comlib_path='deploy/comlib'
-export pass_log='pass.log'
-export fail_log='fail.log'
-export curPath=`pwd`
+build_3partlib_list='fastcgi redis jsoncpp log4cpp tinyxml yamlcpp'
+build_comlib_list='Common JSON Log'
+deploy_3partlib_path='deploy/3partlib'
+deploy_comlib_path='deploy/comlib'
+pass_log='pass.log'
+fail_log='fail.log'
+curPath=`pwd`
 
 function verify_3partlib() {
     echo "bgein to verify 3partlib"

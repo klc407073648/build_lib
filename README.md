@@ -107,10 +107,10 @@ example下单编
 docker run -it -d -v /home/klc/auto_job/build_lib/download/build_lib:/home/tools/build_lib --name stibel_build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
     
 cd ./examples/build
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/stibel/build_lib/examples/lib/3partlib
+
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V2.1.1 ..
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V1.1.0 ..
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/stibel/examples/lib/3partlib
 ```
 
 ## 项目发展过程
