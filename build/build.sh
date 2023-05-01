@@ -155,6 +155,7 @@ function MAIN()
 	static_lib_deal
 	build_tar_file
 	build_examples
+	build_tar_with_cmake
 	echo "build.sh MAIN end"
 }
 
