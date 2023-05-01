@@ -110,7 +110,6 @@ cd ./examples/build
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/stibel/build_lib/examples/lib/3partlib
 
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V2.1.1 ..
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V1.1.0 ..
 ```
 
 ## 项目发展过程

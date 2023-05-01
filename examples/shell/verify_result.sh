@@ -2,6 +2,7 @@
 #export build_3partlib_list='cppcheck cppunit fastcgi redis jsoncpp log4cpp tinyxml yamlcpp zeromq'
 #export build_comlib_list='Common Data/MySQL Data/Redis JSON Log'
 
+# 是否截取构建时，需要构建的列表进行校验，且需要提出一些zeromq需要等待的内容
 build_3partlib_list='fastcgi redis jsoncpp log4cpp tinyxml yamlcpp'
 build_comlib_list='Common JSON Log'
 deploy_3partlib_path='deploy/3partlib'

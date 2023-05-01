@@ -96,8 +96,9 @@ function build_log4cpp()
 
    mkdir -p  log4cpp_output
 
+   #autogen.sh 需要依赖 libtool
    yum install -y libtool
-   ./autogen.sh    #需要yum install libtool
+   ./autogen.sh    
    ./configure  --prefix=$build_3partlib_path/$log4cpp_path/$log4cpp_build_path/log4cpp_output
 
    make -j4  && make install
@@ -156,14 +157,7 @@ function build_zeromq_libzmq()
 
 function build_drogon()
 {
-   #安装依赖
-   #yum install -y libuuid-devel
-   #yum install -y openssl-devel
-   #yum install -y zlib-devel
-
-   #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64
-   #export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib64
-   #source /etc/profile
+   # 通过源码安装依赖: jsoncpp openssl zlib uuid，删除yum内容
 
    cd $build_3partlib_path/$drogon_path
    cur_build_name=${comp2tar["drogon"]} 
@@ -326,6 +320,7 @@ function build_spawn_fcgi()
 
 function build_poco()
 {
+   # 待解决mysql的yum安装
    yum install -y mysql mysql-devel
    
    mkdir -p poco_output
@@ -434,6 +429,7 @@ function build_openssl()
 {
    mkdir -p openssl_output
    
+   # 一次性依赖perl内容，不考虑源码安装perl
    yum -y install perl-IPC-Cmd perl-Digest-MD5 perl-CPAN
 
    ./config fips --shared --prefix=$cur_target_build_path/openssl_output

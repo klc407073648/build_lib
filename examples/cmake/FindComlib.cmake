@@ -1,4 +1,5 @@
 # 自封装应用库校验
+MESSAGE (STATUS "FindComlib begin")
 
 ## 自封装应用库是否存在
 find_library(STIBEL_COMMON_LIBRARY  NAMES StiBel_common_${LIB_VERSION})
@@ -18,3 +19,5 @@ FOREACH(STIBEL_LIB ${STIBEL_LIBS})
     message(STATUS "not found STIBEL_${STIBEL_LIB}_LIBRARY")
   endif()
 ENDFOREACH()
+
+MESSAGE (STATUS "FindComlib end")

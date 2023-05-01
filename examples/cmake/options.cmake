@@ -1,3 +1,11 @@
+MESSAGE (STATUS "options set begin")
+
+# 设置C++编译选项
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
+
+#设置是否生成共享库
+SET(BUILD_SHARED_LIBS ON)
+
 # 构建类型
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")
@@ -12,10 +20,4 @@ else()
   set(LIB_VERSION ${CMAKE_BUILD_VERSION})
 endif()
 
-# 构建examples
-if(CMAKE_BUILD_PROJECT_OPTION STREQUAL "all")
-  option(MYPRJ_BUILD_EXAMPLES "Build All examples" ON)
-endif()
-
-#构建测试用例
-option(BUILD_TESTS "Build all tests." ON) 
+MESSAGE (STATUS "options set end")

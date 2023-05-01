@@ -103,7 +103,7 @@ function build_examples()
 
 	cd ./build
 
-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$curPath/../examples/lib/3partlib
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$curPath/../examples/lib/3partlib:$curPath/../examples/lib/comlib
 
 	cmake_build_type=$(cat $curPath/$config_file | grep "cmake_build_type=" | cut -f2 -d'=')
 	cmake_build_version=$(cat $curPath/$config_file | grep "cmake_build_version=" | cut -f2 -d'=')
@@ -114,6 +114,25 @@ function build_examples()
 	checkBuildResult build_examples
 
 	echo "build_examples end"
+}
+
+function build_tar_with_cmake() 
+{
+	echo "build_tar_with_cmake begin"
+
+	rm -rf $curPath/../examples/StiBel_${versionNum}.tar.gz
+
+	rm -rf $curPath/../output/StiBel_${versionNum}.tar.gz
+
+	cd $curPath/../examples
+
+	tar zcvf StiBel_${versionNum}.tar.gz ./include ./lib ./cmake ./conf
+
+	cp $curPath/../examples/StiBel_${versionNum}.tar.gz $curPath/../output
+
+	checkBuildResult build_tar_with_cmake
+
+	echo "build_tar_with_cmake end"
 }
 
 function checkBuildResult() 
