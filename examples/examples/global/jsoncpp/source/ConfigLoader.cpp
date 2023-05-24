@@ -33,43 +33,38 @@ namespace StiBel
     ConfigLoader::ConfigLoader(const ConfigFile &config) : _config(config)
     {
         initMap();
-        callFunc(_config.getFileType(), _config.getName());
+        _loadFileType = _config.getFileType();
+        std::cout << "fileType:" << _loadFileType << ", name:" << _config.getName() << std::endl;
+        callFunc(_loadFileType, _config.getName());
     }
 
     ConfigLoader::ConfigLoader(ConfigFile &&config)
         : _config(std::move(config))
     {
-        initMap();
     }
 
     ConfigLoader::ConfigLoader(const Json::Value &data) : _jsonValue(data)
     {
-        initMap();
     }
 
     ConfigLoader::ConfigLoader(Json::Value &&data) : _jsonValue(std::move(data))
     {
-        initMap();
     }
 
     ConfigLoader::ConfigLoader(const TiXmlDocument &data) : _xmlValue(data)
     {
-        initMap();
     }
 
     ConfigLoader::ConfigLoader(TiXmlDocument &&data) : _xmlValue(std::move(data))
     {
-        initMap();
     }
 
     ConfigLoader::ConfigLoader(const YAML::Node &data) : _yamlValue(data)
     {
-        initMap();
     }
 
     ConfigLoader::ConfigLoader(YAML::Node &&data) : _yamlValue(std::move(data))
     {
-        initMap();
     }
 
     ConfigLoader::~ConfigLoader()
@@ -87,9 +82,52 @@ namespace StiBel
         if (!reader.parse(infile, value))
         {
             std::cout << "parse " << name << " fail!" << std::endl;
+            return;
         }
 
         _jsonValue = value;
+    }
+
+    void ConfigLoader::loadXmlConfig(const std::string &name)
+    {
+        TiXmlDocument value;
+
+        if (!value.LoadFile(name.c_str()))
+        {
+            std::cout << "can not parse xml:" << name << std::endl;
+            return;
+        }
+
+        _xmlValue = value;
+    }
+
+    void ConfigLoader::loadYamlConfig(const std::string &name)
+    {
+        YAML::Node value;
+
+        try
+        {
+            value = YAML::LoadFile(name);
+        }
+        catch (std::exception &e)
+        {
+            std::cout << "can not parse yaml:" << name << std::endl;
+            return;
+        }
+
+        _yamlValue = value;
+    }
+
+    void ConfigLoader::loadExcelXlsxConfig(const std::string &name)
+    {
+    }
+
+    void ConfigLoader::loadExcelXlsConfig(const std::string &name)
+    {
+    }
+
+    void ConfigLoader::loadExcelCsvConfig(const std::string &name)
+    {
     }
 
     void ConfigLoader::printJson(const Json::Value &data)
@@ -132,23 +170,60 @@ namespace StiBel
         return;
     }
 
-    void ConfigLoader::loadXmlConfig(const std::string &name)
+    void ConfigLoader::printXml(const TiXmlElement *element)
     {
+        for (TiXmlElement *nodeEle = element->FirstChildElement(); nodeEle; nodeEle = nodeEle->NextSiblingElement())
+        {
+            TiXmlElement *tempEle = nodeEle;
+            if (nodeEle->GetText() != NULL)
+            {
+                std::string tag = nodeEle->Value();
+                std::string content = nodeEle->GetText();
+                std::cout << tag << ":" << content << std::endl;
+            }
+
+            if (!tempEle->NoChildren())
+            {
+                printXml(tempEle);
+            }
+        }
     }
 
-    void ConfigLoader::loadYamlConfig(const std::string &name)
+    void ConfigLoader::printYaml(const YAML::Node &node)
     {
-    }
-
-    void ConfigLoader::loadExcelXlsxConfig(const std::string &name)
-    {
-    }
-
-    void ConfigLoader::loadExcelXlsConfig(const std::string &name)
-    {
-    }
-
-    void ConfigLoader::loadExcelCsvConfig(const std::string &name)
-    {
+        // 获取类型
+        for (YAML::const_iterator it = node.begin(); it != node.end(); ++it)
+        {
+            std::string key = it->first.as<std::string>();
+            YAML::Node value = it->second;
+            switch (value.Type())
+            {
+            case YAML::NodeType::Scalar:
+                std::cout << "Scalar " << key << ":" << value << std::endl;
+                break;
+            case YAML::NodeType::Sequence:
+                std::cout << "Sequence " << key << ":" << std::endl;
+                for (size_t i = 0; i < value.size(); i++)
+                {
+                    std::cout << " " << value[i];
+                }
+                std::cout << std::endl;
+                break;
+            case YAML::NodeType::Map:
+                std::cout << "Map " << std::endl;
+                for (auto it = value.begin(); it != value.end(); ++it)
+                {
+                    std::cout << (it->first).as<std::string>() << ':' << std::endl;
+                    printYaml(it->second);
+                }
+                break;
+            case YAML::NodeType::Null:
+                std::cout << "Null: " << key << std::endl;
+                break;
+            case YAML::NodeType::Undefined:
+                std::cout << "Undefined: " << key << std::endl;
+                break;
+            }
+        }
     }
 }

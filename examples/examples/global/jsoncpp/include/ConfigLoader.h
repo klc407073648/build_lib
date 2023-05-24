@@ -72,6 +72,8 @@ namespace StiBel
 
     // for test
     void printJson(const Json::Value &data);
+    void printXml(const TiXmlElement *element);
+    void printYaml(const YAML::Node &node);
 
   private:
     /* 加载各类配置文件的具体实现 */
@@ -84,7 +86,7 @@ namespace StiBel
 
   private:
     /**
-     * @brief 初始化 configFuncMap
+     * @brief 初始化 configFuncMap，仅ConfigFile的构造函数需要，其他函数默认以对应数据类型进行构造
      */
     void initMap();
 
@@ -95,12 +97,13 @@ namespace StiBel
      * @param name
      */
     void callFunc(FileType type, const std::string &name);
-    
+
   private:
     ConfigFile _config;
     Json::Value _jsonValue;
     TiXmlDocument _xmlValue;
     YAML::Node _yamlValue;
+    FileType _loadFileType;       // 加载文件类型
     configFuncMap _configFuncMap; // 配置函数映射
     //  读写锁
   };
