@@ -33,7 +33,7 @@ namespace StiBel
   class ConfigFile
   {
   public:
-    ConfigFile() {}
+    ConfigFile();
     /**
      * @brief 构造函数
      *

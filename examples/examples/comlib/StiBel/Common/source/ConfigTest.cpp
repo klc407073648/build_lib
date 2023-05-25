@@ -7,46 +7,44 @@ using StiBel::Config;
 void fun2()
 {
     //
-    std::map<std::string, std::map<std::string, std::string> > m_configMap;
-    std::map<std::string, std::string> m_map1,m_map2;
-    //数据库的参数
-    m_map1["host"]="127.0.0.1:6379";
-    m_map1["type"]="redis";
-	m_map1["passwd"]="klczxas741789";
-	m_map1["timeout"]="100";
-	m_map1["name"]="redis_1";
-    m_map1["pool"]="2";
-    m_configMap["redis_1"]=m_map1;
+    std::map<std::string, std::map<std::string, std::string>> m_configMap;
+    std::map<std::string, std::string> m_map1, m_map2;
+    // 数据库的参数
+    m_map1["host"] = "127.0.0.1:6379";
+    m_map1["type"] = "redis";
+    m_map1["passwd"] = "klczxas741789";
+    m_map1["timeout"] = "100";
+    m_map1["name"] = "redis_1";
+    m_map1["pool"] = "2";
+    m_configMap["redis_1"] = m_map1;
 
-    m_map2["host"]="127.0.0.1:6380";
-    m_map2["type"]="redis";
-	//m_map2["passwd"]="klczxas741789";
-	m_map2["timeout"]="100";
-	m_map2["name"]="redis_2";
-    m_map2["pool"]="2";
-    m_configMap["redis_2"]=m_map2;
+    m_map2["host"] = "127.0.0.1:6380";
+    m_map2["type"] = "redis";
+    // m_map2["passwd"]="klczxas741789";
+    m_map2["timeout"] = "100";
+    m_map2["name"] = "redis_2";
+    m_map2["pool"] = "2";
+    m_configMap["redis_2"] = m_map2;
+
+    // redis_1操作
+    Config m_Config("my_config_test", m_configMap);
+
+    cout << "m_Config->toString():" << m_Config.toString() << endl;
+    string str = "redis_2";
+    cout << "m_Config[redis_2][host]:" << (m_Config.getParams(str))["host"] << endl;
+    std::map<std::string, std::string> m_map3 = m_Config[str];
+    cout << "m_Config[redis_2][timeout]:" << m_map3["timeout"] << endl;
+
+    /*
+    Config *m_Config=new Config("my_config_test",m_configMap);
 
 
-    //redis_1操作
-    Config m_Config("my_config_test",m_configMap);
-	
-	
-    cout << "m_Config->toString():"<<m_Config.toString() << endl;
-	string str="redis_2";
-	cout << "m_Config[redis_2][host]:"<<(m_Config.getParams(str))["host"] << endl;
-	std::map<std::string, std::string> m_map3=m_Config[str];
-	cout << "m_Config[redis_2][timeout]:"<<m_map3["timeout"] << endl;
-	
-	/*
-	Config *m_Config=new Config("my_config_test",m_configMap);
-	
-	
     cout << "m_Config->toString():"<<m_Config->toString() << endl;
-	string str="redis_2";
-	cout << "m_Config[redis_2][host]:"<<(m_Config->getParams(str))["host"] << endl;
-	std::map<std::string, std::string> m_map3=m_Config->[str];//指针就无法使用了
-	cout << "m_Config[redis_2][timeout]:"<<m_map3["timeout"] << endl;
-	*/
+    string str="redis_2";
+    cout << "m_Config[redis_2][host]:"<<(m_Config->getParams(str))["host"] << endl;
+    std::map<std::string, std::string> m_map3=m_Config->[str];//指针就无法使用了
+    cout << "m_Config[redis_2][timeout]:"<<m_map3["timeout"] << endl;
+    */
 }
 /*
 [root@VM-0-10-centos new]# ./ConfigTest

@@ -11,6 +11,10 @@ namespace StiBel
         {".csv", EXCEL_CSV_TYPE},
     };
 
+    ConfigFile::ConfigFile()
+    {
+    }
+
     ConfigFile::ConfigFile(const std::string &name, const std::string &description)
         : _name(name), _desc(description)
     {
