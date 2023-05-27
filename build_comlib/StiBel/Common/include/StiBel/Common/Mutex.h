@@ -11,7 +11,7 @@
 
 #include <pthread.h>
 #include <cstdio>
-#include "StiBel/Noncopyable.h"
+#include "StiBel/Common/Noncopyable.h"
 
 namespace StiBel {
 

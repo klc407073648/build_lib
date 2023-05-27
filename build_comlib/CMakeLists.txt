@@ -33,10 +33,11 @@ SET(LIBRARY_OUTPUT_PATH ${BUILD_LIB_DIR})
 # 设置各类应用库的头文件
 SET(3PART_INCLUDE  ${PROJECT_SOURCE_DIR}/../output/include/3partlib)
 
-SET(JSONCPP_INCLUDE  ${3PART_INCLUDE}/jsoncpp/include)
-SET(LOG4CPP_INCLUDE  ${3PART_INCLUDE}/log4cpp/include)
-SET(TINYXML_INCLUDE  ${3PART_INCLUDE}/tinyxml/include)
-SET(REDIS_INCLUDE  ${3PART_INCLUDE}/hiredis/include)
+SET(JSONCPP_INCLUDE   ${3PART_INCLUDE}/jsoncpp/include)
+SET(YAMLCPP_INCLUDE   ${3PART_INCLUDE}/yamlcpp/include)
+SET(LOG4CPP_INCLUDE   ${3PART_INCLUDE}/log4cpp/include)
+SET(TINYXML_INCLUDE   ${3PART_INCLUDE}/tinyxml/include)
+SET(REDIS_INCLUDE     ${3PART_INCLUDE}/hiredis/include)
 
 SET(COMM_INCLUDE  ${PROJECT_SOURCE_DIR}/../output/include/comlib)
 

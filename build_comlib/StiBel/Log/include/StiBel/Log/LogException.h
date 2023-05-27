@@ -10,7 +10,7 @@
 #ifndef __STIBEL_LOGEXCEPTION_H__
 #define __STIBEL_LOGEXCEPTION_H__
 
-#include "StiBel/Exception.h"
+#include "StiBel/Common/Exception.h"
 
 namespace StiBel {
 namespace Log {

@@ -1,5 +1,6 @@
 #include "StiBel/JSON/JsonUtil.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -146,6 +147,60 @@ void JsonUtil::printJson(Json::Value data)
     }  
     return;  
 }  
+
+
+Json::Value JsonUtil::readJson(const std::string &file)
+{
+    Json::Reader reader;
+	Json::Value value;
+
+	const char *path = file.c_str();
+	std::ifstream infile(path);
+
+	if(!reader.parse(infile, value)){
+        cout << "parse " << file << " fail!"<< endl; 
+    }
+
+    return value;
+}
+
+bool JsonUtil::writeJson(const Json::Value& value,const std::string &file)
+{
+    try{
+        //直接输出  
+        //Json::FastWriter fw;
+        //ofstream os;
+        //os.open(file);
+        //os << fw.write(value);
+        //os.close();
+    
+        //缩进输出 
+        Json::StyledWriter sw;
+        ofstream os;
+        os.open(file);
+        os << sw.write(value);
+        os.close();
+    }
+    catch(...){
+        cout << "writeJson " << file << " fail!"<< endl; 
+        return false;
+    }
+
+    return true;
+}
+
+bool JsonUtil::writeJson(const std::string& str,const std::string &file)
+{
+    Json::Reader reader;  
+    Json::Value value;  
+    if (!reader.parse(str, value))  
+    {  
+        cout << "parse " << str << " fail!"<< endl; 
+        return false;
+    }  
+
+    return writeJson(value,file);
+}
 
 } } // namespace StiBel::Json
 

@@ -17,8 +17,8 @@
 #include <list>
 #include <stdarg.h>
 #include "StiBel/Data/MySQL/Database.h"
-#include "StiBel/MutexLock.h"
-#include "StiBel/Singleton.h"
+#include "StiBel/Common/MutexLock.h"
+#include "StiBel/Common/Singleton.h"
 
 using StiBel::MutexLock;
 using StiBel::MutexLockGuard;

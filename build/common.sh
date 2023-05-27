@@ -106,7 +106,7 @@ function write_log()
 function logDebug()
 {
    if [ $log_level -ge $logDebugNum ];then 
-      echo -e "\033[32m-- $1 --\033[0m"
+      echo -e "\033[32m[Debug] -- $1 --\033[0m"
    fi
 
    if [ $isSave -eq 1 ];then 
@@ -117,7 +117,7 @@ function logDebug()
 function logInfo()
 {
    if [ $log_level -ge $logInfoNum ];then 
-      echo -e "\033[36m-- $1 --\033[0m"
+      echo -e "\033[36m[Info] -- $1 --\033[0m"
    fi
 
    if [ $isSave -eq 1 ];then 
@@ -128,7 +128,7 @@ function logInfo()
 function logWarn()
 {
    if [ $log_level -ge $logWarnNum ];then 
-      echo -e "\033[33m-- $1 --\033[0m"
+      echo -e "\033[33m[Warn] -- $1 --\033[0m"
    fi
 
    if [ $isSave -eq 1 ];then 
@@ -139,7 +139,7 @@ function logWarn()
 function logError()
 {
    if [ $log_level -ge $logErrorNum ];then
-      echo -e "\033[31m-- $1 --\033[0m"
+      echo -e "\033[31m[Error] -- $1 --\033[0m"
    fi
 
    if [ $isSave -eq 1 ];then 

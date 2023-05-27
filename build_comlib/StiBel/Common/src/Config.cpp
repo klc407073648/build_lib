@@ -1,4 +1,4 @@
-#include "StiBel/Config.h"
+#include "StiBel/Common/Config.h"
 
 namespace StiBel {
 

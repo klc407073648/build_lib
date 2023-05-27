@@ -1,4 +1,4 @@
-#include "StiBel/Config.h"
+#include "StiBel/Common/Config.h"
 #include <iostream>
 
 using namespace std;

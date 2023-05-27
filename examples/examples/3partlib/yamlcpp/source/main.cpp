@@ -6,7 +6,7 @@
 #include <cassert>
 #include <string.h>
 #include <yaml-cpp/yaml.h>
-#include "StiBel/Util.h"
+#include "StiBel/Common/Util.h"
 
 using namespace std;
 

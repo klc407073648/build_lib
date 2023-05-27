@@ -12,7 +12,7 @@
 #include "json/json.h"
 #include "tinyxml.h"
 #include "yaml-cpp/yaml.h"
-#include "ConfigFile.h"
+#include "StiBel/Common/ConfigFile.h"
 #include <map>
 #include <functional>
 #include <string>

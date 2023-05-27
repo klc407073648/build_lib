@@ -1,4 +1,4 @@
-#include "StiBel/TEncode.h"
+#include "StiBel/Common/TEncode.h"
 #include <string.h>
 #include <stdio.h>
 #include <iostream>

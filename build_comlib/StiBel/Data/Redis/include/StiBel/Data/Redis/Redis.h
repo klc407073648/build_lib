@@ -17,8 +17,8 @@
 #include <functional>
 #include <sstream>
 #include <hiredis/hiredis.h>
-#include "StiBel/Singleton.h"
-#include "StiBel/MutexLock.h"
+#include "StiBel/Common/MutexLock.h"
+#include "StiBel/Common/Singleton.h"
 
 using StiBel::MutexLock;
 

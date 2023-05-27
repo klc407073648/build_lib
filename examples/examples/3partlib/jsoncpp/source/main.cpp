@@ -1,6 +1,6 @@
 #include <iostream>
 #include "JsonUtil.h"
-#include "StiBel/Util.h"
+#include "StiBel/Common/Util.h"
 
 std::string normalPath = "/../../../examples/3partlib/jsoncpp/conf/normal.json";
 std::string arrayPath = "/../../../examples/3partlib/jsoncpp/conf/array.json";

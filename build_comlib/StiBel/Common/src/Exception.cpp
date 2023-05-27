@@ -1,4 +1,4 @@
-#include "StiBel/Exception.h"
+#include "StiBel/Common/Exception.h"
 #include <typeinfo>
 
 namespace StiBel {

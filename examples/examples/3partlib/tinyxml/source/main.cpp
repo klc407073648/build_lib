@@ -3,7 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include <string.h>
-#include "StiBel/Util.h"
+#include "StiBel/Common/Util.h"
 
 using namespace std;
 string curPath;

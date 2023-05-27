@@ -14,8 +14,8 @@
 #include <errno.h>
 #include <cstdio>
 #include <pthread.h>
-#include "StiBel/Noncopyable.h"
-#include "StiBel/MutexLock.h"
+#include "StiBel/Common/Noncopyable.h"
+#include "StiBel/Common/MutexLock.h"
 
 namespace StiBel {
 

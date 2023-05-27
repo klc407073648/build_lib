@@ -68,6 +68,9 @@ public:
     static void setArray(std::string& obj, const std::string &sKey, const std::vector<std::string> &array);
 	
 	static void printJson(Json::Value data);
+    static Json::Value readJson(const std::string &file);
+    static bool writeJson(const Json::Value& value,const std::string &file);
+    static bool writeJson(const std::string& str,const std::string &file);
 
 };
 

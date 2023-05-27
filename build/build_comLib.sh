@@ -22,6 +22,10 @@ function buildComlib()
 {
    logDebug "buildComlib begin" 
 
+   if [ ! -d $build_comlib_path/build ];then
+      mkdir -p $build_comlib_path/build
+   fi
+
    cd $build_comlib_path/build
 
    cmake -DCMAKE_BUILD_TYPE=${cmake_build_type} -DCMAKE_BUILD_VERSION=${cmake_build_version} ..

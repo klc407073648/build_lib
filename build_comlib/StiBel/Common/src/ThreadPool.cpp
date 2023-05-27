@@ -1,6 +1,6 @@
-#include "StiBel/MutexLock.h"
-#include "StiBel/Condition.h"
-#include "StiBel/ThreadPool.h" 
+#include "StiBel/Common/MutexLock.h"
+#include "StiBel/Common/Condition.h"
+#include "StiBel/Common/ThreadPool.h" 
 #include <stdio.h>
 #include <stdlib.h>
 
