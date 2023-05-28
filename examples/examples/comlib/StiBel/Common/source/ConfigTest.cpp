@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-using StiBel::Config;
+using StiBel::Common::Config;
 
 void fun2()
 {

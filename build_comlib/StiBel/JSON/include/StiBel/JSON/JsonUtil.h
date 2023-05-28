@@ -74,7 +74,7 @@ public:
 
 };
 
-} } // namespace StiBel::Json
+} } // namespace StiBel::JSON
 #endif //__STIBEL_LOGIN_H__
 
 

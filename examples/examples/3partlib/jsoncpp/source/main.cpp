@@ -60,7 +60,7 @@ int main(int args, char *argv[])
     JsonUtil::printJson(value);
 
     std::cout << "------File func test---------" << std::endl;
-    std::string curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+    std::string curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
     normalPath = curPath + normalPath;
     arrayPath = curPath + arrayPath;

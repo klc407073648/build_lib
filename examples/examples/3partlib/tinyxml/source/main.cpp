@@ -13,7 +13,7 @@ string finalPath;
 
 void printSchoolXml()
 {
-	curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+	curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
 	finalPath = curPath + myPrintPath;
 	tinyxmlUtil::printXml(finalPath);
@@ -23,7 +23,7 @@ void readSchoolXml()
 {
 	TiXmlDocument doc;
 
-	curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+	curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
 	finalPath = curPath + myPrintPath;
 	if (!tinyxmlUtil::readXml(finalPath, doc))
@@ -68,7 +68,7 @@ void writeSchoolXml()
 {
 	using namespace std;
 
-	curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+	curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
 	finalPath = curPath + myWritePath;
 

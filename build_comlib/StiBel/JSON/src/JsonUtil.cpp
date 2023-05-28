@@ -202,5 +202,5 @@ bool JsonUtil::writeJson(const std::string& str,const std::string &file)
     return writeJson(value,file);
 }
 
-} } // namespace StiBel::Json
+} } // namespace StiBel::JSON
 

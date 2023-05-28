@@ -8,7 +8,7 @@ using namespace StiBel::Common;
 // TODO改成googletest
 void testFileLoad()
 {
-    std::string curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+    std::string curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
     std::string rootPath = curPath + "/../../../examples/comlib/StiBel/Common/conf/";
     std::string jsonPath = rootPath + "normal.json";
     std::string xmlPath = rootPath + "school.xml";

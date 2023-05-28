@@ -1,6 +1,6 @@
 #include "StiBel/JSON/JSONException.h"
 
-using StiBel::Exception;
+using StiBel::Common::Exception;
 using StiBel::JSON::JSONException;
 
 int main()
@@ -9,9 +9,9 @@ int main()
   {
     throw JSONException("Attempt to set value on an empty stack");
   }
-  catch (StiBel::Exception &e)
+  catch (StiBel::Common::Exception &e)
   {
-    std::cout << "StiBel::Exception caught" << std::endl;
+    std::cout << "StiBel::Common::Exception caught" << std::endl;
     std::cout << e.what() << std::endl;
     std::cout << e.displayText() << std::endl;
   }

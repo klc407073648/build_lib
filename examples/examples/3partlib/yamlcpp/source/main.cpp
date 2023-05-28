@@ -86,7 +86,7 @@ void writeFile()
 
 int main(int argc, char **argv)
 {
-    curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+    curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
     cout << "读取指定文件内容" << endl;
     std::string fileName = curPath + rootPath + "config1.yml";

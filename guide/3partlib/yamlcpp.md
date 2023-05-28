@@ -137,7 +137,7 @@ for(auto it = node_2.begin(); it != node_2.end(); it++)
 #include <cassert>
 #include <string.h>
 #include <yaml-cpp/yaml.h>
-#include "StiBel/Util.h"
+#include "StiBel/Common/Util.h"
 
 using namespace std;
 
@@ -149,7 +149,7 @@ std::string curPath;
 
 int main(int argc, char **argv)
 {
-    curPath = StiBel::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+    curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
     cout << "读取指定文件内容" << endl;
     std::string fileName = curPath + rootPath + "config1.yml";
