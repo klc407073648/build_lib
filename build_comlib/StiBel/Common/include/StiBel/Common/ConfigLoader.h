@@ -17,8 +17,9 @@
 #include <functional>
 #include <string>
 
-namespace StiBel
-{
+namespace StiBel{
+namespace Common{
+
   // TODO https://blog.csdn.net/yao_hou/article/details/123292920
   // D:\CODE\klc\StiBel\myprj\fastcgiApp\include
   //  配置函数宏定义
@@ -109,5 +110,6 @@ namespace StiBel
     //  读写锁
   };
 } // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_CONFIGLOADER_H__

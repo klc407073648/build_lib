@@ -15,6 +15,7 @@
 #include <sstream>
 
 namespace StiBel {
+namespace Common {
 /**
  * @brief 配置变量的基类
  */
@@ -145,6 +146,7 @@ private:
 };
 
 } // namespace StiBel
+} // namespace Common
 
 #endif // __STIBEL_CONFIG_H__
 

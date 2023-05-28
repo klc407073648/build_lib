@@ -12,8 +12,8 @@
 #include <iostream>
 #include <stdexcept>
 
-namespace StiBel
-{
+namespace StiBel{
+namespace Common{
 
 	class Exception : public std::exception
 	{
@@ -141,5 +141,6 @@ namespace StiBel
 	}
 
 } // namespace StiBel
+} // namespace Common
 
 #endif

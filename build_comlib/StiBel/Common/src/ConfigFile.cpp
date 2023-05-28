@@ -1,7 +1,7 @@
 #include "StiBel/Common/ConfigFile.h"
 
-namespace StiBel
-{
+namespace StiBel {
+namespace Common {
     std::unordered_map<std::string, FileType> ConfigFile::_fileTypeMap = {
         {".json", JSON_TYPE},
         {".xml", XML_TYPE},
@@ -18,8 +18,8 @@ namespace StiBel
     ConfigFile::ConfigFile(const std::string &name, const std::string &description)
         : _name(name), _desc(description)
     {
-        // 统一处理配置文件名称转小写
-        std::transform(_name.begin(), _name.end(), _name.begin(), ::tolower);
+        // 统一处理配置文件名称转小写,TODO有问题转小写后面读取文件时，路径或文件名小写，读取不到文件
+        //std::transform(_name.begin(), _name.end(), _name.begin(), ::tolower);
 
         // 文件类型，通过配置名称解析得到
 
@@ -43,4 +43,6 @@ namespace StiBel
             std::cout << _name << " parse fail!" << std::endl;
         }
     }
-}
+
+} // namespace StiBel
+} // namespace Common

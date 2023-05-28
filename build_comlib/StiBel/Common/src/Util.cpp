@@ -13,8 +13,8 @@
 #include <dirent.h>
 #include <fstream>
 
-namespace StiBel
-{
+namespace StiBel {
+namespace Common {
 
     int8_t TypeUtil::ToChar(const std::string &str)
     {
@@ -599,3 +599,4 @@ namespace StiBel
     }
 
 } // namespace StiBel
+} // namespace Common

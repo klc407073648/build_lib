@@ -14,6 +14,7 @@
 #include <mutex> 
 
 namespace StiBel {
+namespace Common {
 
 /**
  * @brief 单例模式智能指针封装类
@@ -55,5 +56,6 @@ private:
 */
 
 } // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_SINGLETON_H_

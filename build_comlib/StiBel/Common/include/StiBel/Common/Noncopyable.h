@@ -10,7 +10,8 @@
 #define __STIBEL_NOCOPYABLE_H__
 
 namespace StiBel {
-    
+namespace Common {
+
 class Noncopyable {
 public:
     /**
@@ -35,5 +36,6 @@ public:
 };
 
 } // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_NOCOPYABLE_H__

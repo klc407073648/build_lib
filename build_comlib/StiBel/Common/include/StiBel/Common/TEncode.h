@@ -12,6 +12,7 @@
 #include <string>
 
 namespace StiBel {
+namespace Common {
 
 class  TEncode
 {
@@ -30,7 +31,8 @@ private:
 
 };
 
-}//namespace StiBel
+} //namespace StiBel
+} // namespace Common
 
 #endif  //__STIBEL_TENCODE_H__
 

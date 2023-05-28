@@ -1,6 +1,7 @@
 #include "StiBel/Common/Config.h"
 
 namespace StiBel {
+namespace Common {
 
 Config::Config(const std::string &name, const ParamsMap &conf_map, const std::string &description, const std::string &type)
 	: ConfigBase(name, description), _confMap(conf_map), _type(type)
@@ -62,4 +63,5 @@ std::string Config::toString()
 */
 
 } //namespace StiBel
+} // namespace Common
 

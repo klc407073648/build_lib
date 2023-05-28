@@ -7,6 +7,7 @@
 using namespace std;
 
 namespace StiBel {
+namespace Common {
 
 ////////////////////////////////////////////////////////////////////////////////
 // BASE64编码
@@ -800,7 +801,8 @@ char TEncode::hexToAsc(const std::string &src)
 }
 
 
-} //namespace StiBel
+} // namespace StiBel
+} // namespace Common
 
 #ifdef TEST_MAIN
 #include "TLog.h"

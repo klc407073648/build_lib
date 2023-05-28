@@ -9,6 +9,7 @@
 #include<log4cpp/PropertyConfigurator.hh>
 
 using namespace std;
+using namespace StiBel::Common;
 
 namespace StiBel {
 namespace Log {

@@ -34,7 +34,7 @@ cd /home/myprj/
 
 git clone git@github.com:klc407073648/build_lib.git
 
-docker run -it -d -v /home/myprj/build_lib:/home/tools/build_lib --name build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
+docker run -it -d -v /home/klc/auto_job/build_lib/download/build_lib:/home/klc/auto_job/build_lib/download/build_lib --name build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
 
 docker exec -it build_lib_0 bash
 
@@ -104,10 +104,15 @@ createThreads() end
 example下单编
 
 ```
-docker run -it -d -v /home/klc/auto_job/build_lib/download/build_lib:/home/tools/build_lib --name stibel_build_lib_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
-    
-cd ./examples/build
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/stibel/build_lib/examples/lib/3partlib
+docker run -it -d -v /home/klc/auto_job/build_lib_test:/home/klc/auto_job/build_lib_test --name stibel_build_lib_test_0 docker.io/klc407073648/centos_build_lib:v3.0 /bin/bash
+
+docker exec -it stibel_build_lib_test_0 bash
+
+cd /home/klc/auto_job/build_lib_test/build_lib/examples/
+# 宿主机上操作：cp -rf /home/klc/auto_job/build_lib/StiBel_V2.1.1.tar.gz /home/klc/auto_job/build_lib_test/build_lib/examples/
+
+tar -zxvf StiBel_V2.1.1.tar.gz  .
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/klc/auto_job/build_lib_test/build_lib/examples/lib
 
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_VERSION=V2.1.1 ..
 ```

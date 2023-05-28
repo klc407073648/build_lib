@@ -2,6 +2,7 @@
 #include <typeinfo>
 
 namespace StiBel {
+namespace Common {
 
 Exception::Exception(int code): _pNested(0), _code(code)
 {
@@ -109,3 +110,4 @@ void Exception::rethrow() const
 }
 
 } // namespace StiBel
+} // namespace Common

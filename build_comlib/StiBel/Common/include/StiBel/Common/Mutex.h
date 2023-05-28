@@ -14,6 +14,7 @@
 #include "StiBel/Common/Noncopyable.h"
 
 namespace StiBel {
+namespace Common {
 
 /**
  * @brief 局部读锁模板实现
@@ -257,5 +258,6 @@ private:
 };
 
 } // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_MUTEXLOCK_H__

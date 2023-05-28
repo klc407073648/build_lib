@@ -18,7 +18,7 @@
 #include "StiBel/Common/MutexLock.h"
 
 namespace StiBel {
-
+namespace Common {
 /**
 * @brief 条件变量类
 */
@@ -64,5 +64,6 @@ private:
 };
 
 } // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_CONDITION_H__

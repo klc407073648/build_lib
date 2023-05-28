@@ -16,7 +16,6 @@
 #include<vector>
 #include<map>
 
-
 using namespace std;
 
 #define DECLARE_STATIC_LOGGERMANAGER()  static StiBel::Log::LoggerManager*  mlogger

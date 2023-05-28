@@ -4,8 +4,9 @@
 #include <sstream>
 #include <thread>
 
-namespace StiBel
-{
+namespace StiBel {
+namespace Common {
+
     void ConfigLoader::initMap()
     {
         _configFuncMap = {
@@ -226,4 +227,6 @@ namespace StiBel
             }
         }
     }
-}
+    
+} // namespace StiBel
+} // namespace Common

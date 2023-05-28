@@ -10,10 +10,11 @@
 #define __STIBEL_CPPUNITDEFINE_H__
 
 namespace StiBel {
-
+namespace Common{
 #define CppUnit_addTest(suite, cls, mth) \
 	suite->addTest(new CppUnit::TestCaller<cls>(#mth, &cls::mth))
 
 } // namespace StiBel
+} // namespace Common
 
 #endif

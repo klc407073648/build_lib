@@ -3,7 +3,7 @@
 #include "StiBel/Common/ConfigLoader.h"
 #include "StiBel/Common/Util.h"
 
-using namespace StiBel;
+using namespace StiBel::Common;
 
 // TODO改成googletest
 void testFileLoad()

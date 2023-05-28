@@ -29,8 +29,8 @@
 #define BUFFER_SIZE 102400
 // #include <boost/lexical_cast.hpp>
 
-namespace StiBel
-{
+namespace StiBel{
+namespace Common {
 
     /**
      * @brief 类型转换类
@@ -102,5 +102,6 @@ namespace StiBel
     };
 
 } // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_UTIL_H_

@@ -15,12 +15,12 @@
 #include <string>
 #include <iostream>
 
-
 class MutexLock;
 class Condition;
 //前置声明只能作为指针或引用，不能定义类的对象，自然也就不能调用对象中的方法了。
 
 namespace StiBel {
+namespace Common {
 
 const int THREADPOOL_INVALID = -1;
 const int THREADPOOL_LOCK_FAILURE = -2;
@@ -90,6 +90,7 @@ private:
 	Condition* m_cond; //条件变量
 };
 
-}//namespace StiBel
+} // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_THREADPOOL_H__

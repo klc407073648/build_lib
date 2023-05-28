@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 namespace StiBel {
+namespace Common {
 
 ThreadPool::ThreadPool(int _threadNum , int _queueSize)
 :isRunning(true)
@@ -186,4 +187,5 @@ void ThreadPool::run()
 
 }
 
-} //namespace StiBel
+} // namespace StiBel
+} // namespace Common

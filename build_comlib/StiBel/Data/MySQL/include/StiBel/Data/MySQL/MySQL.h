@@ -20,9 +20,9 @@
 #include "StiBel/Common/MutexLock.h"
 #include "StiBel/Common/Singleton.h"
 
-using StiBel::MutexLock;
-using StiBel::MutexLockGuard;
-using StiBel::SingletonPtr;
+using StiBel::Common::MutexLock;
+using StiBel::Common::MutexLockGuard;
+using StiBel::Common::SingletonPtr;
 
 namespace StiBel {
 namespace Data {

@@ -14,8 +14,8 @@
 #include <unordered_map>
 #include <algorithm>
 
-namespace StiBel
-{
+namespace StiBel{
+namespace Common{
 
   // 文件类型
   enum FileType
@@ -64,6 +64,7 @@ namespace StiBel
     static std::unordered_map<std::string, FileType> _fileTypeMap; // 文件类型map
   };
 
-} // namespace drogon
+} // namespace StiBel
+} // namespace Common
 
 #endif //__STIBEL_CONFIGFILE_H__
