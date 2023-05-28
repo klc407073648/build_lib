@@ -1,11 +1,12 @@
-#include "YamlUtil.h"
+#include "StiBel/YAML/YamlUtil.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
-namespace StiBel {
-namespace YAML {
+//TODO  in namespace 'StiBel::YAML' does not name a type
+//namespace StiBel {
+//namespace YAML {
 
 void YamlUtil::printYaml(const YAML::Node &node)
 {
@@ -90,5 +91,5 @@ static bool YamlUtil::write2Yaml(const std::string &fileName, const YAML::Node &
     return true;
 }
 
-} // namespace StiBel
-} // namespace YAML
+//} // namespace StiBel
+//} // namespace YAML

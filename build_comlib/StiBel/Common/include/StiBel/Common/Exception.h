@@ -86,13 +86,13 @@ namespace Common{
 		CLS(int code = CODE);                                                       \
 		CLS(const std::string &msg, int code = CODE);                               \
 		CLS(const std::string &msg, const std::string &arg, int code = CODE);       \
-		CLS(const std::string &msg, const StiBel::Exception &exc, int code = CODE); \
+		CLS(const std::string &msg, const StiBel::Common::Exception &exc, int code = CODE); \
 		CLS(const CLS &exc);                                                        \
 		~CLS() noexcept;                                                            \
 		CLS &operator=(const CLS &exc);                                             \
 		const char *name() const noexcept;                                          \
 		const char *className() const noexcept;                                     \
-		StiBel::Exception *clone() const;                                           \
+		StiBel::Common::Exception *clone() const;                                           \
 		void rethrow() const;                                                       \
 	};
 
@@ -109,7 +109,7 @@ namespace Common{
 	CLS::CLS(const std::string &msg, const std::string &arg, int code) : BASE(msg, arg, code)       \
 	{                                                                                               \
 	}                                                                                               \
-	CLS::CLS(const std::string &msg, const StiBel::Exception &exc, int code) : BASE(msg, exc, code) \
+	CLS::CLS(const std::string &msg, const StiBel::Common::Exception &exc, int code) : BASE(msg, exc, code) \
 	{                                                                                               \
 	}                                                                                               \
 	CLS::CLS(const CLS &exc) : BASE(exc)                                                            \
@@ -131,7 +131,7 @@ namespace Common{
 	{                                                                                               \
 		return typeid(*this).name();                                                                \
 	}                                                                                               \
-	StiBel::Exception *CLS::clone() const                                                           \
+	StiBel::Common::Exception *CLS::clone() const                                                           \
 	{                                                                                               \
 		return new CLS(*this);                                                                      \
 	}                                                                                               \

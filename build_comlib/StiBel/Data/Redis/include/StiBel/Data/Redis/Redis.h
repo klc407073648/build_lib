@@ -20,7 +20,7 @@
 #include "StiBel/Common/MutexLock.h"
 #include "StiBel/Common/Singleton.h"
 
-using StiBel::MutexLock;
+using StiBel::Common::MutexLock;
 
 namespace StiBel {
 namespace Data {
@@ -115,12 +115,12 @@ private:
     void freeRedis(IRedis* r);
     void init();
 private:
-    StiBel::MutexLock m_mutexLock;
+    StiBel::Common::MutexLock m_mutexLock;
     std::map<std::string, std::list<IRedis*> > m_datas;
     std::map<std::string, std::map<std::string, std::string> > m_config;
 };
 
-typedef StiBel::SingletonPtr<RedisManager> RedisMgr;
+typedef StiBel::Common::SingletonPtr<RedisManager> RedisMgr;
 
 /*
 class RedisUtil {

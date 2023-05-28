@@ -41,7 +41,7 @@ SET(REDIS_INCLUDE     ${3PART_INCLUDE}/hiredis/include)
 
 SET(COMM_INCLUDE  ${PROJECT_SOURCE_DIR}/../output/include/comlib)
 
-SET(STIBEL_COMMON_INCLUDE  ${COMM_INCLUDE}/StiBel/Common/include)
+SET(STIBEL_COMMON_INCLUDE  ${PROJECT_SOURCE_DIR}/StiBel/Common/include)
 
 #设置StiBel封装库名
 SET(LIB_STIBEL_COMMON   StiBel_common_${LIB_VERSION})

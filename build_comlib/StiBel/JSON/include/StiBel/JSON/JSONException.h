@@ -15,7 +15,7 @@
 namespace StiBel {
 namespace JSON {
 
-STIBEL_DECLARE_EXCEPTION(JSONException, StiBel::Exception)
+STIBEL_DECLARE_EXCEPTION(JSONException, StiBel::Common::Exception)
 
 } } // namespace StiBel::JSON
 

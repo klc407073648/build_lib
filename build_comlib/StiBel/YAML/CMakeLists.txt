@@ -1,5 +1,5 @@
 #头文件目录
-INCLUDE_DIRECTORIES( ${YAMLCPP_INCLUDE}  ./include )
+INCLUDE_DIRECTORIES( ${YAMLCPP_INCLUDE} ./include )
 
 #代码列表
 FILE (GLOB STIBEL_YAML_FILES ./src/*.cpp)

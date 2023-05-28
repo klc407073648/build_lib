@@ -13,8 +13,8 @@
 #include <vector>
 #include "yaml-cpp/yaml.h"
 
-namespace StiBel {
-namespace YAML {
+//namespace StiBel {
+//namespace YAML {
 
 class YamlUtil
 {
@@ -23,7 +23,7 @@ public:
     static YAML::Node readYaml(const std::string &filename);
     static bool write2Yaml(const std::string &fileName, const YAML::Node &node);
 };
-} // namespace StiBel
-} // namespace YAML
+//} // namespace StiBel
+//} // namespace YAML
 
 #endif //__STIBEL_YAMLUTIL_H__

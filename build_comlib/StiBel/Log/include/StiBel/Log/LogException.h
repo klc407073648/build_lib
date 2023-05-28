@@ -15,7 +15,7 @@
 namespace StiBel {
 namespace Log {
 
-STIBEL_DECLARE_EXCEPTION(LogException, StiBel::Exception)
+STIBEL_DECLARE_EXCEPTION(LogException, StiBel::Common::Exception)
 
 } } // namespace StiBel::Log
 

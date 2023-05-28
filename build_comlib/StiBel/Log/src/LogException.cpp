@@ -5,6 +5,6 @@
 namespace StiBel {
 namespace Log {
 
-STIBEL_IMPLEMENT_EXCEPTION(LogException, StiBel::Exception, "Log Exception")
+STIBEL_IMPLEMENT_EXCEPTION(LogException, StiBel::Common::Exception, "Log Exception")
 
 } } // namespace StiBel::Log
