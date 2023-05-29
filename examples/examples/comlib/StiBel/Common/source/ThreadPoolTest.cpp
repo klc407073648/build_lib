@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-using StiBel::ThreadPool;
+using StiBel::Common::ThreadPool;
 
 class MyTask
 {  

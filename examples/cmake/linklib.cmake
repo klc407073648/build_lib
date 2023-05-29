@@ -15,5 +15,4 @@ include(${PROJECT_SOURCE_DIR}/cmake/FindComlib.cmake)
 #添加外部库的搜索路径
 LINK_DIRECTORIES(${3PART_DIR} ${COMM_DIR})
 
-
 MESSAGE (STATUS "linklib set end")

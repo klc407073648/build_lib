@@ -9,3 +9,7 @@ FILE (GLOB STIBEL_COMMON_FILES ./src/*.cpp)
 #add_library(Poco::Util ALIAS Util)
 ADD_LIBRARY(${LIB_STIBEL_COMMON} SHARED ${STIBEL_COMMON_FILES})
 
+if(BUILD_TEST)
+    add_subdirectory(./test)
+endif()
+
