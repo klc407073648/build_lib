@@ -23,8 +23,6 @@ void fun1()
         return;
     }
 
-    cout << "查询studentInfo表的结果集" << endl;
-
     m_redis->cmd("SET %s %s", "name", "Jason");
     m_redis->cmd("SET %s %s", "num", "123456");
     m_redis->cmd("SET %s %s", "address", "NJ");
