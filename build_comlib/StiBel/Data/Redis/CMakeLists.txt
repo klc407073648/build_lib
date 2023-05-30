@@ -7,4 +7,6 @@ FILE (GLOB STIBEL_REDIS_FILES ./src/*.cpp)
 #生成动态库
 ADD_LIBRARY(${LIB_STIBEL_REDIS} SHARED ${STIBEL_REDIS_FILES})
 
-
+if(BUILD_TEST)
+    add_subdirectory(./test)
+endif()

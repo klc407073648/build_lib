@@ -38,6 +38,7 @@ public:
 /* 测试json文件加载 */
 TEST_F(ConfigLoaderTest, Given_json_file_When_load_Then_success_parse_content)
 {
+    //enable_print();//TODO
     std::string jsonPath = rootPath + "normal.json";
     ConfigFile configFile(jsonPath, "json数组");
     ConfigLoader loader(configFile);

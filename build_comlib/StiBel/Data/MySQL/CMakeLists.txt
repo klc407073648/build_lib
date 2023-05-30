@@ -7,4 +7,6 @@ FILE (GLOB STIBEL_MYSQL_FILES ./src/*.cpp)
 #生成动态库
 ADD_LIBRARY(${LIB_STIBEL_MYSQL} SHARED ${STIBEL_MYSQL_FILES} )
 
-
+if(BUILD_TEST)
+    add_subdirectory(./test)
+endif()

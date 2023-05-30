@@ -6,3 +6,7 @@ FILE (GLOB STIBEL_JSON_FILES ./src/*.cpp)
 
 #生成动态库
 ADD_LIBRARY(${LIB_STIBEL_JSON} SHARED ${STIBEL_JSON_FILES} )
+
+if(BUILD_TEST)
+    add_subdirectory(./test)
+endif()

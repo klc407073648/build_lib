@@ -6,3 +6,7 @@ FILE (GLOB STIBEL_LOG_FILES ./src/*.cpp)
 
 #生成动态库
 ADD_LIBRARY(${LIB_STIBEL_LOG} SHARED ${STIBEL_LOG_FILES} )
+
+if(BUILD_TEST)
+    add_subdirectory(./test)
+endif()

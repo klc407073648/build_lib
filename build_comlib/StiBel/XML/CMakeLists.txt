@@ -7,3 +7,7 @@ FILE (GLOB STIBEL_XML_FILES ./src/*.cpp)
 #生成动态库
 ADD_LIBRARY(${LIB_STIBEL_XML} SHARED ${STIBEL_XML_FILES})
 
+if(BUILD_TEST)
+    add_subdirectory(./test)
+endif()
+
