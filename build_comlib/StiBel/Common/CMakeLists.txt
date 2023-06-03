@@ -1,15 +1,4 @@
-#头文件目录
-INCLUDE_DIRECTORIES( ${JSONCPP_INCLUDE} ${YAMLCPP_INCLUDE} ${TINYXML_INCLUDE} ./include )
-
-#代码列表
-FILE (GLOB STIBEL_COMMON_FILES ./src/*.cpp)
-
-#生成动态库 TODO
-#add_library(Util ${SRCS})
-#add_library(Poco::Util ALIAS Util)
-ADD_LIBRARY(${LIB_STIBEL_COMMON} SHARED ${STIBEL_COMMON_FILES})
-
-if(BUILD_TEST)
-    add_subdirectory(./test)
-endif()
+#add_subdirectory
+add_subdirectory(Config)
+add_subdirectory(Foundation)
 

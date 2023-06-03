@@ -52,8 +52,6 @@ public:
 TEST_F(DataMySQLTest, Given_json_file_When_load_Then_success_parse_content)
 {
     // enable_print();//TODO
-
-
     std::map<std::string, std::string> params;
     // 数据库的参数
     params["host"] = "1.15.109.169";

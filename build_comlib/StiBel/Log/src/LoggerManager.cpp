@@ -1,5 +1,4 @@
 #include"StiBel/Log/LoggerManager.h"
-#include"StiBel/Common/Util.h"
 #include<algorithm>
 #include<log4cpp/PatternLayout.hh>
 #include<log4cpp/OstreamAppender.hh>
@@ -9,7 +8,6 @@
 #include<log4cpp/PropertyConfigurator.hh>
 
 using namespace std;
-using namespace StiBel::Common;
 
 namespace StiBel {
 namespace Log {

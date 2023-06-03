@@ -11,6 +11,7 @@ bool JsonUtil::isValid(const std::string &obj)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
+    
     return jsonReader.parse(obj, jsonRoot);
 }
 
@@ -18,10 +19,12 @@ std::string JsonUtil::getStr(const std::string &obj, const std::string &sKey)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
+
     if(jsonReader.parse(obj, jsonRoot))
     {
         return jsonRoot[sKey].asString();
     }
+
     return "";
 }
 
@@ -29,10 +32,12 @@ std::string JsonUtil::getObj(const std::string &obj, const std::string &sKey)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
+
     if(jsonReader.parse(obj, jsonRoot))
     {
         return jsonRoot[sKey].toStyledString();
     }
+
     return "";
 }
 
@@ -40,20 +45,22 @@ int JsonUtil::getInt(const std::string &obj,  const std::string &sKey)
 {
     Json::Reader jsonReader;
     Json::Value jsonRoot;
+
     if(jsonReader.parse(obj, jsonRoot))
     {
         return jsonRoot[sKey].asInt();
     }
+
     return -1;
 }
 
 std::vector<std::string> JsonUtil::getArray(const std::string &obj, const std::string &sKey)
 {
-
     std::string strArray = getObj(obj, sKey);
     Json::Reader jsonReader;
     Json::Value jsonRoot;
     std::vector<std::string> array;
+
     if(jsonReader.parse(strArray, jsonRoot))
     {
         for(auto str : jsonRoot)
@@ -61,6 +68,7 @@ std::vector<std::string> JsonUtil::getArray(const std::string &obj, const std::s
             array.push_back(str.asString());
         }
     }
+
     return array;
 }
 
@@ -147,7 +155,6 @@ void JsonUtil::printJson(Json::Value data)
     }  
     return;  
 }  
-
 
 Json::Value JsonUtil::readJson(const std::string &file)
 {

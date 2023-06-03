@@ -1,7 +1,7 @@
-#add_subdirectory
+# 有依赖顺序
+add_subdirectory(Util)
 add_subdirectory(Common)
-add_subdirectory(Data/MySQL)
-add_subdirectory(Data/Redis)
+add_subdirectory(Data)
 add_subdirectory(JSON)
 add_subdirectory(Log)
 add_subdirectory(XML)

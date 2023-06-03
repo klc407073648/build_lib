@@ -1,0 +1,37 @@
+/**
+ * @file ConfigManager.h
+ * @brief 配置加载类，用于加载各类配置文件包括json、xml、yaml、excel等
+ * @author klc
+ * @date 2023-05-19
+ * @copyright Copyright (c) 2023年 klc
+ */
+
+#ifndef __STIBEL_CONFIGMANAGER_H__
+#define __STIBEL_CONFIGMANAGER_H__
+
+#include "ConfigFile.h"
+#include "ConfigLoader.h"
+
+namespace StiBel
+{
+
+  /* 配置管理类 */
+  class ConfigManager
+  {
+  public:
+    ConfigManager();
+    ~ConfigManager();
+
+  public:
+    /* Config的增删改查 */
+    void addConfig();
+    void removeConfig();
+    void modifyConfig();
+    void getConfig();
+
+  private:
+    std::map<std::string, ConfigLoaderPtr> _configLoaders;
+  };
+} // namespace StiBel
+
+#endif //__STIBEL_CONFIGMANAGER_H__

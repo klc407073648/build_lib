@@ -1,0 +1,16 @@
+#include "ConfigManager.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <thread>
+
+namespace StiBel
+{
+    ConfigManager::ConfigManager()
+    {
+    }
+
+    ~ConfigManager::ConfigManager()
+    {
+    }
+}

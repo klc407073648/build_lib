@@ -1,7 +1,7 @@
 #include "StiBel/JSON/JSONException.h"
 #include "CommonTest.h"
 
-using StiBel::Common::Exception;
+using StiBel::Common::Foundation::Exception;
 using StiBel::JSON::JSONException;
 
 /* JSONExceptionTest */
@@ -38,7 +38,7 @@ TEST_F(JSONExceptionTest, Given_JSONException_When_throw_Then_success_catch_and_
   {
     throw JSONException("Attempt to set value on an empty stack");
   }
-  catch (StiBel::Common::Exception &e)
+  catch (StiBel::Common::Foundation::Exception &e)
   {
     std::cout << "StiBel::Common::Exception caught" << std::endl;
     std::cout << e.what() << std::endl;

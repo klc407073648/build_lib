@@ -10,12 +10,12 @@
 #ifndef __STIBEL_LOGEXCEPTION_H__
 #define __STIBEL_LOGEXCEPTION_H__
 
-#include "StiBel/Common/Exception.h"
+#include "StiBel/Common/Foundation/Exception.h"
 
 namespace StiBel {
 namespace Log {
 
-STIBEL_DECLARE_EXCEPTION(LogException, StiBel::Common::Exception)
+STIBEL_DECLARE_EXCEPTION(LogException, StiBel::Common::Foundation::Exception)
 
 } } // namespace StiBel::Log
 

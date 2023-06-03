@@ -7,6 +7,7 @@ FILE (GLOB STIBEL_YAML_FILES ./src/*.cpp)
 #生成动态库
 ADD_LIBRARY(${LIB_STIBEL_YAML} SHARED ${STIBEL_YAML_FILES})
 
-if(BUILD_TEST)
+if(ENABLE_TESTS)
     add_subdirectory(./test)
+    #add_subdirectory(./samples)
 endif()

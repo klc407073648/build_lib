@@ -1,10 +1,10 @@
 #include "StiBel/Data/MySQL/MySQL.h"
-#include "StiBel/Common/Util.h"
+#include "StiBel/Util/Util.h"
 #include <time.h>
 
 using namespace std;
-using StiBel::Common::TypeUtil;
-using StiBel::Common::StringUtil;
+using StiBel::Util::TypeUtil;
+using StiBel::Util::StringUtil;
 
 namespace StiBel {
 namespace Data {

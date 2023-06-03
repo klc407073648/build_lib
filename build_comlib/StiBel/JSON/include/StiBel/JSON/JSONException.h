@@ -10,12 +10,12 @@
 #ifndef __STIBEL_JSONEXCEPTION_H__
 #define __STIBEL_JSONEXCEPTION_H__
 
-#include "StiBel/Common/Exception.h"
+#include "StiBel/Common/Foundation/Exception.h"
 
 namespace StiBel {
 namespace JSON {
 
-STIBEL_DECLARE_EXCEPTION(JSONException, StiBel::Common::Exception)
+STIBEL_DECLARE_EXCEPTION(JSONException, StiBel::Common::Foundation::Exception)
 
 } } // namespace StiBel::JSON
 

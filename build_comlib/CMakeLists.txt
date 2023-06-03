@@ -15,7 +15,7 @@ else()
 endif()
 
 # 选项: 构建用例 和 CTest用例
-option(BUILD_TEST "Enable build all test" ON)
+option(ENABLE_TESTS "Enable build all test" ON)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
 
@@ -93,17 +93,21 @@ SET(LIB_ZLIB z)
 SET(LIB_UUID uuid)
 
 # 设置公共库头文件,其他文件仅需要依赖Common内容
-SET(STIBEL_COMMON_INCLUDE  ${PROJECT_SOURCE_DIR}/StiBel/Common/include)
+SET(STIBEL_COMMON_CONFIG_INCLUDE      ${PROJECT_SOURCE_DIR}/StiBel/Common/Config/include)
+SET(STIBEL_COMMON_FOUNDATION_INCLUDE  ${PROJECT_SOURCE_DIR}/StiBel/Common/Foundation/include)
+SET(STIBEL_UTIL_INCLUDE               ${PROJECT_SOURCE_DIR}/StiBel/Util/include)
 
 #设置StiBel封装库名
 ## 设置自封装应用库的链接名称，便于快速使用
-SET(LIB_STIBEL_COMMON   StiBel_common_${LIB_VERSION} )
-SET(LIB_STIBEL_MYSQL    StiBel_mysql_${LIB_VERSION})
-SET(LIB_STIBEL_REDIS    StiBel_redis_${LIB_VERSION})
-SET(LIB_STIBEL_LOG      StiBel_log_${LIB_VERSION})
-SET(LIB_STIBEL_JSON     StiBel_json_${LIB_VERSION})
-SET(LIB_STIBEL_XML      StiBel_xml_${LIB_VERSION})
-SET(LIB_STIBEL_YAML     StiBel_yaml_${LIB_VERSION})
+SET(LIB_STIBEL_COMMON_CONFIG       StiBelCommonConfig${LIB_VERSION})
+SET(LIB_STIBEL_COMMON_FOUNDATION   StiBelCommonFoundation${LIB_VERSION})
+SET(LIB_STIBEL_DATA_MYSQL          StiBelDataMySQL${LIB_VERSION})
+SET(LIB_STIBEL_DATA_REDIS          StiBelDataRedis${LIB_VERSION})
+SET(LIB_STIBEL_UTIL                StiBelUtil${LIB_VERSION})
+SET(LIB_STIBEL_LOG                 StiBelLog${LIB_VERSION})
+SET(LIB_STIBEL_JSON                StiBelJSON${LIB_VERSION})
+SET(LIB_STIBEL_XML                 StiBelXML${LIB_VERSION})
+SET(LIB_STIBEL_YAML                StiBelYAML${LIB_VERSION})
 
 # 设置各类应用库的文件路径
 SET(3PART_DIR  ${PROJECT_SOURCE_DIR}/../output/lib/3partlib)

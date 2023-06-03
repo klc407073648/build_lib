@@ -1,7 +1,7 @@
 #include "StiBel/Data/Redis/Redis.h"
-#include "StiBel/Common/Util.h"
+#include "StiBel/Util/Util.h"
 
-using StiBel::Common::TypeUtil;
+using StiBel::Util::TypeUtil;
 using namespace std;
 
 namespace StiBel {

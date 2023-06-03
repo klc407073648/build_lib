@@ -17,20 +17,16 @@
 #include <list>
 #include <stdarg.h>
 #include "StiBel/Data/MySQL/Database.h"
-#include "StiBel/Common/MutexLock.h"
-#include "StiBel/Common/Singleton.h"
+#include "StiBel/Common/Foundation/MutexLock.h"
+#include "StiBel/Common/Foundation/Singleton.h"
 
-using StiBel::Common::MutexLock;
-using StiBel::Common::MutexLockGuard;
-using StiBel::Common::SingletonPtr;
+using StiBel::Common::Foundation::MutexLock;
+using StiBel::Common::Foundation::MutexLockGuard;
+using StiBel::Common::Foundation::SingletonPtr;
 
 namespace StiBel {
 namespace Data {
 namespace MySQL {
-
-//class MySQL;
-//class MutexLock;
-//class SingletonPtr;
 
 /**
 * @brief MYSQL时间相关处理函数

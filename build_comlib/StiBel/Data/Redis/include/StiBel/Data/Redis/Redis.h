@@ -17,10 +17,10 @@
 #include <functional>
 #include <sstream>
 #include <hiredis/hiredis.h>
-#include "StiBel/Common/MutexLock.h"
-#include "StiBel/Common/Singleton.h"
+#include "StiBel/Common/Foundation/MutexLock.h"
+#include "StiBel/Common/Foundation/Singleton.h"
 
-using StiBel::Common::MutexLock;
+using StiBel::Common::Foundation::MutexLock;
 
 namespace StiBel {
 namespace Data {
@@ -115,12 +115,12 @@ private:
     void freeRedis(IRedis* r);
     void init();
 private:
-    StiBel::Common::MutexLock m_mutexLock;
+    StiBel::Common::Foundation::MutexLock m_mutexLock;
     std::map<std::string, std::list<IRedis*> > m_datas;
     std::map<std::string, std::map<std::string, std::string> > m_config;
 };
 
-typedef StiBel::Common::SingletonPtr<RedisManager> RedisMgr;
+typedef StiBel::Common::Foundation::SingletonPtr<RedisManager> RedisMgr;
 
 /*
 class RedisUtil {

@@ -1,0 +1,215 @@
+/**
+ * @file Config.h
+ * @brief 配置类封装
+ * @author klc
+ * @date 2021-04-24
+ * @copyright Copyright (c) 2021年 klc
+ */
+
+#ifndef __STIBEL_CONFIG_H__
+#define __STIBEL_CONFIG_H__
+
+#include <string>
+#include <map>
+#include <memory>
+#include <sstream>
+#include <functional>
+#include "StiBel/Common/Mutex.h"
+
+namespace StiBel {
+/**
+ * @brief 配置变量的基类
+ */
+
+class ConfigBase
+{
+public:
+    typedef std::shared_ptr<ConfigBase> ptr;
+
+    /**
+     * @brief 构造函数
+     * @param[in] name 配置参数名称
+     * @param[in] description 参数描述
+     */
+    ConfigBase(const std::string &name, const std::string &description = "")
+        : _name(name), _description(description)
+    {
+    }
+
+    /**
+     * @brief 析构函数
+     */
+    virtual ~ConfigBase() {}
+
+    /**
+     * @brief 返回配置参数名称
+     */
+    const std::string &getName() const { return _name; }
+
+    /**
+     * @brief 返回配置参数的描述
+     */
+    const std::string &getDescription() const { return _description; }
+
+    /**
+     * @brief 转成字符串
+     */
+    virtual std::string toString() = 0;
+
+    /**
+     * @brief 从字符串初始化值
+     */
+    virtual bool fromString(const std::string &val) = 0;
+
+    /**
+     * @brief 返回配置参数值的类型名称
+     */
+    virtual const std::string& getTypeName() const = 0;
+
+private:
+    /// 配置参数的名称
+    std::string _name;
+    /// 配置参数的描述
+    std::string _description;
+};
+
+/**
+ * @brief 配置参数类
+ */
+class Config : public ConfigBase
+{
+public:
+    typedef std::shared_ptr<Config> ptr;
+    typedef std::map<std::string, std::map<std::string, std::string>> ParamsMap;
+    typedef std::function<void (const T& old_value, const T& new_value)> on_change_cb;
+    typedef RWMutex RWMutexType;
+
+    /**
+     * @brief 通过参数名,参数值,描述构造Config
+     * @param[in] name 参数名称
+     * @param[in] description 参数的描述
+     * @param[in] default_value 参数的默认值
+     */
+    Config(const std::string &name, const ParamsMap &conf_map, const std::string &description = "", const std::string &type = "");
+
+    /**
+     * @brief 析构函数
+     */
+    ~Config();
+
+    /**
+     * @brief 将ParamsMap转换成String
+     */
+    std::string toString() override;
+
+    /**
+     * @brief 输出信息到ostream
+     */
+    std::ostream& dump(std::ostream& os);
+
+    /**
+     * @brief 根据参数名获取对应值
+     */
+    std::map<std::string, std::string> getParams(std::string &name);
+
+    /**
+     * @brief 重载[]方法
+     */
+    inline std::map<std::string, std::string> operator[](std::string &name)
+    {
+        return this->getParams(name);
+    }
+
+    /**
+     * @brief 将String转换成ParamsMap
+     *  TODO 空实现
+     */
+    bool fromString(const std::string &val) { return false; };
+
+    /**
+     * @brief 获取当前ParamsMap参数值
+     */
+    const ParamsMap& getValue() const { 
+        RWMutexType::ReadLock lock(m_mutex);
+        return _confMap; 
+    }
+
+    /**
+     * @brief 设置ParamsMap参数值
+     */
+    void setValue(const ParamsMap& v) { 
+        {
+            RWMutexType::ReadLock lock(m_mutex);
+            if(v == m_val) {
+                return;
+            }
+            for(auto& i : m_cbs) {
+                i.second(m_val, v);
+            }
+        }
+        RWMutexType::WriteLock lock(m_mutex);
+        _confMap = v; 
+    }
+
+    /**
+     * @brief 添加变化回调函数
+     * @return 返回该回调函数对应的唯一id,用于删除回调
+     */
+    uint64_t addListener(on_change_cb cb) {
+        static uint64_t s_fun_id = 0;
+        RWMutexType::WriteLock lock(m_mutex);
+        ++s_fun_id;
+        m_cbs[s_fun_id] = cb;
+        return s_fun_id;
+    }
+
+    /**
+     * @brief 删除回调函数
+     * @param[in] key 回调函数的唯一id
+     */
+    void delListener(uint64_t key) {
+        RWMutexType::WriteLock lock(m_mutex);
+        m_cbs.erase(key);
+    }
+
+    /**
+     * @brief 获取回调函数
+     * @param[in] key 回调函数的唯一id
+     * @return 如果存在返回对应的回调函数,否则返回nullptr
+     */
+    on_change_cb getListener(uint64_t key) {
+        RWMutexType::ReadLock lock(m_mutex);
+        auto it = m_cbs.find(key);
+        return it == m_cbs.end() ? nullptr : it->second;
+    }
+
+    /**
+     * @brief 清理所有的回调函数
+     */
+    void clearListener() {
+        RWMutexType::WriteLock lock(m_mutex);
+        m_cbs.clear();
+    }
+
+    /**
+     * @brief 返回参数值的类型名称(typeinfo)
+     */
+    const std::string &getTypeName() const  { return _type; }
+
+private:
+    // 配置参数的类型
+    std::string _type;
+    // 配置参数的描述
+    ParamsMap _confMap;
+
+    RWMutexType m_mutex;
+    T m_val;
+    //变更回调函数组, uint64_t key,要求唯一，一般可以用hash
+    std::map<uint64_t, on_change_cb> m_cbs;
+};
+
+} // namespace StiBel
+
+#endif // __STIBEL_CONFIG_H__
+
+
