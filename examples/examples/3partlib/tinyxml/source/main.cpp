@@ -3,7 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include <string.h>
-#include "StiBel/Common/Util.h"
+#include "StiBel/Util/Util.h"
 
 using namespace std;
 string curPath;
@@ -13,7 +13,7 @@ string finalPath;
 
 void printSchoolXml()
 {
-	curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+	curPath = StiBel::Util::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
 	finalPath = curPath + myPrintPath;
 	tinyxmlUtil::printXml(finalPath);
@@ -23,7 +23,7 @@ void readSchoolXml()
 {
 	TiXmlDocument doc;
 
-	curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+	curPath = StiBel::Util::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
 	finalPath = curPath + myPrintPath;
 	if (!tinyxmlUtil::readXml(finalPath, doc))
@@ -68,7 +68,7 @@ void writeSchoolXml()
 {
 	using namespace std;
 
-	curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+	curPath = StiBel::Util::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
 	finalPath = curPath + myWritePath;
 

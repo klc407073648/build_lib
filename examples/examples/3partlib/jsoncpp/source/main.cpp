@@ -1,6 +1,6 @@
 #include <iostream>
 #include "JsonUtil.h"
-#include "StiBel/Common/Util.h"
+#include "StiBel/Util/Util.h"
 
 std::string normalPath = "/../../../examples/3partlib/jsoncpp/conf/normal.json";
 std::string arrayPath = "/../../../examples/3partlib/jsoncpp/conf/array.json";
@@ -60,7 +60,7 @@ int main(int args, char *argv[])
     JsonUtil::printJson(value);
 
     std::cout << "------File func test---------" << std::endl;
-    std::string curPath = StiBel::Common::ShellUtil::execShellPipeEndWithLineFeed("pwd");
+    std::string curPath = StiBel::Util::ShellUtil::execShellPipeEndWithLineFeed("pwd");
 
     normalPath = curPath + normalPath;
     arrayPath = curPath + arrayPath;

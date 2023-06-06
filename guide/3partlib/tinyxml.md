@@ -68,7 +68,7 @@
 #include <string>
 #include <stdio.h>
 #include <string.h>
-#include "StiBel/Util.h"
+#include "StiBel/Util/Util.h"
 
 using namespace std;
 string curPath;

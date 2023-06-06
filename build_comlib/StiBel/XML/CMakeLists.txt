@@ -9,6 +9,6 @@ ADD_LIBRARY(${LIB_STIBEL_XML} SHARED ${STIBEL_XML_FILES})
 
 if(ENABLE_TESTS)
     add_subdirectory(./test)
-    #add_subdirectory(./samples)
+    add_subdirectory(./samples)
 endif()
 

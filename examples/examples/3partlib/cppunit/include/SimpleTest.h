@@ -1,4 +1,4 @@
-#include "StiBel/Common/CppUnitDefine.h"
+#include "StiBel/Common/Foundation/CppUnitDefine.h"
 #include <cppunit/TestCase.h>
 #include <cppunit/TestResult.h>
 #include <cppunit/TestCaller.h>

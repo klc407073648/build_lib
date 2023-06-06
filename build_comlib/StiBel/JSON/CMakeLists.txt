@@ -9,5 +9,5 @@ ADD_LIBRARY(${LIB_STIBEL_JSON} SHARED ${STIBEL_JSON_FILES} )
 
 if(ENABLE_TESTS)
     add_subdirectory(./test)
-    #add_subdirectory(./samples)
+    add_subdirectory(./samples)
 endif()
