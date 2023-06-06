@@ -1,4 +1,6 @@
 #!/bin/bash
+# build_lib\build_comlib 下使用
+# build_lib\examples 下使用
 set -x
 
 curPath=$(pwd)
