@@ -1,6 +1,8 @@
 #!/bin/bash
 #curPath="/home/stibel"
 #mkdir -p $curPath
+#set -x
+
 curPath=$(pwd)
 versionNum=''
 config_file='common.sh'
@@ -100,6 +102,10 @@ function build_examples()
 
 	cp $curPath/../output/StiBel_${versionNum}.tar.gz .
 	tar -zxf StiBel_${versionNum}.tar.gz
+
+	if [ ! -d $curPath/../examples/build ]; then
+		mkdir -p $curPath/../examples/build
+	fi
 
 	cd ./build
 
