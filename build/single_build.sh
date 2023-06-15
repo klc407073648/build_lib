@@ -14,6 +14,10 @@ cmake_build_version='V2.1.1'
 [ ! -z $2 ] && cmake_build_version=$2
 
 function single_build() {
+
+	#mysql特殊处理
+	cp -r /usr/lib64/mysql/* /usr/lib/
+
 	echo "single_build begin"
 
 	if [ ! -d ${curPath}/build ]; then

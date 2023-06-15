@@ -34,8 +34,9 @@ public:
 
 
 /* 测试Util */
-TEST_F(UtilTest, Given_threadpool_and_task_When_addTask_to_threadpool_Then_success_exec_task)
+TEST_F(UtilTest, Given_mykey_When_setenv_Then_success_getenv)
 {
-    //TODO
+    ShellUtil::setEnv("mykey", "myvalue");
+    EXPECT_EQ("myvalue111", ShellUtil::getEnv("mykey"));
 }
   

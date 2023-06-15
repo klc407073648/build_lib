@@ -59,10 +59,11 @@ TEST_F(ConfigTest, Given_origin_map_val_When_init_config_Then_success_parse_cont
 
     // redis_1操作
     Config m_Config("my_config_test", m_configMap);
-
     cout << "m_Config->toString():" << m_Config.toString() << endl;
-    string str = "redis_2";
-    cout << "m_Config[redis_2][host]:" << (m_Config.getParams(str))["host"] << endl;
-    std::map<std::string, std::string> m_map3 = m_Config[str];
-    cout << "m_Config[redis_2][timeout]:" << m_map3["timeout"] << endl;
+    
+    std::string redis_2_name = "redis_2";
+    EXPECT_EQ("127.0.0.1:6380", (m_Config.getParams(redis_2_name))["host"]);
+    EXPECT_EQ("redis", (m_Config.getParams(redis_2_name))["type"]);
+    EXPECT_EQ("100", (m_Config.getParams(redis_2_name))["timeout"]);
+    EXPECT_EQ("2", (m_Config.getParams(redis_2_name))["pool"]);
 }

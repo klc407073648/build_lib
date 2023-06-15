@@ -1,4 +1,6 @@
 #!/bin/bash
+#set -x
+
 source ./common.sh
 
 cur_target_build_path=''

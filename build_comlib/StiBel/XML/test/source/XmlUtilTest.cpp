@@ -31,7 +31,8 @@ public:
 /* XmlUtilTest */
 
 /* 测试json字符串读取 */
-TEST_F(XmlUtilTest, Given_json_str_When_get_Then_success_parse_content)
+TEST_F(XmlUtilTest, Given_not_exist_xml_file_When_read_Then_return_false)
 {
-   XmlUtil::printXml("test.xml");
+   TiXmlDocument doc;
+   ASSERT_TRUE(!XmlUtil::readXml("no_exist.xml", doc));
 }

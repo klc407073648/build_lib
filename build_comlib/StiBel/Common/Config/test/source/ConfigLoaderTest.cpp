@@ -39,46 +39,91 @@ public:
 /* 测试json文件加载 */
 TEST_F(ConfigLoaderTest, Given_json_file_When_load_Then_success_parse_content)
 {
-    //enable_print();//TODO
+    // enable_printf();//TODO
     std::string jsonPath = rootPath + "normal.json";
     ConfigFile configFile(jsonPath, "json数组");
     ConfigLoader loader(configFile);
-    loader.printJson(loader.jsonValue());
+
+    const Json::Value &value = loader.jsonValue();
+    // loader.printJson(value);
+
+    EXPECT_EQ("testuser", value["userAccount"].asString());
+    EXPECT_EQ("12345678", value["userPassword"].asString());
+    EXPECT_EQ("12345678", value["checkPassword"].asString());
 }
 
 /* 测试xml文件加载 */
 TEST_F(ConfigLoaderTest, Given_xml_file_When_load_Then_success_parse_content)
 {
+    /*
+    <School name="计算机学院">
+    <Class name="C++">
+        <Student name="Jason" number="1001">
+            <grade>98</grade>
+            <address>China</address>
+        </Student>
+    */
+    // 校验Student name="Jason" 和 里面的 <grade>98</grade>
+    // enable_printf();//TODO
     std::string xmlPath = rootPath + "school.xml";
     ConfigFile configFile(xmlPath, "school数据");
     ConfigLoader loader(configFile);
     TiXmlElement *rootElement = (loader.xmlValue()).RootElement();
-    loader.printXml(rootElement);
+
+    TiXmlElement *classElement = rootElement->FirstChildElement();
+    TiXmlElement *studentElement = classElement->FirstChildElement();
+
+    TiXmlAttribute *attributeOfStudent = studentElement->FirstAttribute();
+
+    //TODO EXPECT_STREQ EXPECT_EQ 区别，有的比较地址
+    std::cout<< "name:" << attributeOfStudent->Name() <<std::endl;
+    std::cout<< "Jason:" << attributeOfStudent->Value() <<std::endl;
+    EXPECT_STREQ("name", attributeOfStudent->Name());
+    EXPECT_STREQ("Jason", attributeOfStudent->Value());
+
+    TiXmlElement *studentContactElement = studentElement->FirstChildElement();
+
+    std::cout<< "grade:" << studentContactElement->Value() <<std::endl;
+    std::cout<< "98:" << studentContactElement->GetText() <<std::endl;
+    EXPECT_STREQ("grade", studentContactElement->Value());
+    EXPECT_STREQ("98", studentContactElement->GetText());
+
+    // loader.printXml(rootElement);
 }
 
 /* 测试yaml文件加载 */
 TEST_F(ConfigLoaderTest, Given_yaml_file_When_load_Then_success_parse_content)
 {
     std::string yamltPath = rootPath + "config.yml";
-    ConfigFile configFile(yamltPath, "confg1数据");
+    ConfigFile configFile(yamltPath, "confg数据");
     ConfigLoader loader(configFile);
-    loader.printYaml(loader.yamlValue());
+
+    const YAML::Node &value = loader.yamlValue();
+    // loader.printYaml(loader.yamlValue());
+
+    EXPECT_EQ("Jason", value["name"].as<std::string>());
+    EXPECT_EQ("male", value["sex"].as<std::string>());
+    EXPECT_EQ(18, value["age"].as<int>());
+    EXPECT_EQ(1001, value["ID"].as<int>());
+    EXPECT_EQ(94.25, value["average"].as<float>());
 }
 
 /* 测试json原生数据加载 */
 TEST_F(ConfigLoaderTest, Given_json_value_When_load_Then_success_parse_content)
 {
-    Json::Value root;
-    root["id"] = "1001";
-    root["name"] = "Jason";
-    root["class"] = "math";
-    root["age"] = 27;
-    // root["hoppy"].append("music");
-    // root["hoppy"].append("book");
-    // root["hoppy"].append("swimming");
+    Json::Value value;
+    value["id"] = 1001;
+    value["name"] = "Jason";
+    value["class"] = "math";
+    value["age"] = 27;
 
-    ConfigLoader loader(root);
-    loader.printJson(loader.jsonValue());
+    ConfigLoader loader(value);
+    // loader.printJson(loader.jsonValue());
+
+    EXPECT_EQ(1001, value["id"].asInt());
+    EXPECT_EQ("Jason", value["name"].asString());
+    EXPECT_EQ("math", value["class"].asString());
+    EXPECT_EQ(27, value["age"].asInt());
 }
 
 /* 测试xml文件加载 */
@@ -103,45 +148,6 @@ TEST_F(ConfigLoaderTest, Given_xml_value_When_load_Then_success_parse_content)
     stu1Element->LinkEndChild(stu1GradeElement);
     stu1Element->LinkEndChild(stu1AddressElement);
 
-    TiXmlElement *stu2Element = new TiXmlElement("Student");
-    stu2Element->SetAttribute("name", "gsc");
-    stu2Element->SetAttribute("number", "1002");
-    TiXmlElement *stu2GradeElement = new TiXmlElement("grade");
-    stu2GradeElement->LinkEndChild(new TiXmlText("95"));
-    TiXmlElement *stu2AddressElement = new TiXmlElement("address");
-    stu2AddressElement->LinkEndChild(new TiXmlText("China"));
-    stu2Element->LinkEndChild(stu2GradeElement);
-    stu2Element->LinkEndChild(stu2AddressElement);
-
-    TiXmlElement *stu3Element = new TiXmlElement("Student");
-    stu3Element->SetAttribute("name", "cf");
-    stu3Element->SetAttribute("number", "1003");
-    TiXmlElement *stu3GradeElement = new TiXmlElement("grade");
-    stu3GradeElement->LinkEndChild(new TiXmlText("99"));
-    TiXmlElement *stu3AddressElement = new TiXmlElement("address");
-    stu3AddressElement->LinkEndChild(new TiXmlText("China"));
-    stu3Element->LinkEndChild(stu3GradeElement);
-    stu3Element->LinkEndChild(stu3AddressElement);
-
-    TiXmlElement *stu4Element = new TiXmlElement("Student");
-    stu4Element->SetAttribute("name", "lz");
-    stu4Element->SetAttribute("number", "1004");
-    TiXmlElement *stu4GradeElement = new TiXmlElement("grade");
-    stu4GradeElement->LinkEndChild(new TiXmlText("97"));
-    TiXmlElement *stu4AddressElement = new TiXmlElement("address");
-    stu4AddressElement->LinkEndChild(new TiXmlText("China"));
-    stu4Element->LinkEndChild(stu4GradeElement);
-    stu4Element->LinkEndChild(stu4AddressElement);
-
-    classElement1->LinkEndChild(stu1Element);
-    classElement1->LinkEndChild(stu2Element);
-
-    classElement2->LinkEndChild(stu3Element);
-    classElement2->LinkEndChild(stu4Element);
-
-    schoolElement->LinkEndChild(classElement1);
-    schoolElement->LinkEndChild(classElement2);
-
     doc.LinkEndChild(decl);
     doc.LinkEndChild(schoolElement);
 
@@ -153,12 +159,15 @@ TEST_F(ConfigLoaderTest, Given_xml_value_When_load_Then_success_parse_content)
 /* 测试yaml文件加载 */
 TEST_F(ConfigLoaderTest, Given_yaml_value_When_load_Then_success_parse_content)
 {
-    YAML::Node root;
-    root["key"] = "value";
-    root["number"] = 255;
-    root["seq"].push_back("first element");
-    root["seq"].push_back("second element");
+    YAML::Node value;
+    value["key"] = "value";
+    value["number"] = 255;
+    value["seq"].push_back("first element");
+    value["seq"].push_back("second element");
 
-    ConfigLoader loader(root);
-    loader.printYaml(loader.yamlValue());
+    ConfigLoader loader(value);
+    // loader.printYaml(loader.yamlValue());
+
+    EXPECT_EQ("value", value["key"].as<std::string>());
+    EXPECT_EQ(255, value["number"].as<int>());
 }

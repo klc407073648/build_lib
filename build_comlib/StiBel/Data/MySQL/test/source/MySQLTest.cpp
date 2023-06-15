@@ -66,7 +66,6 @@ TEST_F(DataMySQLTest, Given_json_file_When_load_Then_success_parse_content)
         return;
     }
 
-
     cout << "查询studentInfo表的结果集" << endl;
     std::string sql1 = "select * from studentInfo";
     ISQLData::ptr m_ptr1 = mysql->query(sql1);

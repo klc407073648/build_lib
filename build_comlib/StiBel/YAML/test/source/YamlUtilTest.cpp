@@ -30,9 +30,8 @@ public:
 
 /* YamlUtilTest */
 
-/* 测试json字符串读取 */
-TEST_F(YamlUtilTest, Given_json_str_When_get_Then_success_parse_content)
+TEST_F(YamlUtilTest, Given_file_name_and_node_When_write_Then_write_fail)
 {
     YAML::Node node;
-    YamlUtil::printYaml(node);
+    ASSERT_TRUE(!YamlUtil::write2Yaml("file.yml",node));
 }

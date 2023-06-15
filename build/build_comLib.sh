@@ -1,4 +1,6 @@
 #!/bin/bash
+#set -x
+
 source ./common.sh
 
 function copyHeadFile()

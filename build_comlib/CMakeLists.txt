@@ -14,8 +14,11 @@ else()
   set(LIB_VERSION ${CMAKE_BUILD_VERSION})
 endif()
 
-# 选项: 构建用例 和 CTest用例
-option(ENABLE_TESTS "Enable build all test" ON)
+# 选项: 构建build_comlib下StiBel子目录的test
+option(BUILD_TESTS "Build all tests" ON)
+
+# 选项: 构建build_comlib下StiBel子目录的samples
+option(BUILD_SAMPLES "Build all samples" ON)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -g -fpermissive")
 
@@ -31,7 +34,8 @@ SET(BUILD_SHARED_LIBS ON)
 #EXECUTABLE_OUTPUT_PATH为生成可执行文件路径，LIBRARY_OUTPUT_PATH为生成库文件路径。
 SET(BUILD_LIB_DIR ${PROJECT_SOURCE_DIR}/../output/lib/comlib)
 SET(LIBRARY_OUTPUT_PATH ${BUILD_LIB_DIR})
-SET(COMLIB_TEST_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../output/test)
+SET(STIBEL_TEST_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../output/StiBel/test)
+SET(STIBEL_SAMPLES_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../output/StiBel/samples)
 
 # 设置第三方应用库的头文件
 SET(3PART_INCLUDE  ${PROJECT_SOURCE_DIR}/../output/include/3partlib)
