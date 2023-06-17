@@ -1,5 +1,5 @@
 #include "StiBel/Util/Util.h" 
-#include "CommonTest.h" 
+#include "StiBel/Test/CommonTest.h" 
 #include <iostream>
 #include <stdio.h>
 #include <unistd.h>
@@ -7,6 +7,7 @@
 #include <pthread.h>
 
 using namespace StiBel::Util;
+using StiBel::Test::CommonTest;
 
 /* UtilTest */
 class UtilTest : public CommonTest

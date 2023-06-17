@@ -26,29 +26,29 @@ namespace Foundation {
 class Condition: Noncopyable
 {
 public:
-      explicit Condition(MutexLock &_mutex) : mutex(_mutex)
+      explicit Condition(MutexLock &mutex) : _mutex(mutex)
       {
-          pthread_cond_init(&cond, NULL);
+          pthread_cond_init(&_cond, NULL);
       }
 
       ~Condition() 
       { 
-          pthread_cond_destroy(&cond);
+          pthread_cond_destroy(&_cond);
       }
 
       void wait()
       { 
-          pthread_cond_wait(&cond, mutex.get());
+          pthread_cond_wait(&_cond, _mutex.get());
       }
 
       bool notify() 
       { 
-         return  pthread_cond_signal(&cond) == 0;
+         return  pthread_cond_signal(&_cond) == 0;
       }
 
       bool notifyAll() 
       { 
-          return pthread_cond_broadcast(&cond) == 0;
+          return pthread_cond_broadcast(&_cond) == 0;
       }
 
       bool waitForSeconds(int seconds)
@@ -56,12 +56,12 @@ public:
         struct timespec abstime;
         clock_gettime(CLOCK_REALTIME, &abstime);
         abstime.tv_sec += static_cast<time_t>(seconds);
-        return ETIMEDOUT == pthread_cond_timedwait(&cond, mutex.get(), &abstime);
+        return ETIMEDOUT == pthread_cond_timedwait(&_cond, _mutex.get(), &abstime);
       }
 
 private:
-      MutexLock &mutex;
-      pthread_cond_t cond;
+      MutexLock &_mutex;
+      pthread_cond_t _cond;
 };
 
 } // namespace StiBel

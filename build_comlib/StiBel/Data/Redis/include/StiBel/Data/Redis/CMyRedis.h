@@ -106,11 +106,11 @@ public:
 	// 返回被移除元素的数量.
 	int ZRem(const string& strZSetKey, const string& value);
 private:
-	static CMyRedis::ptr m_MyRedis;
-	redisContext* m_pRedisContext;
-	redisReply* m_pRedisReply;
-	string m_strIp;
-	int m_nPort;
+	static CMyRedis::ptr _myRedis;
+	redisContext* _pRedisContext;
+	redisReply* _pRedisReply;
+	string _strIp;
+	int _nPort;
 };
 
 } } } // namespace StiBel::Data::Redis

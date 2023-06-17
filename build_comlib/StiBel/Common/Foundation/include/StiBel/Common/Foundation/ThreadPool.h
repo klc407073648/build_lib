@@ -43,7 +43,7 @@ public:
 	typedef std::function<void()> Task; 
 
 	//threadNum为线程池中线程数量，queueSize是请求队列中的最大请求数量
-	ThreadPool(int _threadNum = 10 ,int _queueSize = 10000);
+	ThreadPool(int threadNum = 10 ,int queueSize = 10000);
 
 	//析构函数，释放申请的资源
 	~ThreadPool();
@@ -59,7 +59,7 @@ public:
 	
 private:
 	//创建线程
-	int createThreads(int _threadNum , int _queueSize);
+	int createThreads(int threadNum , int queueSize);
 
 	//打印日志
 	void printLog(std::string str);
@@ -82,13 +82,13 @@ private:
 	ThreadPool(const ThreadPool &);
 
 private:
-	volatile bool isRunning;  //线程运行状态，volatile关键词影响编译器编译的结果，用volatile声明的变量表示该变量随时可能发生变化，与该变量有关的运算，不要进行编译优化，以免出错
-	int threadNum; 	 //线程池中的线程数
-    int queueSize; 	 //请求队列中允许的最大请求数
-	pthread_t *threads; //描述线程池的数组，其大小为threadNum
-	std::deque<Task> taskQueue; //请求队列
-	MutexLock* m_locker; //互斥锁
-	Condition* m_cond; //条件变量
+	volatile bool _isRunning;  //线程运行状态，volatile关键词影响编译器编译的结果，用volatile声明的变量表示该变量随时可能发生变化，与该变量有关的运算，不要进行编译优化，以免出错
+	int _threadNum; 	 //线程池中的线程数
+    int _queueSize; 	 //请求队列中允许的最大请求数
+	pthread_t *_threads; //描述线程池的数组，其大小为threadNum
+	std::deque<Task> _taskQueue; //请求队列
+	MutexLock* _locker; //互斥锁
+	Condition* _cond; //条件变量
 };
 
 } // namespace StiBel

@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include "json/json.h"
+#include <stdio.h>
 
 namespace StiBel {
 namespace JSON {

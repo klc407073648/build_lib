@@ -1,7 +1,8 @@
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 #include "StiBel/Log/LoggerManager.h"
 
 using namespace StiBel::Log;
+using StiBel::Test::CommonTest;
 
 /* LogTest */
 class LogTest : public CommonTest

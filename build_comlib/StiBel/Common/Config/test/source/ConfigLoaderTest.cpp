@@ -1,10 +1,11 @@
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 #include "StiBel/Common/Config/ConfigFile.h"
 #include "StiBel/Common/Config/ConfigLoader.h"
 #include "StiBel/Util/Util.h"
 
 using namespace StiBel::Common::Config;
 using namespace StiBel::Util;
+using StiBel::Test::CommonTest;
 
 /* ConfigLoaderTest */
 class ConfigLoaderTest : public CommonTest
@@ -55,16 +56,8 @@ TEST_F(ConfigLoaderTest, Given_json_file_When_load_Then_success_parse_content)
 /* 测试xml文件加载 */
 TEST_F(ConfigLoaderTest, Given_xml_file_When_load_Then_success_parse_content)
 {
-    /*
-    <School name="计算机学院">
-    <Class name="C++">
-        <Student name="Jason" number="1001">
-            <grade>98</grade>
-            <address>China</address>
-        </Student>
-    */
     // 校验Student name="Jason" 和 里面的 <grade>98</grade>
-    // enable_printf();//TODO
+    //enable_printf();
     std::string xmlPath = rootPath + "school.xml";
     ConfigFile configFile(xmlPath, "school数据");
     ConfigLoader loader(configFile);
@@ -75,19 +68,18 @@ TEST_F(ConfigLoaderTest, Given_xml_file_When_load_Then_success_parse_content)
 
     TiXmlAttribute *attributeOfStudent = studentElement->FirstAttribute();
 
-    //TODO EXPECT_STREQ EXPECT_EQ 区别，有的比较地址
-    std::cout<< "name:" << attributeOfStudent->Name() <<std::endl;
-    std::cout<< "Jason:" << attributeOfStudent->Value() <<std::endl;
-    EXPECT_STREQ("name", attributeOfStudent->Name());
+    // TODO EXPECT_STREQ EXPECT_EQ 区别，有的比较地址
+    printf("attributeOfStudent  %s:%s", attributeOfStudent->Name(), attributeOfStudent->Value());
+
+    EXPECT_EQ("name", attributeOfStudent->Name());
     EXPECT_STREQ("Jason", attributeOfStudent->Value());
 
     TiXmlElement *studentContactElement = studentElement->FirstChildElement();
-
-    std::cout<< "grade:" << studentContactElement->Value() <<std::endl;
-    std::cout<< "98:" << studentContactElement->GetText() <<std::endl;
+    printf("studentContactElement %s:%s", studentContactElement->Value(), studentContactElement->GetText());
     EXPECT_STREQ("grade", studentContactElement->Value());
     EXPECT_STREQ("98", studentContactElement->GetText());
 
+	//disable_printf();
     // loader.printXml(rootElement);
 }
 

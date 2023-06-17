@@ -30,6 +30,9 @@ MESSAGE (STATUS "CMAKE_BUILD_VERSION:" ${CMAKE_BUILD_VERSION})
 #设置是否生成共享库
 SET(BUILD_SHARED_LIBS ON)
 
+#TODO
+#add_definitions("-DDEBUG")
+
 # 设定可执行二进制文件和库目录,为各个examples文件设置输出路径
 #EXECUTABLE_OUTPUT_PATH为生成可执行文件路径，LIBRARY_OUTPUT_PATH为生成库文件路径。
 SET(BUILD_LIB_DIR ${PROJECT_SOURCE_DIR}/../output/lib/comlib)
@@ -100,6 +103,7 @@ SET(LIB_UUID uuid)
 SET(STIBEL_COMMON_CONFIG_INCLUDE      ${PROJECT_SOURCE_DIR}/StiBel/Common/Config/include)
 SET(STIBEL_COMMON_FOUNDATION_INCLUDE  ${PROJECT_SOURCE_DIR}/StiBel/Common/Foundation/include)
 SET(STIBEL_UTIL_INCLUDE               ${PROJECT_SOURCE_DIR}/StiBel/Util/include)
+SET(STIBEL_TEST_INCLUDE               ${PROJECT_SOURCE_DIR}/StiBel/Test/include)
 
 #设置StiBel封装库名
 ## 设置自封装应用库的链接名称，便于快速使用
@@ -112,6 +116,7 @@ SET(LIB_STIBEL_LOG                 StiBelLog${LIB_VERSION})
 SET(LIB_STIBEL_JSON                StiBelJSON${LIB_VERSION})
 SET(LIB_STIBEL_XML                 StiBelXML${LIB_VERSION})
 SET(LIB_STIBEL_YAML                StiBelYAML${LIB_VERSION})
+SET(LIB_STIBEL_TEST                StiBelTEST${LIB_VERSION})
 
 # 设置各类应用库的文件路径
 SET(3PART_DIR  ${PROJECT_SOURCE_DIR}/../output/lib/3partlib)

@@ -28,9 +28,9 @@ public:
      * @param[in] mutex 读写锁
      */
     ReadScopedLockImpl(T& mutex)
-        :m_mutex(mutex) {
-        m_mutex.rdlock();
-        m_locked = true;
+        :_mutex(mutex) {
+        _mutex.rdlock();
+        _locked = true;
     }
 
     /**
@@ -44,9 +44,9 @@ public:
      * @brief 上读锁
      */
     void lock() {
-        if(!m_locked) {
-            m_mutex.rdlock();
-            m_locked = true;
+        if(!_locked) {
+            _mutex.rdlock();
+            _locked = true;
         }
     }
 
@@ -54,16 +54,16 @@ public:
      * @brief 释放锁
      */
     void unlock() {
-        if(m_locked) {
-            m_mutex.unlock();
-            m_locked = false;
+        if(_locked) {
+            _mutex.unlock();
+            _locked = false;
         }
     }
 private:
     /// mutex
-    T& m_mutex;
+    T& _mutex;
     /// 是否已上锁
-    bool m_locked;
+    bool _locked;
 };
 
 /**
@@ -77,9 +77,9 @@ public:
      * @param[in] mutex 读写锁
      */
     WriteScopedLockImpl(T& mutex)
-        :m_mutex(mutex) {
-        m_mutex.wrlock();
-        m_locked = true;
+        :_mutex(mutex) {
+        _mutex.wrlock();
+        _locked = true;
     }
 
     /**
@@ -93,9 +93,9 @@ public:
      * @brief 上写锁
      */
     void lock() {
-        if(!m_locked) {
-            m_mutex.wrlock();
-            m_locked = true;
+        if(!_locked) {
+            _mutex.wrlock();
+            _locked = true;
         }
     }
 
@@ -103,16 +103,16 @@ public:
      * @brief 解锁
      */
     void unlock() {
-        if(m_locked) {
-            m_mutex.unlock();
-            m_locked = false;
+        if(_locked) {
+            _mutex.unlock();
+            _locked = false;
         }
     }
 private:
     /// Mutex
-    T& m_mutex;
+    T& _mutex;
     /// 是否已上锁
-    bool m_locked;
+    bool _locked;
 };
 
 /**
@@ -177,9 +177,9 @@ public:
      * @param[in] mutex Mutex
      */
     ScopedLockImpl(T& mutex)
-        :m_mutex(mutex) {
-        m_mutex.lock();
-        m_locked = true;
+        :_mutex(mutex) {
+        _mutex.lock();
+        _locked = true;
     }
 
     /**
@@ -193,9 +193,9 @@ public:
      * @brief 加锁
      */
     void lock() {
-        if(!m_locked) {
-            m_mutex.lock();
-            m_locked = true;
+        if(!_locked) {
+            _mutex.lock();
+            _locked = true;
         }
     }
 
@@ -203,16 +203,16 @@ public:
      * @brief 解锁
      */
     void unlock() {
-        if(m_locked) {
-            m_mutex.unlock();
-            m_locked = false;
+        if(_locked) {
+            _mutex.unlock();
+            _locked = false;
         }
     }
 private:
     /// mutex
-    T& m_mutex;
+    T& _mutex;
     /// 是否已上锁
-    bool m_locked;
+    bool _locked;
 };
 
 /**
@@ -230,32 +230,32 @@ public:
      * @brief 构造函数
      */
     Spinlock() {
-        pthread_spin_init(&m_mutex, 0);
+        pthread_spin_init(&_mutex, 0);
     }
 
     /**
      * @brief 析构函数
      */
     ~Spinlock() {
-        pthread_spin_destroy(&m_mutex);
+        pthread_spin_destroy(&_mutex);
     }
 
     /**
      * @brief 上锁
      */
     void lock() {
-        pthread_spin_lock(&m_mutex);
+        pthread_spin_lock(&_mutex);
     }
 
     /**
      * @brief 解锁
      */
     void unlock() {
-        pthread_spin_unlock(&m_mutex);
+        pthread_spin_unlock(&_mutex);
     }
 private:
     /// 自旋锁
-    pthread_spinlock_t m_mutex;
+    pthread_spinlock_t _mutex;
 };
 
 } // namespace StiBel

@@ -8,12 +8,12 @@ namespace StiBel {
 namespace Common {
 namespace Foundation {
 
-ThreadPool::ThreadPool(int _threadNum , int _queueSize)
-:isRunning(true)
+ThreadPool::ThreadPool(int threadNum , int queueSize)
+:_isRunning(true)
 {
-	m_locker = new MutexLock();
-	m_cond = new Condition(*m_locker);
-	createThreads(_threadNum,_queueSize);
+	_locker = new MutexLock();
+	_cond = new Condition(*_locker);
+	createThreads(threadNum,queueSize);
 }
 
 ThreadPool::~ThreadPool()
@@ -25,7 +25,7 @@ int ThreadPool::addTask(const Task& task)
 {
 	printLog("addTask() begin");
 	int err = 0;
-	if( m_locker->lock() == false )
+	if( _locker->lock() == false )
 	{
 		printLog("addTask() lock  failure");
 		return THREADPOOL_LOCK_FAILURE;
@@ -33,31 +33,31 @@ int ThreadPool::addTask(const Task& task)
 	do
 	{
 		// 请求队列满
-		if( taskQueue.size() >= queueSize )
+		if( _taskQueue.size() >= _queueSize )
 		{
-			m_locker->unlock();
+			_locker->unlock();
 			err = THREADPOOL_QUEUE_FULL;
 			break;
 		}
 
 		// 线程池停止
-		if(!isRunning)
+		if(!_isRunning)
 		{
 			err = THREADPOOL_SHUTDOWN;
             break;
 		}
 		printLog("addTask() push_back  ");
-		taskQueue.push_back(task);
+		_taskQueue.push_back(task);
 
 	} while(false);
 
-	if(m_locker->unlock()!=0)
+	if(_locker->unlock()!=0)
 	{
 		return THREADPOOL_LOCK_FAILURE;
 	}
 
 	//唤醒至少一个阻塞在条件变量上的线程
-	if(m_cond->notify() !=0 )
+	if(_cond->notify() !=0 )
 	{
 		err = THREADPOOL_NOTIFY_FAILURE;      
 	}
@@ -68,9 +68,9 @@ int ThreadPool::addTask(const Task& task)
 
 int ThreadPool::getTaskQueueSize()
 {
-	m_locker->lock();
-	int size = taskQueue.size();
-	m_locker->unlock();
+	_locker->lock();
+	int size = _taskQueue.size();
+	_locker->unlock();
 	return size;
 }
 
@@ -79,29 +79,29 @@ int ThreadPool::destroyThreads()
 	printLog("destroyThreads() begin");
     int err = 0;
 
-	if( m_locker->lock() == false )
+	if( _locker->lock() == false )
 	{
 		return THREADPOOL_LOCK_FAILURE;
 	}
 
 	do
 	{
-		if(!isRunning)
+		if(!_isRunning)
 		{
 			err = THREADPOOL_SHUTDOWN;
             break;
 		}
 
-		if( m_cond->notifyAll() !=0 || m_locker->unlock() == true)
+		if( _cond->notifyAll() !=0 || _locker->unlock() == true)
 		{
 			err = THREADPOOL_LOCK_FAILURE;
             break;      
 		}
 
 		//回收进程
-		for (int i = 0; i < threadNum; i++)
+		for (int i = 0; i < _threadNum; i++)
 		{
-			if(pthread_join(threads[i], NULL) != 0)
+			if(pthread_join(_threads[i], NULL) != 0)
             {
                 err = THREADPOOL_THREAD_FAILURE;
             }
@@ -111,29 +111,29 @@ int ThreadPool::destroyThreads()
 	
 	if(!err) 
     {
-        free(threads);
-		threads = NULL;
+        free(_threads);
+		_threads = NULL;
     }
 	printLog("destroyThreads() end");
     return err;
 }
 
-int ThreadPool::createThreads(int _threadNum , int _queueSize)
+int ThreadPool::createThreads(int threadNum , int queueSize)
 {
 	printLog("createThreads() begin");
-	if(_threadNum <= 0 || _threadNum > MAX_THREADS || _queueSize <= 0 || _queueSize > MAX_QUEUE) 
+	if(threadNum <= 0 || threadNum > MAX_THREADS || queueSize <= 0 || queueSize > MAX_QUEUE) 
     {
         printLog("please check the value of threadNum and queueSize");
 		return -1;
     }
 
-	threadNum = _threadNum;
-	queueSize = _queueSize;
+	_threadNum = threadNum;
+	_queueSize = queueSize;
 
-	threads = (pthread_t*)malloc(sizeof(pthread_t) * threadNum);
-	for (int i = 0; i < threadNum; i++)
+	_threads = (pthread_t*)malloc(sizeof(pthread_t) * _threadNum);
+	for (int i = 0; i < _threadNum; i++)
 	{
-		if(pthread_create(&threads[i], NULL, threadFunc, this)!= 0) //线程创建完成，并去执行对应函数threadFunc
+		if(pthread_create(&_threads[i], NULL, threadFunc, this)!= 0) //线程创建完成，并去执行对应函数threadFunc
 		{
 			return -1;
 		}
@@ -163,27 +163,27 @@ void ThreadPool::run()
 	while (true)
     {
 		Task task = NULL;
-		m_locker->lock();
+		_locker->lock();
 		
 
-		while (taskQueue.empty() && isRunning)
+		while (_taskQueue.empty() && _isRunning)
 		{
-			//刚开始所有任务都阻塞等待m_cond
-			m_cond->wait();
+			//刚开始所有任务都阻塞等待_cond
+			_cond->wait();
 		}
 
-		if (!isRunning && taskQueue.empty())
+		if (!_isRunning && _taskQueue.empty())
 		{
 			break;
 		}
 
-		task = taskQueue.front();
-		taskQueue.pop_front();
-		m_locker->unlock();
+		task = _taskQueue.front();
+		_taskQueue.pop_front();
+		_locker->unlock();
 		task();
 	}
 	
-	m_locker->unlock();
+	_locker->unlock();
 	printLog("run() end");
 
 }

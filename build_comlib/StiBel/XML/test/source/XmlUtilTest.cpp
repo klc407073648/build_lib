@@ -1,8 +1,9 @@
 #include <iostream>
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 #include "StiBel/XML/XmlUtil.h"
 
 using namespace StiBel::XML;
+using StiBel::Test::CommonTest;
 
 /* XmlUtilTest */
 class XmlUtilTest : public CommonTest

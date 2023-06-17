@@ -1,9 +1,10 @@
 #include <iostream>
 #include <map>
 #include "StiBel/Data/MySQL/MySQL.h"
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 
 using namespace StiBel::Data::MySQL;
+using StiBel::Test::CommonTest;
 using namespace std;
 
 /* DataMySQLTest */

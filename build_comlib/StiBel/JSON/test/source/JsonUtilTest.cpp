@@ -1,8 +1,9 @@
 #include <iostream>
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 #include "StiBel/JSON/JsonUtil.h"
 
 using namespace StiBel::JSON;
+using StiBel::Test::CommonTest;
 
 /* JsonUtilTest */
 class JsonUtilTest : public CommonTest

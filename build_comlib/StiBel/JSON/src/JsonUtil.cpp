@@ -165,7 +165,7 @@ Json::Value JsonUtil::readJson(const std::string &file)
 	std::ifstream infile(path);
 
 	if(!reader.parse(infile, value)){
-        cout << "parse " << file << " fail!"<< endl; 
+        printf("parse %s fail!", path);
     }
 
     return value;
@@ -189,7 +189,7 @@ bool JsonUtil::writeJson(const Json::Value& value,const std::string &file)
         os.close();
     }
     catch(...){
-        cout << "writeJson " << file << " fail!"<< endl; 
+        printf("writeJson %s fail!", file.c_str());
         return false;
     }
 
@@ -202,7 +202,7 @@ bool JsonUtil::writeJson(const std::string& str,const std::string &file)
     Json::Value value;  
     if (!reader.parse(str, value))  
     {  
-        cout << "parse " << str << " fail!"<< endl; 
+        printf("parse %s fail!", str.c_str());
         return false;
     }  
 

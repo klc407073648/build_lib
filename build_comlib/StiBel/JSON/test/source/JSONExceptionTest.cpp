@@ -1,8 +1,9 @@
 #include "StiBel/JSON/JSONException.h"
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 
 using StiBel::Common::Foundation::Exception;
 using StiBel::JSON::JSONException;
+using StiBel::Test::CommonTest;
 
 /* JSONExceptionTest */
 class JSONExceptionTest : public CommonTest

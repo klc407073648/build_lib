@@ -1,9 +1,9 @@
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 #include "StiBel/Common/Config/Config.h"
-#include <iostream>
 
 using namespace std;
 using namespace StiBel::Common::Config;
+using StiBel::Test::CommonTest;
 
 /* ConfigTest */
 class ConfigTest : public CommonTest
@@ -59,7 +59,8 @@ TEST_F(ConfigTest, Given_origin_map_val_When_init_config_Then_success_parse_cont
 
     // redis_1操作
     Config m_Config("my_config_test", m_configMap);
-    cout << "m_Config->toString():" << m_Config.toString() << endl;
+	enable_printf();
+	printf("m_Config->toString():%s", (m_Config.toString()).c_str());
     
     std::string redis_2_name = "redis_2";
     EXPECT_EQ("127.0.0.1:6380", (m_Config.getParams(redis_2_name))["host"]);

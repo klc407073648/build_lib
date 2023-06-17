@@ -25,28 +25,28 @@ class MutexLock: Noncopyable
 public:
     MutexLock()
     {
-        pthread_mutex_init(&mutex, NULL);
+        pthread_mutex_init(&_mutex, NULL);
     }
     ~MutexLock()
     {
-        pthread_mutex_lock(&mutex);
-        pthread_mutex_destroy(&mutex);
+        pthread_mutex_lock(&_mutex);
+        pthread_mutex_destroy(&_mutex);
     }
     bool lock()
     {
-        return pthread_mutex_lock(&mutex) == 0;
+        return pthread_mutex_lock(&_mutex) == 0;
     }
     bool unlock()
     {
-        return pthread_mutex_unlock(&mutex) == 0;
+        return pthread_mutex_unlock(&_mutex) == 0;
     }
 
     pthread_mutex_t *get()
     {
-        return &mutex;
+        return &_mutex;
     }
 private:
-    pthread_mutex_t mutex;
+    pthread_mutex_t _mutex;
 };
 
 /**
@@ -55,17 +55,17 @@ private:
 class MutexLockGuard: Noncopyable
 {
 public:
-    explicit MutexLockGuard(MutexLock &_mutex):
-    mutex(_mutex)
+    explicit MutexLockGuard(MutexLock &mutex):
+    _mutex(mutex)
     {
-        mutex.lock();
+        _mutex.lock();
     }
     ~MutexLockGuard()
     {
-        mutex.unlock();
+        _mutex.unlock();
     }
 private:
-    MutexLock &mutex;
+    MutexLock &_mutex;
 };
 
 } // namespace StiBel

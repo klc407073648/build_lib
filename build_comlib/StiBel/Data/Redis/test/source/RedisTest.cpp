@@ -1,10 +1,11 @@
 #include "StiBel/Data/Redis/Redis.h"
-#include "CommonTest.h"
+#include "StiBel/Test/CommonTest.h"
 #include <iostream>
 #include <sstream>
 #include <map>
 
 using namespace StiBel::Data::Redis;
+using StiBel::Test::CommonTest;
 using namespace std;
 
 /* RedisTest */
