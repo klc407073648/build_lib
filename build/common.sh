@@ -57,6 +57,10 @@ not_use_static_lib=0
 #是否保存日志
 isSave=1
 
+# cpu核数
+# make -j$(nproc) 
+corenum=`cat /proc/cpuinfo |grep 'process' |sort |uniq |wc -l`
+
 function printBuildInfo()
 {
    logInfo "build_3partlib_path:$build_3partlib_path"

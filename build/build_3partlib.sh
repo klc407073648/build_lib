@@ -79,7 +79,7 @@ function build_jsoncpp()
    mkdir jsoncpp_output
    mkdir build && cd build
    cmake -DBUILD_SHARED_LIBS=ON ..
-   make -j4 DESTDIR=../jsoncpp_output/ install
+   make -j${corenum} DESTDIR=../jsoncpp_output/ install
 
    build_include_path=../jsoncpp_output/usr/local/include
    build_lib_path=../jsoncpp_output/usr/local/lib64
@@ -103,7 +103,7 @@ function build_log4cpp()
    ./autogen.sh    
    ./configure  --prefix=$build_3partlib_path/$log4cpp_path/$log4cpp_build_path/log4cpp_output
 
-   make -j4  && make install
+   make -j${corenum} && make install
 
    build_include_path=./log4cpp_output/include
    build_lib_path=./log4cpp_output/lib
@@ -122,7 +122,7 @@ function build_tinyxml()
    mkdir -p tinyxml_output/include
    mkdir -p tinyxml_output/lib
 
-   make -j4
+   make -j${corenum}
          
    cp -rf ./*.h      ./tinyxml_output/include
    cp libtinyxml.so  ./tinyxml_output/lib
@@ -145,7 +145,7 @@ function build_zeromq_libzmq()
    mkdir zeromq_output
    mkdir build && cd build
    cmake ..
-   make -j4 DESTDIR=../zeromq_output/ install
+   make -j${corenum} DESTDIR=../zeromq_output/ install
 
    build_include_path=../zeromq_output/usr/local/include
    build_lib_path=../zeromq_output/usr/local/lib64
@@ -240,7 +240,7 @@ function build_zeromq_cppzmq()
    mkdir cppzmq_output
    mkdir build && cd build
    cmake -DCPPZMQ_BUILD_TESTS=OFF ..
-   make -j4 DESTDIR=../cppzmq_output/ install
+   make -j${corenum} DESTDIR=../cppzmq_output/ install
 
    build_include_path=../cppzmq_output/usr/local/include
    cp -rf $build_3partlib_path/$zeromq_path/ex_include/* $build_include_path
@@ -254,7 +254,7 @@ function build_hiredis()
 {
    mkdir -p hiredis_output
 
-   make -j4  
+   make -j${corenum}  
    make DESTDIR=./hiredis_output/ install
 
    build_include_path=./hiredis_output/usr/local/include
@@ -384,7 +384,7 @@ function build_cppcheck()
 {
    mkdir -p cppcheck_output
    mkdir build && cd build
-   cmake .. && make -j4
+   cmake .. && make -j${corenum}
    make install SRCDIR=. DESTDIR=../cppcheck_output/ CFGDIR=../cfg
 
    # bin和share处理
@@ -401,7 +401,7 @@ function build_protobuf()
    ./autogen.sh    
    ./configure  --prefix=$cur_target_build_path/protobuf_output
 
-   make -j4 && make check
+   make -j${corenum} && make check
    make install
 
    build_include_path=./protobuf_output/include
@@ -418,7 +418,7 @@ function build_googletest()
    mkdir -p googletest_output
    
    mkdir build && cd build
-   cmake  -DBUILD_SHARED_LIBS=ON .. && make -j4
+   cmake  -DBUILD_SHARED_LIBS=ON .. && make -j${corenum}
    make DESTDIR=../googletest_output/ install
 
    build_include_path=../googletest_output/usr/local/include
@@ -436,7 +436,7 @@ function build_openssl()
 
    ./config fips --shared --prefix=$cur_target_build_path/openssl_output
 
-   make -j4 && make install
+   make -j${corenum} && make install # make DESTDIR=../googletest_output/ install
 
    build_include_path=./openssl_output/include
    build_lib_path=./openssl_output/lib64
@@ -455,7 +455,7 @@ function build_zlib()
    
    ./configure  --prefix=$cur_target_build_path/zlib_output
 
-   make -j4  && make install
+   make -j${corenum} && make install
 
    build_include_path=./zlib_output/include
    build_lib_path=./zlib_output/lib
@@ -478,7 +478,7 @@ function build_uuid()
    
    ./configure  --prefix=$build_3partlib_path/$uuid_path/$uuid_build_path/uuid_output
 
-   make -j4  && make install
+   make -j${corenum} && make install
 
    build_include_path=./uuid_output/include
    build_lib_path=./uuid_output/lib

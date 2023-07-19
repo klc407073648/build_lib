@@ -18,8 +18,52 @@ GoogleTest is Google’s C++ **testing and mocking framework**. This user’s gu
 
 ## 编写用例
 
-ASSERT_EQ: 出错程序终止
-EXPECT_EQ: 出错程序继续运行
+ASSERT_EQ: 出错程序终止，失败时中止，常用于前后有关系的场景。
+EXPECT_EQ: 出错程序继续运行，可以在测试报告展示多个错误。
+
+```cpp
+EXPECT_TRUE( condition );
+ASSERT_TRUE( condition );
+EXPECT_FALSE( condition );
+ASSERT_FALSE( condition );
+
+//二元比较，等于
+EXPECT_EQ( val1 , val2 );
+ASSERT_EQ( val1 , val2 );
+
+//不等于，注意比较空指针的时候，使用EXPECT_NE( ptr , nullptr) 而不是 EXPECT_NE( ptr , NULL) 
+EXPECT_NE( val1 , val2 );
+ASSERT_NE( val1 , val2 );
+
+//小于
+EXPECT_LT( val1 , val2 );
+ASSERT_LT( val1 , val2 );
+
+//小于等于
+EXPECT_LE( val1 , val2 );
+ASSERT_LE( val1 , val2 );
+
+//大于
+EXPECT_GT( val1 , val2 );
+ASSERT_GT( val1 , val2 );
+
+//大于等于
+EXPECT_GE( val1 , val2 );
+ASSERT_GE( val1 , val2 );
+
+//谓词断言，能比 EXPECT_TRUE 提供更详细的错误消息
+EXPECT_PRED1( pred , val1 );
+EXPECT_PRED2( pred , val1 , val2 );
+EXPECT_PRED3( pred , val1 , val2 , val3 );
+EXPECT_PRED4( pred , val1 , val2 , val3 , val4 );
+EXPECT_PRED5( pred , val1 , val2 , val3 , val4 , val5 );
+ASSERT_PRED1( pred , val1 );
+ASSERT_PRED2( pred , val1 , val2 );
+ASSERT_PRED3( pred , val1 , val2 , val3 );
+ASSERT_PRED4( pred , val1 , val2 , val3 , val4 );
+ASSERT_PRED5( pred , val1 , val2 , val3 , val4 , val5 );
+```
+
 
 ```cpp
 ASSERT_EQ(x.size(), y.size()) << "Vectors x and y are of unequal length";

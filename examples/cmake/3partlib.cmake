@@ -1,27 +1,28 @@
 # 第三方库设置
 MESSAGE (STATUS "3partlib set begin")
 
-## 设置第三方应用库的头文件
-SET(3PART_INCLUDE           ${PROJECT_SOURCE_DIR}/include/3partlib)
+## 设置第三方应用库路径
+#SET(3PART_PATH              ${PROJECT_SOURCE_DIR}/include/3partlib)
 
-SET(JSONCPP_INCLUDE         ${3PART_INCLUDE}/jsoncpp/include)
-SET(LOG4CPP_INCLUDE         ${3PART_INCLUDE}/log4cpp/include)
-SET(TINYXML_INCLUDE         ${3PART_INCLUDE}/tinyxml/include)
-SET(ZEROMQ_INCLUDE          ${3PART_INCLUDE}/zeromq/include) 
-SET(HIREDIS_INCLUDE         ${3PART_INCLUDE}/hiredis/include)
-SET(FASTCGI_INCLUDE         ${3PART_INCLUDE}/fastcgi/include)
-SET(POCO_INCLUDE            ${3PART_INCLUDE}/poco/include)
-SET(CPPUNIT_INCLUDE         ${3PART_INCLUDE}/cppunit/include)
-SET(YAMLCPP_INCLUDE         ${3PART_INCLUDE}/yamlcpp/include)
-SET(PROTOBUF_INCLUDE        ${3PART_INCLUDE}/protobuf/include)
-#SET(GRPC_INCLUDE           ${3PART_INCLUDE}/grpc/include)
-#SET(MYQSL_INCLUDE          ${3PART_INCLUDE}/mysql/include)
-SET(GOOGLETEST_INCLUDE      ${3PART_INCLUDE}/googletest/include)
-SET(DROGON_INCLUDE          ${3PART_INCLUDE}/drogon/include)
-SET(TRANTOR_INCLUDE         ${3PART_INCLUDE}/trantor/include)
-SET(OPENSSL_INCLUDE         ${3PART_INCLUDE}/openssl/include)
-SET(ZLIB_INCLUDE            ${3PART_INCLUDE}/zlib/include)
-SET(UUID_INCLUDE            ${3PART_INCLUDE}/uuid/include)
+## 设置第三方应用库的头文件
+SET(JSONCPP_INCLUDE         ${3PART_PATH}/jsoncpp/include)
+SET(LOG4CPP_INCLUDE         ${3PART_PATH}/log4cpp/include)
+SET(TINYXML_INCLUDE         ${3PART_PATH}/tinyxml/include)
+SET(ZEROMQ_INCLUDE          ${3PART_PATH}/zeromq/include) 
+SET(HIREDIS_INCLUDE         ${3PART_PATH}/hiredis/include)
+SET(FASTCGI_INCLUDE         ${3PART_PATH}/fastcgi/include)
+SET(POCO_INCLUDE            ${3PART_PATH}/poco/include)
+SET(CPPUNIT_INCLUDE         ${3PART_PATH}/cppunit/include)
+SET(YAMLCPP_INCLUDE         ${3PART_PATH}/yamlcpp/include)
+SET(PROTOBUF_INCLUDE        ${3PART_PATH}/protobuf/include)
+#SET(GRPC_INCLUDE           ${3PART_PATH}/grpc/include)
+#SET(MYQSL_INCLUDE          ${3PART_PATH}/mysql/include)
+SET(GOOGLETEST_INCLUDE      ${3PART_PATH}/googletest/include)
+SET(DROGON_INCLUDE          ${3PART_PATH}/drogon/include)
+SET(TRANTOR_INCLUDE         ${3PART_PATH}/trantor/include)
+SET(OPENSSL_INCLUDE         ${3PART_PATH}/openssl/include)
+SET(ZLIB_INCLUDE            ${3PART_PATH}/zlib/include)
+SET(UUID_INCLUDE            ${3PART_PATH}/uuid/include)
 
 ## 第三方应用库的头文件集合
 set(3PART_INCLUDE_PATH ${JSONCPP_INCLUDE} ${LOG4CPP_INCLUDE} ${TINYXML_INCLUDE} 
