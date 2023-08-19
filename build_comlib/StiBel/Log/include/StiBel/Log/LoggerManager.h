@@ -20,7 +20,6 @@ using namespace std;
 
 #define DECLARE_STATIC_LOGGERMANAGER()  static StiBel::Log::LoggerManager*  mlogger
 #define CREATE_STATIC_LOGGERMANAGER(_class)  StiBel::Log::LoggerManager* _class::mlogger =new StiBel::Log::LoggerManager(#_class)
-		
 #define LOG_PACK(func,fmt,...)   {func(fmt, ##__VA_ARGS__);}
 
 #define LogDebug(fmt, ...)  LOG_PACK(mlogger->getCategory()->debug, fmt, ##__VA_ARGS__)

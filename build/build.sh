@@ -122,6 +122,21 @@ function build_examples()
 	echo "build_examples end"
 }
 
+function build_tar_before_deal() 
+{
+	echo "build_tar_before_deal begin"
+
+	cd $curPath/../examples
+
+	# 特殊处理三方库需要mysql 和 高版本的std /lib64/libstdc++.so.6 -> ./libstdc++.so.6.0.26
+	cp -rf /usr/include/mysql/ ./include/3partlib/
+	cp -rf /usr/lib64/mysql/libmysqlclient.so.18 ./lib/3partlib
+
+	cp -rf /lib64/libstdc++.so.6 ./lib/3partlib
+
+	echo "build_tar_before_deal end"
+}
+
 function build_tar_with_cmake() 
 {
 	echo "build_tar_with_cmake begin"
@@ -161,6 +176,7 @@ function MAIN()
 	static_lib_deal
 	build_tar_file
 	build_examples
+	build_tar_before_deal
 	build_tar_with_cmake
 	echo "build.sh MAIN end"
 }

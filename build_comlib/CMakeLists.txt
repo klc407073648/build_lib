@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)  # 设定版本
 PROJECT(BUILD_LIB) # 设定工程名
 SET(CMAKE_CXX_COMPILER "g++")  # 设定编译器
 
+# 设置依赖的cmake的路径
 SET(PRJ_CMAKE_FILE_PATH ${PROJECT_SOURCE_DIR}/../examples/cmake)
 
 # 编译选项
@@ -38,5 +39,3 @@ LINK_DIRECTORIES(${3PART_DIR})
 ADD_SUBDIRECTORY(
 		./StiBel
 	)
-
-
